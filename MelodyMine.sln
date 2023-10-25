@@ -1,0 +1,22 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MelodyMine", "MelodyMine\MelodyMine.csproj", "{43346558-CD51-49A3-91E5-8AB80B1DCB07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\DataLayer.csproj", "{FB9F8557-3680-4557-87B3-FA4121FEAD66}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{43346558-CD51-49A3-91E5-8AB80B1DCB07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{43346558-CD51-49A3-91E5-8AB80B1DCB07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{43346558-CD51-49A3-91E5-8AB80B1DCB07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{43346558-CD51-49A3-91E5-8AB80B1DCB07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FB9F8557-3680-4557-87B3-FA4121FEAD66}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FB9F8557-3680-4557-87B3-FA4121FEAD66}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FB9F8557-3680-4557-87B3-FA4121FEAD66}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FB9F8557-3680-4557-87B3-FA4121FEAD66}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+EndGlobal
