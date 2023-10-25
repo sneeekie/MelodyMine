@@ -2,16 +2,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataLayer.Models;
 
-public class Manufacturer
+public class RecordLabel
 {
-    public int ManufacturerId { get; set; }
+    public int RecordLabelId { get; set; } 
     [Required]
-    public string ManufacturerName { get; set; }
+    public string LabelName { get; set; } 
     public int? PhoneNumber { get; set; }
     public string? Email { get; set; }
     
     // Navigation Properties
     public int? AddressId { get; set; } // Foreign-Key
     public Address Address { get; set; }
-    public ICollection<Product> Products { get; set; }
+    public ICollection<Vinyl> Vinyls { get; set; }
 }

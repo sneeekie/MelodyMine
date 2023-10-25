@@ -2,14 +2,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataLayer.Models;
 
-public class Image
+public class VinylCover
 {
-    public int ImageId { get; set; }
+    public int VinylCoverId { get; set; }
     [Required]
     public string Path { get; set; }
     
     // Navigation properties
     [Required]
-    public int ProductId { get; set; }  // Foreign-Key
-    public Product Product { get; set; }
+    public int VinylId { get; set; }  // Foreign-Key
+    public Vinyl Vinyl { get; set; }
 }
