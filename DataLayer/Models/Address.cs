@@ -10,5 +10,5 @@ public class Address
     public string Street { get; set; }
     
     // Navigation property
-    public Manufacturer Manufacturer { get; set; }
+    public RecordLabel RecordLabel { get; set; }
 }

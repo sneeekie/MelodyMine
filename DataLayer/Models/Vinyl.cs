@@ -17,6 +17,6 @@ public class Vinyl
     public RecordLabel RecordLabel { get; set; }
     
     public ICollection<VinylGenre>? Genres { get; set; } 
-    public ICollection<VinylCover>? AlbumCovers { get; set; } 
+    public ICollection<VinylCover>? Covers { get; set; } 
     public ICollection<Review> Reviews { get; set; }
 }
