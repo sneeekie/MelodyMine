@@ -1,4 +1,5 @@
-﻿using DataLayer.Models;
+﻿using System;
+using DataLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Logging;
@@ -124,5 +125,3 @@ public class ApplicationDbContext : DbContext
     {
     }
 }
-
-
