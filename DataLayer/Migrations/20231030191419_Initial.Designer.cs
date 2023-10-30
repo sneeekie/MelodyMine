@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231026081745_Initial")]
+    [Migration("20231030191419_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -290,42 +290,42 @@ namespace DataLayer.Migrations
                         new
                         {
                             ReviewId = 1,
-                            NumStars = 1,
+                            NumStars = 3,
                             ReviewComment = "Review for album-1",
                             VinylId = 1
                         },
                         new
                         {
                             ReviewId = 2,
-                            NumStars = 2,
+                            NumStars = 1,
                             ReviewComment = "Review for album-2",
                             VinylId = 2
                         },
                         new
                         {
                             ReviewId = 3,
-                            NumStars = 1,
+                            NumStars = 4,
                             ReviewComment = "Review for album-3",
                             VinylId = 3
                         },
                         new
                         {
                             ReviewId = 4,
-                            NumStars = 1,
+                            NumStars = 3,
                             ReviewComment = "Review for album-4",
                             VinylId = 4
                         },
                         new
                         {
                             ReviewId = 5,
-                            NumStars = 1,
+                            NumStars = 4,
                             ReviewComment = "Review for album-5",
                             VinylId = 5
                         },
                         new
                         {
                             ReviewId = 6,
-                            NumStars = 1,
+                            NumStars = 2,
                             ReviewComment = "Review for album-6",
                             VinylId = 6
                         },
@@ -339,7 +339,7 @@ namespace DataLayer.Migrations
                         new
                         {
                             ReviewId = 8,
-                            NumStars = 3,
+                            NumStars = 4,
                             ReviewComment = "Review for album-8",
                             VinylId = 8
                         },
@@ -353,49 +353,49 @@ namespace DataLayer.Migrations
                         new
                         {
                             ReviewId = 10,
-                            NumStars = 3,
+                            NumStars = 1,
                             ReviewComment = "Review for album-10",
                             VinylId = 10
                         },
                         new
                         {
                             ReviewId = 11,
-                            NumStars = 1,
+                            NumStars = 2,
                             ReviewComment = "Review for album-11",
                             VinylId = 11
                         },
                         new
                         {
                             ReviewId = 12,
-                            NumStars = 2,
+                            NumStars = 3,
                             ReviewComment = "Review for album-12",
                             VinylId = 12
                         },
                         new
                         {
                             ReviewId = 13,
-                            NumStars = 2,
+                            NumStars = 1,
                             ReviewComment = "Review for album-13",
                             VinylId = 13
                         },
                         new
                         {
                             ReviewId = 14,
-                            NumStars = 1,
+                            NumStars = 4,
                             ReviewComment = "Review for album-14",
                             VinylId = 14
                         },
                         new
                         {
                             ReviewId = 15,
-                            NumStars = 2,
+                            NumStars = 4,
                             ReviewComment = "Review for album-15",
                             VinylId = 15
                         },
                         new
                         {
                             ReviewId = 16,
-                            NumStars = 1,
+                            NumStars = 2,
                             ReviewComment = "Review for album-16",
                             VinylId = 16
                         },
@@ -409,21 +409,21 @@ namespace DataLayer.Migrations
                         new
                         {
                             ReviewId = 18,
-                            NumStars = 2,
+                            NumStars = 4,
                             ReviewComment = "Review for album-18",
                             VinylId = 18
                         },
                         new
                         {
                             ReviewId = 19,
-                            NumStars = 4,
+                            NumStars = 1,
                             ReviewComment = "Review for album-19",
                             VinylId = 19
                         },
                         new
                         {
                             ReviewId = 20,
-                            NumStars = 4,
+                            NumStars = 3,
                             ReviewComment = "Review for album-20",
                             VinylId = 20
                         },
@@ -437,21 +437,21 @@ namespace DataLayer.Migrations
                         new
                         {
                             ReviewId = 22,
-                            NumStars = 2,
+                            NumStars = 3,
                             ReviewComment = "Review for album-22",
                             VinylId = 22
                         },
                         new
                         {
                             ReviewId = 23,
-                            NumStars = 3,
+                            NumStars = 4,
                             ReviewComment = "Review for album-23",
                             VinylId = 23
                         },
                         new
                         {
                             ReviewId = 24,
-                            NumStars = 3,
+                            NumStars = 2,
                             ReviewComment = "Review for album-24",
                             VinylId = 24
                         },
@@ -465,7 +465,7 @@ namespace DataLayer.Migrations
                         new
                         {
                             ReviewId = 26,
-                            NumStars = 4,
+                            NumStars = 3,
                             ReviewComment = "Review for album-26",
                             VinylId = 26
                         },
@@ -479,7 +479,7 @@ namespace DataLayer.Migrations
                         new
                         {
                             ReviewId = 28,
-                            NumStars = 1,
+                            NumStars = 4,
                             ReviewComment = "Review for album-28",
                             VinylId = 28
                         },
@@ -493,14 +493,14 @@ namespace DataLayer.Migrations
                         new
                         {
                             ReviewId = 30,
-                            NumStars = 4,
+                            NumStars = 3,
                             ReviewComment = "Review for album-30",
                             VinylId = 30
                         },
                         new
                         {
                             ReviewId = 31,
-                            NumStars = 3,
+                            NumStars = 1,
                             ReviewComment = "Review for album-31",
                             VinylId = 31
                         },
@@ -514,42 +514,42 @@ namespace DataLayer.Migrations
                         new
                         {
                             ReviewId = 33,
-                            NumStars = 1,
+                            NumStars = 3,
                             ReviewComment = "Review for album-33",
                             VinylId = 33
                         },
                         new
                         {
                             ReviewId = 34,
-                            NumStars = 2,
+                            NumStars = 3,
                             ReviewComment = "Review for album-34",
                             VinylId = 34
                         },
                         new
                         {
                             ReviewId = 35,
-                            NumStars = 4,
+                            NumStars = 1,
                             ReviewComment = "Review for album-35",
                             VinylId = 35
                         },
                         new
                         {
                             ReviewId = 36,
-                            NumStars = 3,
+                            NumStars = 4,
                             ReviewComment = "Review for album-36",
                             VinylId = 36
                         },
                         new
                         {
                             ReviewId = 37,
-                            NumStars = 1,
+                            NumStars = 4,
                             ReviewComment = "Review for album-37",
                             VinylId = 37
                         },
                         new
                         {
                             ReviewId = 38,
-                            NumStars = 4,
+                            NumStars = 3,
                             ReviewComment = "Review for album-38",
                             VinylId = 38
                         },
@@ -563,7 +563,7 @@ namespace DataLayer.Migrations
                         new
                         {
                             ReviewId = 40,
-                            NumStars = 4,
+                            NumStars = 3,
                             ReviewComment = "Review for album-40",
                             VinylId = 40
                         },
@@ -577,21 +577,21 @@ namespace DataLayer.Migrations
                         new
                         {
                             ReviewId = 42,
-                            NumStars = 2,
+                            NumStars = 4,
                             ReviewComment = "Review for album-42",
                             VinylId = 42
                         },
                         new
                         {
                             ReviewId = 43,
-                            NumStars = 3,
+                            NumStars = 1,
                             ReviewComment = "Review for album-43",
                             VinylId = 43
                         },
                         new
                         {
                             ReviewId = 44,
-                            NumStars = 4,
+                            NumStars = 1,
                             ReviewComment = "Review for album-44",
                             VinylId = 44
                         },
@@ -605,21 +605,21 @@ namespace DataLayer.Migrations
                         new
                         {
                             ReviewId = 46,
-                            NumStars = 4,
+                            NumStars = 3,
                             ReviewComment = "Review for album-46",
                             VinylId = 46
                         },
                         new
                         {
                             ReviewId = 47,
-                            NumStars = 4,
+                            NumStars = 1,
                             ReviewComment = "Review for album-47",
                             VinylId = 47
                         },
                         new
                         {
                             ReviewId = 48,
-                            NumStars = 1,
+                            NumStars = 2,
                             ReviewComment = "Review for album-48",
                             VinylId = 48
                         },
@@ -633,7 +633,7 @@ namespace DataLayer.Migrations
                         new
                         {
                             ReviewId = 50,
-                            NumStars = 2,
+                            NumStars = 3,
                             ReviewComment = "Review for album-50",
                             VinylId = 50
                         });
@@ -670,351 +670,351 @@ namespace DataLayer.Migrations
                         new
                         {
                             VinylId = 1,
-                            Price = 21.77,
-                            RecordLabelId = 2,
+                            Price = 20.140000000000001,
+                            RecordLabelId = 1,
                             Title = "Album-1"
                         },
                         new
                         {
                             VinylId = 2,
-                            Price = 37.729999999999997,
-                            RecordLabelId = 4,
+                            Price = 31.350000000000001,
+                            RecordLabelId = 1,
                             Title = "Album-2"
                         },
                         new
                         {
                             VinylId = 3,
-                            Price = 48.960000000000001,
-                            RecordLabelId = 4,
+                            Price = 17.960000000000001,
+                            RecordLabelId = 1,
                             Title = "Album-3"
                         },
                         new
                         {
                             VinylId = 4,
-                            Price = 47.509999999999998,
+                            Price = 47.07,
                             RecordLabelId = 3,
                             Title = "Album-4"
                         },
                         new
                         {
                             VinylId = 5,
-                            Price = 43.539999999999999,
-                            RecordLabelId = 2,
+                            Price = 25.809999999999999,
+                            RecordLabelId = 4,
                             Title = "Album-5"
                         },
                         new
                         {
                             VinylId = 6,
-                            Price = 23.66,
-                            RecordLabelId = 2,
+                            Price = 21.359999999999999,
+                            RecordLabelId = 1,
                             Title = "Album-6"
                         },
                         new
                         {
                             VinylId = 7,
-                            Price = 12.699999999999999,
-                            RecordLabelId = 1,
+                            Price = 19.57,
+                            RecordLabelId = 3,
                             Title = "Album-7"
                         },
                         new
                         {
                             VinylId = 8,
-                            Price = 16.23,
+                            Price = 36.450000000000003,
                             RecordLabelId = 1,
                             Title = "Album-8"
                         },
                         new
                         {
                             VinylId = 9,
-                            Price = 29.920000000000002,
-                            RecordLabelId = 1,
+                            Price = 13.44,
+                            RecordLabelId = 4,
                             Title = "Album-9"
                         },
                         new
                         {
                             VinylId = 10,
-                            Price = 29.5,
-                            RecordLabelId = 4,
+                            Price = 38.200000000000003,
+                            RecordLabelId = 3,
                             Title = "Album-10"
                         },
                         new
                         {
                             VinylId = 11,
-                            Price = 28.109999999999999,
-                            RecordLabelId = 4,
+                            Price = 49.149999999999999,
+                            RecordLabelId = 3,
                             Title = "Album-11"
                         },
                         new
                         {
                             VinylId = 12,
-                            Price = 12.779999999999999,
-                            RecordLabelId = 2,
+                            Price = 29.969999999999999,
+                            RecordLabelId = 4,
                             Title = "Album-12"
                         },
                         new
                         {
                             VinylId = 13,
-                            Price = 28.329999999999998,
-                            RecordLabelId = 3,
+                            Price = 39.259999999999998,
+                            RecordLabelId = 2,
                             Title = "Album-13"
                         },
                         new
                         {
                             VinylId = 14,
-                            Price = 19.73,
+                            Price = 21.190000000000001,
                             RecordLabelId = 3,
                             Title = "Album-14"
                         },
                         new
                         {
                             VinylId = 15,
-                            Price = 33.810000000000002,
-                            RecordLabelId = 4,
+                            Price = 13.75,
+                            RecordLabelId = 2,
                             Title = "Album-15"
                         },
                         new
                         {
                             VinylId = 16,
-                            Price = 33.780000000000001,
-                            RecordLabelId = 2,
+                            Price = 24.920000000000002,
+                            RecordLabelId = 4,
                             Title = "Album-16"
                         },
                         new
                         {
                             VinylId = 17,
-                            Price = 42.219999999999999,
-                            RecordLabelId = 3,
+                            Price = 20.539999999999999,
+                            RecordLabelId = 2,
                             Title = "Album-17"
                         },
                         new
                         {
                             VinylId = 18,
-                            Price = 47.399999999999999,
+                            Price = 41.100000000000001,
                             RecordLabelId = 3,
                             Title = "Album-18"
                         },
                         new
                         {
                             VinylId = 19,
-                            Price = 37.329999999999998,
+                            Price = 43.600000000000001,
                             RecordLabelId = 2,
                             Title = "Album-19"
                         },
                         new
                         {
                             VinylId = 20,
-                            Price = 13.050000000000001,
-                            RecordLabelId = 3,
+                            Price = 40.219999999999999,
+                            RecordLabelId = 2,
                             Title = "Album-20"
                         },
                         new
                         {
                             VinylId = 21,
-                            Price = 20.420000000000002,
-                            RecordLabelId = 2,
+                            Price = 19.25,
+                            RecordLabelId = 3,
                             Title = "Album-21"
                         },
                         new
                         {
                             VinylId = 22,
-                            Price = 26.050000000000001,
-                            RecordLabelId = 3,
+                            Price = 25.940000000000001,
+                            RecordLabelId = 4,
                             Title = "Album-22"
                         },
                         new
                         {
                             VinylId = 23,
-                            Price = 18.329999999999998,
-                            RecordLabelId = 3,
+                            Price = 49.490000000000002,
+                            RecordLabelId = 1,
                             Title = "Album-23"
                         },
                         new
                         {
                             VinylId = 24,
-                            Price = 39.219999999999999,
-                            RecordLabelId = 3,
+                            Price = 44.210000000000001,
+                            RecordLabelId = 1,
                             Title = "Album-24"
                         },
                         new
                         {
                             VinylId = 25,
-                            Price = 17.41,
-                            RecordLabelId = 2,
+                            Price = 39.840000000000003,
+                            RecordLabelId = 1,
                             Title = "Album-25"
                         },
                         new
                         {
                             VinylId = 26,
-                            Price = 39.149999999999999,
-                            RecordLabelId = 2,
+                            Price = 20.449999999999999,
+                            RecordLabelId = 4,
                             Title = "Album-26"
                         },
                         new
                         {
                             VinylId = 27,
-                            Price = 16.149999999999999,
-                            RecordLabelId = 3,
+                            Price = 48.719999999999999,
+                            RecordLabelId = 2,
                             Title = "Album-27"
                         },
                         new
                         {
                             VinylId = 28,
-                            Price = 20.5,
-                            RecordLabelId = 1,
+                            Price = 49.600000000000001,
+                            RecordLabelId = 4,
                             Title = "Album-28"
                         },
                         new
                         {
                             VinylId = 29,
-                            Price = 12.0,
-                            RecordLabelId = 4,
+                            Price = 30.280000000000001,
+                            RecordLabelId = 2,
                             Title = "Album-29"
                         },
                         new
                         {
                             VinylId = 30,
-                            Price = 48.799999999999997,
-                            RecordLabelId = 4,
+                            Price = 48.560000000000002,
+                            RecordLabelId = 3,
                             Title = "Album-30"
                         },
                         new
                         {
                             VinylId = 31,
-                            Price = 25.350000000000001,
+                            Price = 15.08,
                             RecordLabelId = 2,
                             Title = "Album-31"
                         },
                         new
                         {
                             VinylId = 32,
-                            Price = 40.039999999999999,
-                            RecordLabelId = 4,
+                            Price = 16.440000000000001,
+                            RecordLabelId = 1,
                             Title = "Album-32"
                         },
                         new
                         {
                             VinylId = 33,
-                            Price = 17.640000000000001,
-                            RecordLabelId = 3,
+                            Price = 23.059999999999999,
+                            RecordLabelId = 1,
                             Title = "Album-33"
                         },
                         new
                         {
                             VinylId = 34,
-                            Price = 44.350000000000001,
-                            RecordLabelId = 3,
+                            Price = 27.98,
+                            RecordLabelId = 2,
                             Title = "Album-34"
                         },
                         new
                         {
                             VinylId = 35,
-                            Price = 25.949999999999999,
+                            Price = 41.25,
                             RecordLabelId = 1,
                             Title = "Album-35"
                         },
                         new
                         {
                             VinylId = 36,
-                            Price = 48.399999999999999,
-                            RecordLabelId = 3,
+                            Price = 14.210000000000001,
+                            RecordLabelId = 2,
                             Title = "Album-36"
                         },
                         new
                         {
                             VinylId = 37,
-                            Price = 14.199999999999999,
-                            RecordLabelId = 2,
+                            Price = 25.460000000000001,
+                            RecordLabelId = 1,
                             Title = "Album-37"
                         },
                         new
                         {
                             VinylId = 38,
-                            Price = 15.789999999999999,
+                            Price = 11.130000000000001,
                             RecordLabelId = 2,
                             Title = "Album-38"
                         },
                         new
                         {
                             VinylId = 39,
-                            Price = 24.219999999999999,
-                            RecordLabelId = 3,
+                            Price = 17.77,
+                            RecordLabelId = 4,
                             Title = "Album-39"
                         },
                         new
                         {
                             VinylId = 40,
-                            Price = 33.030000000000001,
-                            RecordLabelId = 3,
+                            Price = 21.370000000000001,
+                            RecordLabelId = 1,
                             Title = "Album-40"
                         },
                         new
                         {
                             VinylId = 41,
-                            Price = 22.989999999999998,
-                            RecordLabelId = 4,
+                            Price = 27.199999999999999,
+                            RecordLabelId = 2,
                             Title = "Album-41"
                         },
                         new
                         {
                             VinylId = 42,
-                            Price = 40.350000000000001,
+                            Price = 37.07,
                             RecordLabelId = 2,
                             Title = "Album-42"
                         },
                         new
                         {
                             VinylId = 43,
-                            Price = 11.31,
-                            RecordLabelId = 4,
+                            Price = 36.289999999999999,
+                            RecordLabelId = 1,
                             Title = "Album-43"
                         },
                         new
                         {
                             VinylId = 44,
-                            Price = 35.840000000000003,
+                            Price = 14.529999999999999,
                             RecordLabelId = 4,
                             Title = "Album-44"
                         },
                         new
                         {
                             VinylId = 45,
-                            Price = 31.210000000000001,
-                            RecordLabelId = 4,
+                            Price = 14.720000000000001,
+                            RecordLabelId = 3,
                             Title = "Album-45"
                         },
                         new
                         {
                             VinylId = 46,
-                            Price = 36.780000000000001,
-                            RecordLabelId = 4,
+                            Price = 47.719999999999999,
+                            RecordLabelId = 3,
                             Title = "Album-46"
                         },
                         new
                         {
                             VinylId = 47,
-                            Price = 38.990000000000002,
-                            RecordLabelId = 1,
+                            Price = 20.969999999999999,
+                            RecordLabelId = 4,
                             Title = "Album-47"
                         },
                         new
                         {
                             VinylId = 48,
-                            Price = 21.989999999999998,
+                            Price = 25.449999999999999,
                             RecordLabelId = 3,
                             Title = "Album-48"
                         },
                         new
                         {
                             VinylId = 49,
-                            Price = 43.75,
-                            RecordLabelId = 3,
+                            Price = 43.439999999999998,
+                            RecordLabelId = 4,
                             Title = "Album-49"
                         },
                         new
                         {
                             VinylId = 50,
-                            Price = 45.899999999999999,
-                            RecordLabelId = 2,
+                            Price = 20.489999999999998,
+                            RecordLabelId = 4,
                             Title = "Album-50"
                         });
                 });
@@ -1053,48 +1053,48 @@ namespace DataLayer.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("VinylGenre");
+                    b.ToTable("vinylGenres");
 
                     b.HasData(
                         new
                         {
                             VinylId = 1,
-                            GenreId = 7
-                        },
-                        new
-                        {
-                            VinylId = 2,
-                            GenreId = 1
-                        },
-                        new
-                        {
-                            VinylId = 3,
                             GenreId = 3
                         },
                         new
                         {
-                            VinylId = 4,
-                            GenreId = 1
+                            VinylId = 2,
+                            GenreId = 6
                         },
                         new
                         {
-                            VinylId = 5,
+                            VinylId = 3,
                             GenreId = 7
                         },
                         new
                         {
+                            VinylId = 4,
+                            GenreId = 3
+                        },
+                        new
+                        {
+                            VinylId = 5,
+                            GenreId = 9
+                        },
+                        new
+                        {
                             VinylId = 6,
-                            GenreId = 5
+                            GenreId = 7
                         },
                         new
                         {
                             VinylId = 7,
-                            GenreId = 5
+                            GenreId = 8
                         },
                         new
                         {
                             VinylId = 8,
-                            GenreId = 5
+                            GenreId = 2
                         },
                         new
                         {
@@ -1104,57 +1104,57 @@ namespace DataLayer.Migrations
                         new
                         {
                             VinylId = 10,
-                            GenreId = 7
+                            GenreId = 4
                         },
                         new
                         {
                             VinylId = 11,
-                            GenreId = 1
+                            GenreId = 3
                         },
                         new
                         {
                             VinylId = 12,
-                            GenreId = 3
+                            GenreId = 9
                         },
                         new
                         {
                             VinylId = 13,
-                            GenreId = 3
+                            GenreId = 2
                         },
                         new
                         {
                             VinylId = 14,
-                            GenreId = 5
+                            GenreId = 7
                         },
                         new
                         {
                             VinylId = 15,
-                            GenreId = 9
+                            GenreId = 2
                         },
                         new
                         {
                             VinylId = 16,
-                            GenreId = 2
+                            GenreId = 3
                         },
                         new
                         {
                             VinylId = 17,
-                            GenreId = 8
+                            GenreId = 4
                         },
                         new
                         {
                             VinylId = 18,
-                            GenreId = 9
+                            GenreId = 5
                         },
                         new
                         {
                             VinylId = 19,
-                            GenreId = 1
+                            GenreId = 5
                         },
                         new
                         {
                             VinylId = 20,
-                            GenreId = 2
+                            GenreId = 1
                         },
                         new
                         {
@@ -1164,67 +1164,67 @@ namespace DataLayer.Migrations
                         new
                         {
                             VinylId = 22,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            VinylId = 23,
-                            GenreId = 6
-                        },
-                        new
-                        {
-                            VinylId = 24,
-                            GenreId = 9
-                        },
-                        new
-                        {
-                            VinylId = 25,
                             GenreId = 4
                         },
                         new
                         {
-                            VinylId = 26,
+                            VinylId = 23,
                             GenreId = 7
                         },
                         new
                         {
-                            VinylId = 27,
-                            GenreId = 7
-                        },
-                        new
-                        {
-                            VinylId = 28,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            VinylId = 29,
-                            GenreId = 8
-                        },
-                        new
-                        {
-                            VinylId = 30,
-                            GenreId = 1
-                        },
-                        new
-                        {
-                            VinylId = 31,
+                            VinylId = 24,
                             GenreId = 2
                         },
                         new
                         {
-                            VinylId = 32,
-                            GenreId = 8
+                            VinylId = 25,
+                            GenreId = 2
                         },
                         new
                         {
-                            VinylId = 33,
+                            VinylId = 26,
+                            GenreId = 1
+                        },
+                        new
+                        {
+                            VinylId = 27,
                             GenreId = 5
                         },
                         new
                         {
+                            VinylId = 28,
+                            GenreId = 9
+                        },
+                        new
+                        {
+                            VinylId = 29,
+                            GenreId = 1
+                        },
+                        new
+                        {
+                            VinylId = 30,
+                            GenreId = 6
+                        },
+                        new
+                        {
+                            VinylId = 31,
+                            GenreId = 9
+                        },
+                        new
+                        {
+                            VinylId = 32,
+                            GenreId = 9
+                        },
+                        new
+                        {
+                            VinylId = 33,
+                            GenreId = 7
+                        },
+                        new
+                        {
                             VinylId = 34,
-                            GenreId = 3
+                            GenreId = 1
                         },
                         new
                         {
@@ -1234,7 +1234,7 @@ namespace DataLayer.Migrations
                         new
                         {
                             VinylId = 36,
-                            GenreId = 9
+                            GenreId = 4
                         },
                         new
                         {
@@ -1244,12 +1244,12 @@ namespace DataLayer.Migrations
                         new
                         {
                             VinylId = 38,
-                            GenreId = 8
+                            GenreId = 6
                         },
                         new
                         {
                             VinylId = 39,
-                            GenreId = 5
+                            GenreId = 6
                         },
                         new
                         {
@@ -1259,32 +1259,32 @@ namespace DataLayer.Migrations
                         new
                         {
                             VinylId = 41,
-                            GenreId = 6
+                            GenreId = 7
                         },
                         new
                         {
                             VinylId = 42,
-                            GenreId = 9
+                            GenreId = 8
                         },
                         new
                         {
                             VinylId = 43,
-                            GenreId = 9
+                            GenreId = 7
                         },
                         new
                         {
                             VinylId = 44,
-                            GenreId = 2
+                            GenreId = 5
                         },
                         new
                         {
                             VinylId = 45,
-                            GenreId = 4
+                            GenreId = 3
                         },
                         new
                         {
                             VinylId = 46,
-                            GenreId = 9
+                            GenreId = 1
                         },
                         new
                         {
@@ -1294,17 +1294,17 @@ namespace DataLayer.Migrations
                         new
                         {
                             VinylId = 48,
-                            GenreId = 1
+                            GenreId = 9
                         },
                         new
                         {
                             VinylId = 49,
-                            GenreId = 6
+                            GenreId = 7
                         },
                         new
                         {
                             VinylId = 50,
-                            GenreId = 4
+                            GenreId = 3
                         });
                 });
 
