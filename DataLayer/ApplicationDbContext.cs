@@ -26,7 +26,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Order> Orders { get; set; }
     public DbSet<Address> Addresses { get; set; }
     public DbSet<Genre> Genres { get; set; }
-    public DbSet<VinylGenre> vinylGenres { get; set; }
+    public DbSet<VinylGenre> VinylGenres { get; set; }
     public DbSet<OrderProductDetails> OrderProductDetails { get; set; }
     public DbSet<Admin> Admins { get; set; }
     

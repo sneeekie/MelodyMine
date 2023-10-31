@@ -17,11 +17,11 @@ public class MelodyMineService : IMelodyMineService
     #region Genre
     public IQueryable<Genre> GetAllGenres()
     {
-        IQueryable<Genre> tempGenres = _ApplicationDbContext.Genres;
-
+        IQueryable<Genre> tempGenres = _ApplicationDbContext.Genres.Distinct();
+        
         return tempGenres;
-
     }
+
     
     public IQueryable<Genre> GetGenresById(int genreId)
     {
@@ -32,14 +32,14 @@ public class MelodyMineService : IMelodyMineService
     
     public IQueryable<VinylGenre> GetAllVinylGenres()
     {
-        IQueryable<VinylGenre> tempGenres = _ApplicationDbContext.vinylGenres;
+        IQueryable<VinylGenre> tempGenres = _ApplicationDbContext.VinylGenres;
             
         return tempGenres;
     }
     
     public void CreateVinylGenre(int VinylId, int GenreId)
     {
-        _ApplicationDbContext.vinylGenres.Add(new VinylGenre { VinylId = VinylId, GenreId = GenreId });
+        _ApplicationDbContext.VinylGenres.Add(new VinylGenre { VinylId = VinylId, GenreId = GenreId });
         _ApplicationDbContext.SaveChanges();
     }
     #endregion
@@ -55,10 +55,15 @@ public class MelodyMineService : IMelodyMineService
 
     public void DeleteVinylById(int vinylId)
     {
-        Vinyl tempVinyl = _ApplicationDbContext.Vinyls.Where(p => p.VinylId == vinylId).FirstOrDefault();
-        _ApplicationDbContext.Vinyls.Remove(tempVinyl);
-        _ApplicationDbContext.SaveChanges();
+        Vinyl tempVinyl = _ApplicationDbContext.Vinyls.FirstOrDefault(p => p.VinylId == vinylId);
+
+        if (tempVinyl != null)
+        {
+            _ApplicationDbContext.Vinyls.Remove(tempVinyl);
+            _ApplicationDbContext.SaveChanges();
+        }
     }
+
     
     public Vinyl GetSingleVinylBy(int id)
     {
@@ -111,6 +116,12 @@ public class MelodyMineService : IMelodyMineService
         Vinyl tempVinyl = _ApplicationDbContext.Vinyls
             .Where(p => p.VinylId == vinylId)
             .FirstOrDefault();
+        
+        if (tempVinyl == null)
+        {
+            return;
+        }
+
         tempVinyl.Title = newVinyl.Title;
         tempVinyl.Description = newVinyl.Description;
         tempVinyl.Price = newVinyl.Price;
@@ -123,7 +134,15 @@ public class MelodyMineService : IMelodyMineService
         Vinyl tempVinyl = _ApplicationDbContext.Vinyls
             .Where(p => p.Title == vinylTitle)
             .FirstOrDefault();
-        tempVinyl = newVinyl;
+        
+        if (tempVinyl == null)
+        {
+            return;
+        }
+        
+        tempVinyl.Title = newVinyl.Title;
+        tempVinyl.Price = newVinyl.Price;
+        tempVinyl.Description = newVinyl.Description;
         _ApplicationDbContext.SaveChanges();
     }
     
@@ -173,159 +192,6 @@ public class MelodyMineService : IMelodyMineService
         return tempVinyls.OrderBy(p => p.VinylId).Skip((currentPage - 1) * pageSize).Take(pageSize);
     }
     
-    public IQueryable<Vinyl> FilterVinylsPaged(int currentPage, int pageSize, string? SearchTerm, int? GenreId, string? FilterTitle, string? Price)
-    {
-        IQueryable<Vinyl> tempVinyls = _ApplicationDbContext.Vinyls
-                .Include(p => p.Covers)
-                .Include(p => p.Reviews)
-                .Include(c => c.Genres)
-                .ThenInclude(cp => cp.Genre);
-
-        if (!string.IsNullOrWhiteSpace(SearchTerm))
-        {
-            tempVinyls = tempVinyls.Where(p => p.Title.Contains(SearchTerm));
-        }
-
-        if (GenreId != null && GenreId != 0)
-        {
-            IQueryable<VinylGenre> tempVinylsSecond = _ApplicationDbContext.vinylGenres.Where(p => p.GenreId == GenreId);
-            List<Vinyl> tempVinylsThird = new List<Vinyl>();
-
-            foreach (VinylGenre vinylGenre in tempVinylsSecond.ToList())
-            {
-                tempVinylsThird.Add(tempVinyls.Where(p => p.VinylId == vinylGenre.VinylId).FirstOrDefault());
-            }
-            tempVinyls = tempVinylsThird.AsQueryable();
-        }
-
-        if (!string.IsNullOrWhiteSpace(FilterTitle))
-        {
-            if (FilterTitle == "+")
-            {
-                tempVinyls = tempVinyls.OrderBy(p => p.Title);
-            }
-            else
-            {
-                tempVinyls = tempVinyls.OrderByDescending(p => p.Title);
-            }
-        }
-
-        if (!string.IsNullOrWhiteSpace(Price))
-        {
-            if (FilterTitle == "+")
-            {
-                tempVinyls = tempVinyls.OrderBy(p => p.Price);
-            }
-            else
-            {
-                tempVinyls = tempVinyls.OrderBy(p => p.Price).Reverse();
-            }
-        }
-
-        List<Vinyl> vinyls = tempVinyls.ToList();
-        vinyls.RemoveAll(item => item == null);
-        tempVinyls = vinyls.AsQueryable();
-
-        return tempVinyls.Skip((currentPage - 1) * pageSize).Take(pageSize);
-    }
-    
-    public IQueryable<Vinyl> FilterVinyls(string? SearchTerm, int? GenreId, string? FilterTitle, string? Price)
-    {
-        IQueryable<Vinyl> tempVinyls = _ApplicationDbContext.Vinyls
-            .Include(p => p.Covers)
-            .Include(p => p.Reviews)
-            .Include(c => c.Genres)
-            .ThenInclude(cp => cp.Genre);
-
-        if (!string.IsNullOrWhiteSpace(SearchTerm))
-        {
-            tempVinyls = tempVinyls.Where(p => p.Title.Contains(SearchTerm));
-        }
-        if (GenreId != null && GenreId != 0)
-        {
-            IQueryable<VinylGenre> tempVinylsSecond = _ApplicationDbContext.vinylGenres.Where(p => p.GenreId == GenreId);
-            List<Vinyl> tempVinylsThird = new List<Vinyl>();
-
-            foreach (VinylGenre vinylGenre in tempVinylsSecond.ToList())
-            {
-                tempVinylsThird.Add(tempVinyls.Where(p => p.VinylId == vinylGenre.VinylId).FirstOrDefault());
-            }
-            tempVinyls = tempVinylsThird.AsQueryable();
-        }
-        if (!string.IsNullOrWhiteSpace(FilterTitle))
-        {
-            if (FilterTitle == "+")
-            {
-                tempVinyls = tempVinyls.OrderBy(p => p.Title);
-            }
-            else
-            {
-                tempVinyls = tempVinyls.OrderByDescending(p => p.Title);
-            }
-        }
-        if (!string.IsNullOrWhiteSpace(Price))
-        {
-            if (FilterTitle == "+")
-            {
-                tempVinyls = tempVinyls.OrderBy(p => p.Price);
-            }
-            else
-            {
-                tempVinyls = tempVinyls.OrderByDescending(p => p.Price);
-            }
-        }
-
-        return tempVinyls;
-    }
-    
-    /*
-    public IQueryable<VinylDTO> FilterVinylsSimpel(string? SearchTerm, string? FilterTitle, string? Price)
-    {
-        List<VinylDTO> tempVinyls = new List<VinylDTO>();
-        foreach (Vinyl vinyl in _ApplicationDbContext.Vinyls)
-        {
-            tempVinyls.Add(
-                new VinylDTO 
-                {
-                    VinylId = vinyl.VinylId,
-                    Title = vinyl.Title,
-                    Description = vinyl.Description,
-                    Price = vinyl.Price,
-                    RecordLabelId = vinyl.RecordLabelId
-                });
-        }
-        IQueryable<VinylDTO> query = tempVinyls.AsQueryable();
-
-        if (!string.IsNullOrWhiteSpace(SearchTerm))
-        {
-            query = query.Where(p => p.Title.Contains(SearchTerm));
-        }
-        if (!string.IsNullOrWhiteSpace(FilterTitle))
-        {
-            if (FilterTitle == "+")
-            {
-                query = query.OrderBy(p => p.ProductName);
-            }
-            else
-            {
-                query = query.OrderByDescending(p => p.ProductName);
-            }
-        }
-        if (!string.IsNullOrWhiteSpace(Price))
-        {
-            if (FilterTitle == "+")
-            {
-                query = query.OrderBy(p => p.Price);
-            }
-            else
-            {
-                query = query.OrderByDescending(p => p.Price);
-            }
-        }
-
-        return query;
-    }
-    */
     #endregion
 
     #region Orders
@@ -348,8 +214,12 @@ public class MelodyMineService : IMelodyMineService
     
     public void DeleteOrder(Order order)
     {
-        _ApplicationDbContext.Orders.Remove(order);
-        _ApplicationDbContext.SaveChanges();
+        var existingOrder = _ApplicationDbContext.Orders.Find(order.OrderId);
+        if (existingOrder != null)
+        {
+            _ApplicationDbContext.Orders.Remove(existingOrder);
+            _ApplicationDbContext.SaveChanges();
+        }
     }
     
     public Order GetSingleOrderBy(int id)
@@ -379,6 +249,7 @@ public class MelodyMineService : IMelodyMineService
 
         return tempOrder;
     }
+    
     public Order GetSingleFullOrderBy(string email)
     {
         Order tempOrder = _ApplicationDbContext.Orders
@@ -394,7 +265,14 @@ public class MelodyMineService : IMelodyMineService
         Order tempOrder = _ApplicationDbContext.Orders
             .Where(o => o.OrderId == orderId)
             .FirstOrDefault();
-        tempOrder = newOrder;
+    
+        if (tempOrder == null)
+        {
+            return;
+        }
+
+        tempOrder.Email = newOrder.Email;
+        tempOrder.BuyDate = newOrder.BuyDate;
         _ApplicationDbContext.SaveChanges();
     }
     
@@ -403,9 +281,17 @@ public class MelodyMineService : IMelodyMineService
         Order tempOrder = _ApplicationDbContext.Orders
             .Where(o => o.Email == orderEmail)
             .FirstOrDefault();
-        tempOrder = newOrder;
+
+        if (tempOrder == null)
+        {
+            return;
+        }
+
+        tempOrder.Email = newOrder.Email;
+        tempOrder.BuyDate = newOrder.BuyDate;
         _ApplicationDbContext.SaveChanges();
     }
+
     
     public IQueryable<Order> GetAllOrders()
     {
@@ -413,6 +299,7 @@ public class MelodyMineService : IMelodyMineService
 
         return tempOrders;
     }
+    
     public IQueryable<Order> GetAllFullOrders()
     {
         IQueryable<Order> tempOrders = _ApplicationDbContext.Orders
@@ -429,8 +316,8 @@ public class MelodyMineService : IMelodyMineService
     {
         IQueryable<RecordLabel> tempRecordLabel = _ApplicationDbContext.RecordLabels
             .Include(i => i.Address)
+            .Include(i => i.Vinyls)
             .Where(mId => mId.RecordLabelId == recordLabelId);
-
 
         return tempRecordLabel;
     }
@@ -458,9 +345,14 @@ public class MelodyMineService : IMelodyMineService
     
     public void DeleteRecordLabel(RecordLabel recordLabel)
     {
-        _ApplicationDbContext.RecordLabels.Remove(recordLabel);
-        _ApplicationDbContext.SaveChanges();
+        var existingRecordLabel = _ApplicationDbContext.RecordLabels.Find(recordLabel.RecordLabelId);
+        if (existingRecordLabel != null)
+        {
+            _ApplicationDbContext.RecordLabels.Remove(existingRecordLabel);
+            _ApplicationDbContext.SaveChanges();
+        }
     }
+
     #endregion
 
     #region Admin
@@ -523,11 +415,172 @@ public class MelodyMineService : IMelodyMineService
             .Where(p => p.VinylId == vinylId);
         return tempReviews;
     }
+    
     public void CreateReview(Review review)
     {
         _ApplicationDbContext.Reviews.Add(review);
 
         _ApplicationDbContext.SaveChanges();
     }
+    #endregion
+
+    #region Filters
+    public IQueryable<Vinyl> FilterVinylsPaged(int currentPage, int pageSize, string? SearchTerm, int? GenreId, string? FilterTitle, string? Price)
+    {
+        IQueryable<Vinyl> tempVinyls = _ApplicationDbContext.Vinyls
+                .Include(p => p.Covers)
+                .Include(p => p.Reviews)
+                .Include(c => c.Genres)
+                .ThenInclude(cp => cp.Genre);
+
+        if (!string.IsNullOrWhiteSpace(SearchTerm))
+        {
+            tempVinyls = tempVinyls.Where(p => p.Title.Contains(SearchTerm));
+        }
+
+        if (GenreId != null && GenreId != 0)
+        {
+            IQueryable<VinylGenre> tempVinylsSecond = _ApplicationDbContext.VinylGenres.Where(p => p.GenreId == GenreId);
+            List<Vinyl> tempVinylsThird = new List<Vinyl>();
+
+            foreach (VinylGenre vinylGenre in tempVinylsSecond.ToList())
+            {
+                tempVinylsThird.Add(tempVinyls.Where(p => p.VinylId == vinylGenre.VinylId).FirstOrDefault());
+            }
+            tempVinyls = tempVinylsThird.AsQueryable();
+        }
+
+        if (!string.IsNullOrWhiteSpace(FilterTitle))
+        {
+            if (FilterTitle == "+")
+            {
+                tempVinyls = tempVinyls.OrderBy(p => p.Title);
+            }
+            else
+            {
+                tempVinyls = tempVinyls.OrderByDescending(p => p.Title);
+            }
+        }
+
+        if (!string.IsNullOrWhiteSpace(Price))
+        {
+            if (FilterTitle == "+")
+            {
+                tempVinyls = tempVinyls.OrderBy(p => p.Price);
+            }
+            else
+            {
+                tempVinyls = tempVinyls.OrderBy(p => p.Price).Reverse();
+            }
+        }
+
+        List<Vinyl> vinyls = tempVinyls.ToList();
+        vinyls.RemoveAll(item => item == null);
+        tempVinyls = vinyls.AsQueryable();
+
+        return tempVinyls.Skip((currentPage - 1) * pageSize).Take(pageSize);
+    }
+    
+    
+    /*
+    public IQueryable<Vinyl> FilterVinyls(string? SearchTerm, int? GenreId, string? FilterTitle, string? Price)
+    {
+        IQueryable<Vinyl> tempVinyls = _ApplicationDbContext.Vinyls
+            .Include(p => p.Covers)
+            .Include(p => p.Reviews)
+            .Include(c => c.Genres)
+            .ThenInclude(cp => cp.Genre);
+
+        if (!string.IsNullOrWhiteSpace(SearchTerm))
+        {
+            tempVinyls = tempVinyls.Where(p => p.Title.Contains(SearchTerm));
+        }
+        if (GenreId != null && GenreId != 0)
+        {
+            IQueryable<VinylGenre> tempVinylsSecond = _ApplicationDbContext.VinylGenres.Where(p => p.GenreId == GenreId);
+            List<Vinyl> tempVinylsThird = new List<Vinyl>();
+
+            foreach (VinylGenre vinylGenre in tempVinylsSecond.ToList())
+            {
+                tempVinylsThird.Add(tempVinyls.Where(p => p.VinylId == vinylGenre.VinylId).FirstOrDefault());
+            }
+            tempVinyls = tempVinylsThird.AsQueryable();
+        }
+        if (!string.IsNullOrWhiteSpace(FilterTitle))
+        {
+            if (FilterTitle == "+")
+            {
+                tempVinyls = tempVinyls.OrderBy(p => p.Title);
+            }
+            else
+            {
+                tempVinyls = tempVinyls.OrderByDescending(p => p.Title);
+            }
+        }
+        if (!string.IsNullOrWhiteSpace(Price))
+        {
+            if (FilterTitle == "+")
+            {
+                tempVinyls = tempVinyls.OrderBy(p => p.Price);
+            }
+            else
+            {
+                tempVinyls = tempVinyls.OrderByDescending(p => p.Price);
+            }
+        }
+
+        return tempVinyls;
+    }
+    */
+    
+    /*
+    public IQueryable<VinylDTO> FilterVinylsSimpel(string? SearchTerm, string? FilterTitle, string? Price)
+    {
+        List<VinylDTO> tempVinyls = new List<VinylDTO>();
+        foreach (Vinyl vinyl in _ApplicationDbContext.Vinyls)
+        {
+            tempVinyls.Add(
+                new VinylDTO 
+                {
+                    VinylId = vinyl.VinylId,
+                    Title = vinyl.Title,
+                    Description = vinyl.Description,
+                    Price = vinyl.Price,
+                    RecordLabelId = vinyl.RecordLabelId
+                });
+        }
+        IQueryable<VinylDTO> query = tempVinyls.AsQueryable();
+
+        if (!string.IsNullOrWhiteSpace(SearchTerm))
+        {
+            query = query.Where(p => p.Title.Contains(SearchTerm));
+        }
+        if (!string.IsNullOrWhiteSpace(FilterTitle))
+        {
+            if (FilterTitle == "+")
+            {
+                query = query.OrderBy(p => p.ProductName);
+            }
+            else
+            {
+                query = query.OrderByDescending(p => p.ProductName);
+            }
+        }
+        if (!string.IsNullOrWhiteSpace(Price))
+        {
+            if (FilterTitle == "+")
+            {
+                query = query.OrderBy(p => p.Price);
+            }
+            else
+            {
+                query = query.OrderByDescending(p => p.Price);
+            }
+        }
+
+        return query;
+    }
+    */
+
     #endregion
 }
