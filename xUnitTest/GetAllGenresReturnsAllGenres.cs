@@ -9,11 +9,11 @@ using Moq.EntityFrameworkCore;
 
 namespace xUnitTest
 {
-    public class MelodyMineServiceTest
+    public class GetAllGenresReturnsAllGenres
     {
         private readonly DbContextOptions<ApplicationDbContext> _dbContextOptions;
 
-        public MelodyMineServiceTest()
+        public GetAllGenresReturnsAllGenres()
         {
             // Initialisering af in-memory database
             _dbContextOptions = new DbContextOptionsBuilder<ApplicationDbContext>()
