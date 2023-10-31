@@ -602,6 +602,102 @@ namespace xUnitTest
             }
         }
         
+        [Fact]
+        public void FilterVinylsPaged_ReturnsCorrectNumberOfVinyls()
+        {
+            using (var context = new ApplicationDbContext(_dbContextOptions))
+            {
+                // Arrange
+                var service = new MelodyMineService(context);
+                int currentPage = 1;
+                int pageSize = 2;
+                string searchTerm = null;
+                int? genreId = null;
+                string filterTitle = null;
+                string price = null;
+
+                // Act
+                var vinyls = service.FilterVinylsPaged(currentPage, pageSize, searchTerm, genreId, filterTitle, price).ToList();
+
+                // Assert
+                Assert.Equal(pageSize, vinyls.Count);
+            }
+        }
+
+        [Fact]
+        public void FilterVinylsPaged_ReturnsCorrectVinyls_WhenUsingSearchTerm()
+        {
+            using (var context = new ApplicationDbContext(_dbContextOptions))
+            {
+                // Arrange
+                var service = new MelodyMineService(context);
+                int currentPage = 1;
+                int pageSize = 2; 
+                string searchTerm = "My Vinyl";
+                int? genreId = null;
+                string filterTitle = null;
+                string price = null;
+
+                // Act
+                var vinyls = service.FilterVinylsPaged(currentPage, pageSize, searchTerm, genreId, filterTitle, price).ToList();
+
+                // Assert
+                Assert.Single(vinyls);
+                Assert.Equal("My Vinyl", vinyls[0].Title);
+            }
+        }
+        
+        [Fact]
+        public void FilterVinyls_ReturnsAllVinyls_WhenNoFiltersApplied()
+        {
+            using (var context = new ApplicationDbContext(_dbContextOptions))
+            {
+                // Arrange
+                var service = new MelodyMineService(context);
+                int expectedCount = context.Vinyls.Count();
+
+                // Act
+                var vinyls = service.FilterVinyls(null, null, null, null).ToList();
+
+                // Assert
+                Assert.Equal(expectedCount, vinyls.Count);
+            }
+        }
+
+        [Fact]
+        public void FilterVinyls_ReturnsCorrectVinyls_WhenUsingSearchTerm()
+        {
+            using (var context = new ApplicationDbContext(_dbContextOptions))
+            {
+                // Arrange
+                var service = new MelodyMineService(context);
+
+                // Act
+                var vinyls = service.FilterVinyls("My Vinyl", null, null, null).ToList();
+
+                // Assert
+                Assert.Single(vinyls);
+                Assert.Equal("My Vinyl", vinyls[0].Title);
+            }
+        }
+
+        [Fact]
+        public void FilterVinyls_ReturnsCorrectVinyls_WhenUsingGenreId()
+        {
+            using (var context = new ApplicationDbContext(_dbContextOptions))
+            {
+                // Arrange
+                var service = new MelodyMineService(context);
+
+                // Act
+                var vinyls = service.FilterVinyls(null, 1, null, null).ToList();
+
+                // Assert
+                Assert.Single(vinyls);
+            }
+        }
+        
+        
         #endregion
     }
 }

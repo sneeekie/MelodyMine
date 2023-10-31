@@ -27,7 +27,7 @@ public interface IMelodyMineService
     public IQueryable<Vinyl> GetAllVinylsPaged(int currentPage, int pageSize);
     public IQueryable<Vinyl> GetAllFullVinyls();
     public IQueryable<Vinyl> GetAllFullVinylsPaged(int currentPage, int pageSize);
-    // public IQueryable<Vinyl> FilterVinylsPaged(int currentPage, int pageSize, string? SearchTerm, int? GenreId, string? FilterTitle, string? Price);
+    public IQueryable<Vinyl> FilterVinylsPaged(int currentPage, int pageSize, string? SearchTerm, int? GenreId, string? FilterTitle, string? Price);
     // public IQueryable<Vinyl> FilterVinyls(string? SearchTerm, int? GenreId, string? FilterTitle, string? Price);
     // public IQueryable<VinylDTO> FilterVinylsSimpel(string? SearchTerm, string? FilterTitle, string? Price);
     public void CreateOrder(Order order);
