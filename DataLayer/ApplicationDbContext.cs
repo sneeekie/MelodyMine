@@ -1,4 +1,5 @@
-﻿using DataLayer.Models;
+﻿using System;
+using DataLayer.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Design;
 using Microsoft.Extensions.Logging;
@@ -25,11 +26,15 @@ public class ApplicationDbContext : DbContext
     public DbSet<Order> Orders { get; set; }
     public DbSet<Address> Addresses { get; set; }
     public DbSet<Genre> Genres { get; set; }
+    public DbSet<VinylGenre> vinylGenres { get; set; }
     public DbSet<OrderProductDetails> OrderProductDetails { get; set; }
     public DbSet<Admin> Admins { get; set; }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        if (optionsBuilder.IsConfigured)
+            return;
+        
         optionsBuilder
             .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information)
             .EnableSensitiveDataLogging(true)
@@ -124,5 +129,3 @@ public class ApplicationDbContext : DbContext
     {
     }
 }
-
-
