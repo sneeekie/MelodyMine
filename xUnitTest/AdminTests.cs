@@ -49,7 +49,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new AdminService(context);
             var admin = new Admin { Username = "admin", Password = "password" };
 
             // Act
@@ -65,7 +65,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new AdminService(context);
             var admin = new Admin { Username = "admin", Password = "wrong password" };
 
             // Act
@@ -81,7 +81,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new AdminService(context);
             var admin = new Admin { Username = "admin", Password = "password" };
 
             // Make sure the admin is logged in
@@ -100,7 +100,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new AdminService(context);
             var admin = new Admin { Username = "nonexistent", Password = "password" };
 
             // Act
@@ -116,7 +116,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new AdminService(context);
             var admin = new Admin { Username = "admin", Password = "password" };
             service.LogIn(admin);
 
@@ -133,7 +133,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new AdminService(context);
             var admin = new Admin { Username = "admin", Password = "password" };
 
             // Act
@@ -149,7 +149,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new AdminService(context);
 
             // Act
             bool result = service.SignedIn("nonexistent");
@@ -164,7 +164,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new AdminService(context);
             var admin = new Admin { Username = "admin", Password = "password" };
 
             // Act and Assert - Check if LogIn is successful
@@ -185,7 +185,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new AdminService(context);
 
             // Act
             bool result = service.AnySignedIn();

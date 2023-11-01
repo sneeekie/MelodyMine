@@ -104,7 +104,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             var newVinyl = new Vinyl { VinylId = 3, Title = "Graduation", Price = 29.99 };
             int initialCount = context.Vinyls.Count();
 
@@ -122,7 +122,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int existingVinylId = 1;
             int initialCount = context.Vinyls.Count();
 
@@ -140,7 +140,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int nonExistingVinylId = 999;
             int initialCount = context.Vinyls.Count();
 
@@ -157,7 +157,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int existingVinylId = 1;
 
             // Act
@@ -174,7 +174,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int nonExistingVinylId = 999;
 
             // Act
@@ -190,7 +190,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int existingVinylId = 1;
 
             // Act
@@ -212,7 +212,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int nonExistingVinylId = 999;
 
             // Act
@@ -228,7 +228,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int existingVinylId = 1;
 
             // Act
@@ -249,7 +249,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int nonExistingVinylId = 999;
 
             // Act
@@ -265,7 +265,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             string existingTitle = "My Vinyl";
 
             // Act
@@ -282,7 +282,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             string nonExistingTitle = "Non Existing Title";
 
             // Act
@@ -298,7 +298,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             string caseSensitiveTitle = "my vinyl";
 
             // Act
@@ -314,7 +314,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             string existingTitle = "My Vinyl";
 
             // Act
@@ -333,7 +333,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             string nonExistingTitle = "Non Existing Title";
 
             // Act
@@ -349,7 +349,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             string caseSensitiveTitle = "my vinyl";
 
             // Act
@@ -365,7 +365,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int existingVinylId = 1;
             Vinyl newVinyl = new Vinyl { Title = "New Title", Description = "New Description", Price = 25.99 };
 
@@ -385,7 +385,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int nonExistingVinylId = 999;
             Vinyl newVinyl = new Vinyl { Title = "New Title", Description = "New Description", Price = 25.99 };
 
@@ -403,7 +403,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             string existingTitle = "My Vinyl";
             Vinyl newVinyl = new Vinyl { Title = "New Title", Price = 29.99 };
 
@@ -422,7 +422,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             string nonExistingTitle = "Non Existing";
             Vinyl newVinyl = new Vinyl { Title = "New Title", Price = 29.99 };
             int initialCount = context.Vinyls.Count();
@@ -440,7 +440,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
 
             // Act
             var vinyls = service.GetAllVinyls();
@@ -455,7 +455,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
 
             // Act
             var vinyls = service.GetAllVinyls().ToList();
@@ -474,7 +474,7 @@ namespace xUnitTest
             // Arrange
             context.Vinyls.RemoveRange(context.Vinyls);
             context.SaveChanges();
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
 
             // Act
             var vinyls = service.GetAllVinyls();
@@ -489,7 +489,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int currentPage = 1;
             int pageSize = 2;
 
@@ -506,7 +506,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
 
             // Act
             var vinyls = service.GetAllFullVinyls();
@@ -527,7 +527,7 @@ namespace xUnitTest
             // Arrange
             context.Vinyls.RemoveRange(context.Vinyls);
             context.SaveChanges();
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
 
             // Act
             var vinyls = service.GetAllFullVinyls();
@@ -542,7 +542,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int expectedCount = context.Vinyls.Count();
 
             // Act
@@ -558,7 +558,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int currentPage = 1;
             int pageSize = 2;
 
@@ -575,7 +575,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int currentPage = 1;
             int pageSize = 2;
             string? searchTerm = null;
@@ -596,7 +596,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int currentPage = 1;
             int pageSize = 2; 
             string searchTerm = "My Vinyl";
@@ -618,7 +618,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
             int expectedCount = context.Vinyls.Count();
 
             // Act
@@ -634,7 +634,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
 
             // Act
             var vinyls = service.FilterVinyls("My Vinyl", null, null, null).ToList();
@@ -650,7 +650,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new VinylService(context);
 
             // Act
             var vinyls = service.FilterVinyls(null, 1, null, null).ToList();

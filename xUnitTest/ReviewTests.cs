@@ -55,7 +55,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new ReviewService(context);
             int targetVinylId = 1;
             var expectedReviewIds = new List<int> { 1, 2 };
 
@@ -74,7 +74,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new ReviewService(context);
             int initialCount = context.Reviews.Count();
             var newReview = new Review
             {

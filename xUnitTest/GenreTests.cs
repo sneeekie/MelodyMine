@@ -48,7 +48,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new GenreService(context);
 
             // Act
             var genres = service.GetAllGenres();
@@ -65,7 +65,7 @@ namespace xUnitTest
             // Arrange
             context.Genres.RemoveRange(context.Genres);
             context.SaveChanges();
-            var service = new MelodyMineService(context);
+            var service = new GenreService(context);
 
             // Act
             var genres = service.GetAllGenres();
@@ -82,7 +82,7 @@ namespace xUnitTest
             // Arrange
             context.Genres.Add(new Genre { GenreId = 3, GenreName = "Rock" });
             context.SaveChanges();
-            var service = new MelodyMineService(context);
+            var service = new GenreService(context);
 
             // Act
             var genres = service.GetAllGenres();
@@ -97,7 +97,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new GenreService(context);
             int existingGenreId = 1;
 
             // Act
@@ -114,7 +114,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new GenreService(context);
             int nonExistingGenreId = 999;
 
             // Act
@@ -132,7 +132,7 @@ namespace xUnitTest
             // Arrange
             context.VinylGenres.RemoveRange(context.VinylGenres);
             context.SaveChanges();
-            var service = new MelodyMineService(context);
+            var service = new GenreService(context);
 
             // Act
             var vinylGenres = service.GetAllVinylGenres();
@@ -153,7 +153,7 @@ namespace xUnitTest
                 new VinylGenre { VinylId = 2, GenreId = 2 },
             });
             context.SaveChanges();
-            var service = new MelodyMineService(context);
+            var service = new GenreService(context);
 
             // Act
             var vinylGenres = service.GetAllVinylGenres();
@@ -168,7 +168,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new GenreService(context);
             int newVinylId = 1;
             int newGenreId = 1;
             int initialCount = context.VinylGenres.Count();

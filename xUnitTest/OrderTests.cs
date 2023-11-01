@@ -54,7 +54,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             int initialCount = context.Orders.Count();
 
             var newOrder = new Order
@@ -84,7 +84,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             int initialCount = context.OrderProductDetails.Count();
         
             var newOrderProductDetailsList = new List<OrderProductDetails>
@@ -106,7 +106,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             int initialCount = context.OrderProductDetails.Count();
         
             var newOrderProductDetailsList = new List<OrderProductDetails>();
@@ -124,7 +124,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             int initialCount = context.Orders.Count();
             var existingOrder = context.Orders.First();
 
@@ -141,7 +141,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             int initialCount = context.Orders.Count();
             var nonExistingOrder = new Order { OrderId = 999, Email = "nonexisting@email.com", BuyDate = DateTime.Now };
 
@@ -158,7 +158,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             int existingOrderId = 1;
 
             // Act
@@ -175,7 +175,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             int nonExistingOrderId = 999;
 
             // Act
@@ -191,7 +191,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             int existingOrderId = 1;
 
             // Act
@@ -210,7 +210,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             int nonExistingOrderId = 999;
 
             // Act
@@ -226,7 +226,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             string existingEmail = "seeded@email.com";
 
             // Act
@@ -243,7 +243,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             string nonExistingEmail = "nonexistent@email.com";
 
             // Act
@@ -259,7 +259,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             string existingEmail = "seeded@email.com";
 
             // Act
@@ -278,7 +278,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             const string nonExistingEmail = "nonexistent@email.com";
 
             // Act
@@ -294,7 +294,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             int existingOrderId = 1;
 
             var newOrder = new Order
@@ -317,7 +317,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             int nonExistingOrderId = 999;
 
             var newOrder = new Order
@@ -340,7 +340,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             string existingEmail = "seeded@email.com";
             var newOrder = new Order
             {
@@ -365,7 +365,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             string nonExistingEmail = "nonexisting@email.com";
             var newOrder = new Order
             {
@@ -387,7 +387,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             int initialCount = context.Orders.Count();
 
             // Act
@@ -403,7 +403,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 
@@ -420,7 +420,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             int initialCount = context.Orders.Count();
 
             // Act
@@ -437,7 +437,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new OrderService(context);
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
 

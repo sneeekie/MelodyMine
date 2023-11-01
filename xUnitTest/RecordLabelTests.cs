@@ -65,7 +65,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new RecordLabelService(context);
             int targetRecordLabelId = 1;
 
             // Act
@@ -87,7 +87,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new RecordLabelService(context);
             int targetRecordLabelId = 1;
 
             // Act
@@ -106,7 +106,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new RecordLabelService(context);
         
             // Act
             var recordLabels = service.GetAllRecordLabels().ToList();
@@ -122,7 +122,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new RecordLabelService(context);
             int initialCount = context.RecordLabels.Count();
             var newRecordLabel = new RecordLabel
             {
@@ -146,7 +146,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new RecordLabelService(context);
             int initialCount = context.RecordLabels.Count();
             var existingRecordLabel = context.RecordLabels.First();
 
@@ -163,7 +163,7 @@ namespace xUnitTest
             using var context = new ApplicationDbContext(_dbContextOptions);
             
             // Arrange
-            var service = new MelodyMineService(context);
+            var service = new RecordLabelService(context);
             int initialCount = context.RecordLabels.Count();
             var nonExistingRecordLabel = new RecordLabel { RecordLabelId = 999, LabelName = "Non-Existent" };
 
