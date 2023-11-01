@@ -1,6 +1,4 @@
-using System;
 using Microsoft.EntityFrameworkCore;
-using Xunit;
 using DataLayer.Models;
 using DataLayer;
 using DataLayer.Services;
@@ -48,161 +46,152 @@ namespace xUnitTest
         [Fact]
         public void LogIn_ReturnsTrue_WhenCredentialsAreCorrect()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                var admin = new Admin { Username = "admin", Password = "password" };
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            var admin = new Admin { Username = "admin", Password = "password" };
 
-                // Act
-                bool result = service.LogIn(admin);
+            // Act
+            bool result = service.LogIn(admin);
 
-                // Assert
-                Assert.True(result);
-            }
+            // Assert
+            Assert.True(result);
         }
 
         [Fact]
         public void LogIn_ReturnsFalse_WhenCredentialsAreWrong()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                var admin = new Admin { Username = "admin", Password = "wrongpassword" };
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            var admin = new Admin { Username = "admin", Password = "wrong password" };
 
-                // Act
-                bool result = service.LogIn(admin);
+            // Act
+            bool result = service.LogIn(admin);
 
-                // Assert
-                Assert.False(result);
-            }
+            // Assert
+            Assert.False(result);
         }
         
         [Fact]
         public void LogOut_ReturnsTrue_WhenAdminExists()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                var admin = new Admin { Username = "admin", Password = "password" };
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            var admin = new Admin { Username = "admin", Password = "password" };
 
-                // Make sure the admin is logged in
-                service.LogIn(admin);
+            // Make sure the admin is logged in
+            service.LogIn(admin);
 
-                // Act
-                bool result = service.LogOut(admin);
+            // Act
+            bool result = service.LogOut(admin);
 
-                // Assert
-                Assert.True(result);
-            }
+            // Assert
+            Assert.True(result);
         }
 
         [Fact]
         public void LogOut_ReturnsFalse_WhenAdminDoesNotExist()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                var admin = new Admin { Username = "nonexistent", Password = "password" };
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            var admin = new Admin { Username = "nonexistent", Password = "password" };
 
-                // Act
-                bool result = service.LogOut(admin);
+            // Act
+            bool result = service.LogOut(admin);
 
-                // Assert
-                Assert.False(result);
-            }
+            // Assert
+            Assert.False(result);
         }
 
         [Fact]
         public void SignedIn_ReturnsTrue_WhenAdminIsSignedIn()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                var admin = new Admin { Username = "admin", Password = "password" };
-                service.LogIn(admin);
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            var admin = new Admin { Username = "admin", Password = "password" };
+            service.LogIn(admin);
 
-                // Act
-                bool result = service.SignedIn(admin.Username);
+            // Act
+            bool result = service.SignedIn(admin.Username);
 
-                // Assert
-                Assert.True(result);
-            }
+            // Assert
+            Assert.True(result);
         }
 
         [Fact]
         public void SignedIn_ReturnsFalse_WhenAdminIsNotSignedIn()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                var admin = new Admin { Username = "admin", Password = "password" };
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            var admin = new Admin { Username = "admin", Password = "password" };
 
-                // Act
-                bool result = service.SignedIn(admin.Username);
+            // Act
+            bool result = service.SignedIn(admin.Username);
 
-                // Assert
-                Assert.False(result);
-            }
+            // Assert
+            Assert.False(result);
         }
 
         [Fact]
         public void SignedIn_ReturnsFalse_WhenAdminDoesNotExist()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
 
-                // Act
-                bool result = service.SignedIn("nonexistent");
+            // Act
+            bool result = service.SignedIn("nonexistent");
 
-                // Assert
-                Assert.False(result);
-            }
+            // Assert
+            Assert.False(result);
         }
         
         [Fact]
         public void AnySignedIn_ReturnsTrue_WhenAtLeastOneAdminIsSignedIn()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                var admin = new Admin { Username = "admin", Password = "password" };
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            var admin = new Admin { Username = "admin", Password = "password" };
 
-                // Act and Assert - Check if LogIn is successful
-                bool loggedIn = service.LogIn(admin);
-                Assert.True(loggedIn, "Admin should be logged in");
+            // Act and Assert - Check if LogIn is successful
+            bool loggedIn = service.LogIn(admin);
+            Assert.True(loggedIn, "Admin should be logged in");
 
-                // Act - Test AnySignedIn method
-                bool result = service.AnySignedIn();
+            // Act - Test AnySignedIn method
+            bool result = service.AnySignedIn();
 
-                // Assert - Final check
-                Assert.True(result);
-            }
+            // Assert - Final check
+            Assert.True(result);
         }
 
 
         [Fact]
         public void AnySignedIn_ReturnsFalse_WhenNoAdminIsSignedIn()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
 
-                // Act
-                bool result = service.AnySignedIn();
+            // Act
+            bool result = service.AnySignedIn();
 
-                // Assert
-                Assert.False(result);
-            }
+            // Assert
+            Assert.False(result);
         }
 
         #endregion

@@ -1,11 +1,7 @@
-using System;
-using System.Linq;
 using Microsoft.EntityFrameworkCore;
-using Xunit;
 using DataLayer.Models;
 using DataLayer;
 using DataLayer.Services;
-using System.Collections.Generic;
 
 namespace xUnitTest
 {
@@ -30,9 +26,9 @@ namespace xUnitTest
             var seedAddress = new Address
             {
                 AddressId = 1,
-                Street = "Some Street",
-                City = "Some City",
-                Country = "Some Country",
+                Street = "Cool Street 80",
+                City = "Cool City",
+                Country = "Denmark",
                 Postal = 7000
             };
 
@@ -46,7 +42,7 @@ namespace xUnitTest
                 Address = seedAddress,
                 Vinyls = new List<Vinyl>
                 {
-                    new Vinyl { VinylId = 1, Title = "TLOP", Description = "KANYE" }
+                    new Vinyl { VinylId = 1, Title = "The Life of Pablo", Description = "KANYE" }
                 }
             };
 
@@ -66,122 +62,116 @@ namespace xUnitTest
         [Fact]
         public void GetRecordLabelById_ReturnsCorrectRecordLabel()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                int targetRecordLabelId = 1;
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            int targetRecordLabelId = 1;
 
-                // Act
-                var recordLabels = service.GetRecordLabelById(targetRecordLabelId).ToList();
+            // Act
+            var recordLabels = service.GetRecordLabelById(targetRecordLabelId).ToList();
 
-                // Assert
-                Assert.Single(recordLabels);
-                var recordLabel = recordLabels.First();
-                Assert.Equal(targetRecordLabelId, recordLabel.RecordLabelId);
-                Assert.NotNull(recordLabel.Address);
-                Assert.Equal(7000, recordLabel.Address.Postal);
-                Assert.Equal("TLOP", recordLabel.Vinyls.First().Title);
-                Assert.Equal("KANYE", recordLabel.Vinyls.First().Description);
-            }
+            // Assert
+            Assert.Single(recordLabels);
+            var recordLabel = recordLabels.First();
+            Assert.Equal(targetRecordLabelId, recordLabel.RecordLabelId);
+            Assert.NotNull(recordLabel.Address);
+            Assert.Equal(7000, recordLabel.Address.Postal);
+            Assert.Equal("The Life of Pablo", recordLabel.Vinyls.First().Title);
+            Assert.Equal("KANYE", recordLabel.Vinyls.First().Description);
         }
 
         [Fact]
         public void GetRecordLabelByIdSimple_ReturnsCorrectRecordLabel()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                int targetRecordLabelId = 1;
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            int targetRecordLabelId = 1;
 
-                // Act
-                var recordLabel = service.GetRecordLabelByIdSimple(targetRecordLabelId);
+            // Act
+            var recordLabel = service.GetRecordLabelByIdSimple(targetRecordLabelId);
 
-                // Assert
-                Assert.NotNull(recordLabel);
-                Assert.Equal(targetRecordLabelId, recordLabel.RecordLabelId);
-                Assert.Null(recordLabel.Address);
-                Assert.Null(recordLabel.Vinyls);
-            }
+            // Assert
+            Assert.NotNull(recordLabel);
+            Assert.Equal(targetRecordLabelId, recordLabel.RecordLabelId);
+            Assert.Null(recordLabel.Address);
+            Assert.Null(recordLabel.Vinyls);
         }
 
         [Fact]
         public void GetAllRecordLabels_ReturnsAllRecordLabels()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
         
-                // Act
-                var recordLabels = service.GetAllRecordLabels().ToList();
+            // Act
+            var recordLabels = service.GetAllRecordLabels().ToList();
         
-                // Assert
-                Assert.NotEmpty(recordLabels);
-                Assert.IsType<List<RecordLabel>>(recordLabels);
-            }
+            // Assert
+            Assert.NotEmpty(recordLabels);
+            Assert.IsType<List<RecordLabel>>(recordLabels);
         }
 
         [Fact]
         public void CreateRecordLabel_AddsNewRecordLabel()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            int initialCount = context.RecordLabels.Count();
+            var newRecordLabel = new RecordLabel
             {
-                // Arrange
-                var service = new MelodyMineService(context);
-                int initialCount = context.RecordLabels.Count();
-                var newRecordLabel = new RecordLabel
-                {
-                    LabelName = "New Records",
-                    PhoneNumber = 789101112,
-                    Email = "new@records.com"
-                };
+                LabelName = "New Records",
+                PhoneNumber = 789101112,
+                Email = "new@records.com"
+            };
 
-                // Act
-                service.CreateRecordLabel(newRecordLabel);
+            // Act
+            service.CreateRecordLabel(newRecordLabel);
 
-                // Assert
-                Assert.Equal(initialCount + 1, context.RecordLabels.Count());
-                var createdRecordLabel = context.RecordLabels.Last();
-                Assert.Equal("New Records", createdRecordLabel.LabelName);
-            }
+            // Assert
+            Assert.Equal(initialCount + 1, context.RecordLabels.Count());
+            var createdRecordLabel = context.RecordLabels.Last();
+            Assert.Equal("New Records", createdRecordLabel.LabelName);
         }
 
         [Fact]
         public void DeleteRecordLabel_RemovesRecordLabel()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                int initialCount = context.RecordLabels.Count();
-                var existingRecordLabel = context.RecordLabels.First();
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            int initialCount = context.RecordLabels.Count();
+            var existingRecordLabel = context.RecordLabels.First();
 
-                // Act
-                service.DeleteRecordLabel(existingRecordLabel);
+            // Act
+            service.DeleteRecordLabel(existingRecordLabel);
 
-                // Assert
-                Assert.Equal(initialCount - 1, context.RecordLabels.Count());
-            }
+            // Assert
+            Assert.Equal(initialCount - 1, context.RecordLabels.Count());
         }
 
         [Fact]
         public void DeleteRecordLabel_DoesNothing_WhenRecordLabelDoesNotExist()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                int initialCount = context.RecordLabels.Count();
-                var nonExistingRecordLabel = new RecordLabel { RecordLabelId = 999, LabelName = "Non-Existent" };
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            int initialCount = context.RecordLabels.Count();
+            var nonExistingRecordLabel = new RecordLabel { RecordLabelId = 999, LabelName = "Non-Existent" };
 
-                // Act
-                service.DeleteRecordLabel(nonExistingRecordLabel);
+            // Act
+            service.DeleteRecordLabel(nonExistingRecordLabel);
 
-                // Assert
-                Assert.Equal(initialCount, context.RecordLabels.Count());
-            }
+            // Assert
+            Assert.Equal(initialCount, context.RecordLabels.Count());
         }
         #endregion
     }

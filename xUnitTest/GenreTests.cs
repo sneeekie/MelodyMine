@@ -1,11 +1,7 @@
 using DataLayer.Models;
-using System.Collections.Generic;
-using System.Linq;
 using DataLayer;
 using DataLayer.Services;
 using Microsoft.EntityFrameworkCore;
-using Moq;
-using Moq.EntityFrameworkCore;
 
 namespace xUnitTest
 {
@@ -34,8 +30,8 @@ namespace xUnitTest
             
             context.Vinyls.AddRange(new Vinyl[]
             {
-                new Vinyl { VinylId = 1, Title = "MBDTF", Price = 199.99 },
-                new Vinyl { VinylId = 2, Title =  "TPAB", Price = 159.99 },
+                new Vinyl { VinylId = 1, Title = "My Beautiful Dark Twisted Fantasy", Price = 199.99 },
+                new Vinyl { VinylId = 2, Title =  "To Pimp a Butterfly", Price = 159.99 },
             });
             context.SaveChanges();
         }
@@ -49,148 +45,140 @@ namespace xUnitTest
         [Fact]
         public void GetAllGenres_ReturnsAllGenres()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
 
-                // Act
-                var genres = service.GetAllGenres();
+            // Act
+            var genres = service.GetAllGenres();
 
-                // Assert
-                Assert.Equal(2, genres.Count());
-            }
+            // Assert
+            Assert.Equal(2, genres.Count());
         }
         
         [Fact]
         public void GetAllGenres_ReturnsEmptyList_WhenNoGenresExist()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                context.Genres.RemoveRange(context.Genres);
-                context.SaveChanges();
-                var service = new MelodyMineService(context);
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            context.Genres.RemoveRange(context.Genres);
+            context.SaveChanges();
+            var service = new MelodyMineService(context);
 
-                // Act
-                var genres = service.GetAllGenres();
+            // Act
+            var genres = service.GetAllGenres();
 
-                // Assert
-                Assert.Empty(genres);
-            }
+            // Assert
+            Assert.Empty(genres);
         }
         
         [Fact]
         public void GetAllGenres_ReturnsAllGenres_IncludingDuplicates()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                context.Genres.Add(new Genre { GenreId = 3, GenreName = "Rock" });
-                context.SaveChanges();
-                var service = new MelodyMineService(context);
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            context.Genres.Add(new Genre { GenreId = 3, GenreName = "Rock" });
+            context.SaveChanges();
+            var service = new MelodyMineService(context);
 
-                // Act
-                var genres = service.GetAllGenres();
+            // Act
+            var genres = service.GetAllGenres();
 
-                // Assert
-                Assert.Equal(3, genres.Count());
-            }
+            // Assert
+            Assert.Equal(3, genres.Count());
         }
         
         [Fact]
         public void GetGenresById_ReturnsGenre_WhenGenreIdExists()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                int existingGenreId = 1;
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            int existingGenreId = 1;
 
-                // Act
-                var genres = service.GetGenresById(existingGenreId);
+            // Act
+            var genres = service.GetGenresById(existingGenreId);
 
-                // Assert
-                Assert.Single(genres); // Should return only one genre
-                Assert.Equal(existingGenreId, genres.First().GenreId);
-            }
+            // Assert
+            Assert.Single(genres); // Should return only one genre
+            Assert.Equal(existingGenreId, genres.First().GenreId);
         }
 
         [Fact]
         public void GetGenresById_ReturnsEmpty_WhenGenreIdDoesNotExist()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                int nonExistingGenreId = 999;
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            int nonExistingGenreId = 999;
 
-                // Act
-                var genres = service.GetGenresById(nonExistingGenreId);
+            // Act
+            var genres = service.GetGenresById(nonExistingGenreId);
 
-                // Assert
-                Assert.Empty(genres);
-            }
+            // Assert
+            Assert.Empty(genres);
         }
 
         [Fact]
         public void GetAllVinylGenres_ReturnsEmpty_WhenNoVinylGenresExist()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                context.VinylGenres.RemoveRange(context.VinylGenres);
-                context.SaveChanges();
-                var service = new MelodyMineService(context);
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            context.VinylGenres.RemoveRange(context.VinylGenres);
+            context.SaveChanges();
+            var service = new MelodyMineService(context);
 
-                // Act
-                var vinylGenres = service.GetAllVinylGenres();
+            // Act
+            var vinylGenres = service.GetAllVinylGenres();
 
-                // Assert
-                Assert.Empty(vinylGenres);
-            }
+            // Assert
+            Assert.Empty(vinylGenres);
         }
         
         [Fact]
         public void GetAllVinylGenres_ReturnsAllVinylGenres()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            context.VinylGenres.AddRange(new VinylGenre[]
             {
-                // Arrange
-                context.VinylGenres.AddRange(new VinylGenre[]
-                {
-                    new VinylGenre { VinylId = 1, GenreId = 1 },
-                    new VinylGenre { VinylId = 2, GenreId = 2 },
-                });
-                context.SaveChanges();
-                var service = new MelodyMineService(context);
+                new VinylGenre { VinylId = 1, GenreId = 1 },
+                new VinylGenre { VinylId = 2, GenreId = 2 },
+            });
+            context.SaveChanges();
+            var service = new MelodyMineService(context);
 
-                // Act
-                var vinylGenres = service.GetAllVinylGenres();
+            // Act
+            var vinylGenres = service.GetAllVinylGenres();
 
-                // Assert
-                Assert.Equal(2, vinylGenres.Count());
-            }
+            // Assert
+            Assert.Equal(2, vinylGenres.Count());
         }
         
         [Fact]
         public void CreateVinylGenre_AddsNewVinylGenre()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                int newVinylId = 1;
-                int newGenreId = 1;
-                int initialCount = context.VinylGenres.Count();
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            int newVinylId = 1;
+            int newGenreId = 1;
+            int initialCount = context.VinylGenres.Count();
 
-                // Act
-                service.CreateVinylGenre(newVinylId, newGenreId);
+            // Act
+            service.CreateVinylGenre(newVinylId, newGenreId);
         
-                // Assert
-                Assert.Equal(initialCount + 1, context.VinylGenres.Count());
-                Assert.NotNull(context.VinylGenres.FirstOrDefault(vg => vg.VinylId == newVinylId && vg.GenreId == newGenreId));
-            }
+            // Assert
+            Assert.Equal(initialCount + 1, context.VinylGenres.Count());
+            Assert.NotNull(context.VinylGenres.FirstOrDefault(vg => vg.VinylId == newVinylId && vg.GenreId == newGenreId));
         }
     }
 }

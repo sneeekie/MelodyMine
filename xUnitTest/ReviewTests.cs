@@ -1,8 +1,4 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
-using Xunit;
 using DataLayer.Models;
 using DataLayer;
 using DataLayer.Services;
@@ -56,48 +52,46 @@ namespace xUnitTest
         [Fact]
         public void GetReviewsByVinylID_ReturnsCorrectReviews()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
-            {
-                // Arrange
-                var service = new MelodyMineService(context);
-                int targetVinylId = 1;
-                var expectedReviewIds = new List<int> { 1, 2 };
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            int targetVinylId = 1;
+            var expectedReviewIds = new List<int> { 1, 2 };
 
-                // Act
-                var reviews = service.getReviewsByVinylID(targetVinylId).ToList();
+            // Act
+            var reviews = service.getReviewsByVinylID(targetVinylId).ToList();
 
-                // Assert
-                Assert.Equal(expectedReviewIds.Count, reviews.Count);
-                Assert.All(reviews, r => Assert.Equal(targetVinylId, r.VinylId));
-                Assert.All(reviews, r => Assert.Contains(r.ReviewId, expectedReviewIds));
-            }
+            // Assert
+            Assert.Equal(expectedReviewIds.Count, reviews.Count);
+            Assert.All(reviews, r => Assert.Equal(targetVinylId, r.VinylId));
+            Assert.All(reviews, r => Assert.Contains(r.ReviewId, expectedReviewIds));
         }
         
         [Fact]
         public void CreateReview_AddsNewReviewToDatabase()
         {
-            using (var context = new ApplicationDbContext(_dbContextOptions))
+            using var context = new ApplicationDbContext(_dbContextOptions);
+            
+            // Arrange
+            var service = new MelodyMineService(context);
+            int initialCount = context.Reviews.Count();
+            var newReview = new Review
             {
-                // Arrange
-                var service = new MelodyMineService(context);
-                int initialCount = context.Reviews.Count();
-                var newReview = new Review
-                {
-                    ReviewId = 3,
-                    NumStars = 4,
-                    VinylId = 1
-                };
+                ReviewId = 3,
+                NumStars = 4,
+                VinylId = 1
+            };
 
-                // Act
-                service.CreateReview(newReview);
+            // Act
+            service.CreateReview(newReview);
 
-                // Assert
-                Assert.Equal(initialCount + 1, context.Reviews.Count());
-                var insertedReview = context.Reviews.Find(newReview.ReviewId);
-                Assert.NotNull(insertedReview);
-                Assert.Equal(newReview.NumStars, insertedReview.NumStars);
-                Assert.Equal(newReview.VinylId, insertedReview.VinylId);
-            }
+            // Assert
+            Assert.Equal(initialCount + 1, context.Reviews.Count());
+            var insertedReview = context.Reviews.Find(newReview.ReviewId);
+            Assert.NotNull(insertedReview);
+            Assert.Equal(newReview.NumStars, insertedReview.NumStars);
+            Assert.Equal(newReview.VinylId, insertedReview.VinylId);
         }
         #endregion
     }
