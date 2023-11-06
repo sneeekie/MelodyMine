@@ -1,0 +1,18 @@
+@page "{id:int}"
+@model EditGenreModel
+@{
+    ViewData["Title"] = "Edit Genre";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Formular til at redigere genre -->
+<form method="post">
+    <input type="hidden" asp-for="UpdateModel.GenreId" />
+    <div class="form-group">
+        <label for="GenreName">Genre Name</label>
+        <input type="text" class="form-control" asp-for="UpdateModel.GenreName" placeholder="Enter genre name">
+    </div>
+    <button type="submit" class="btn btn-primary mt-1">Update Genre</button>
+</form>
+
