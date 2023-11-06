@@ -7,11 +7,11 @@ namespace DataLayer.Services;
 
 public class FilterService : IFilterService
 {
-    private readonly ApplicationDbContext _ApplicationDbContext;
+    private readonly ApplicationDbContext _applicationDbContext;
 
     public FilterService(ApplicationDbContext melodyMineService)
     {
-        _ApplicationDbContext = melodyMineService;
+        _applicationDbContext = melodyMineService;
     }
     
 

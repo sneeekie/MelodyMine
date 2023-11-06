@@ -4,23 +4,23 @@ namespace DataLayer.Services;
 
 public class AdminService : IAdminService
 {
-    private readonly ApplicationDbContext _ApplicationDbContext;
+    private readonly ApplicationDbContext _applicationDbContext;
 
     public AdminService(ApplicationDbContext melodyMineService)
     {
-        _ApplicationDbContext = melodyMineService;
+        _applicationDbContext = melodyMineService;
     }
     
     public bool LogIn(Admin admin)
     {
-        Admin TempAadmin = _ApplicationDbContext.Admins
+        Admin TempAadmin = _applicationDbContext.Admins
             .Where(a => a.Username == admin.Username)
             .Where(a => a.Password == admin.Password)
             .FirstOrDefault();
         if (TempAadmin != null)
         {
             TempAadmin.SignedIn = true;
-            _ApplicationDbContext.SaveChanges();
+            _applicationDbContext.SaveChanges();
             return true;
         }
         return false;
@@ -28,14 +28,14 @@ public class AdminService : IAdminService
     
     public bool LogOut(Admin admin)
     {
-        Admin tempAadmin = _ApplicationDbContext.Admins
+        Admin tempAadmin = _applicationDbContext.Admins
             .Where(a => a.Username == admin.Username)
             .FirstOrDefault();
 
         if (tempAadmin != null)
         {
             tempAadmin.SignedIn = false;
-            _ApplicationDbContext.SaveChanges();
+            _applicationDbContext.SaveChanges();
             return true;
         }
         return false;
@@ -43,7 +43,7 @@ public class AdminService : IAdminService
     
     public bool SignedIn(string username)
     {
-        if (_ApplicationDbContext.Admins.Where(a => a.Username == username).Where(a => a.SignedIn == true).FirstOrDefault() != null)
+        if (_applicationDbContext.Admins.Where(a => a.Username == username).Where(a => a.SignedIn == true).FirstOrDefault() != null)
         {
             return true;
         }
@@ -52,7 +52,7 @@ public class AdminService : IAdminService
     
     public bool AnySignedIn()
     {
-        Admin admin = _ApplicationDbContext.Admins.Where(a => a.SignedIn == true).FirstOrDefault();
+        Admin admin = _applicationDbContext.Admins.Where(a => a.SignedIn == true).FirstOrDefault();
         if (admin != null)
         {
             return true;

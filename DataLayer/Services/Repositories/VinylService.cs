@@ -5,258 +5,156 @@ namespace DataLayer.Services;
 
 public class VinylService : IVinylService
 {
-    private readonly ApplicationDbContext _ApplicationDbContext;
+    private readonly ApplicationDbContext _applicationDbContext;
 
-    public VinylService(ApplicationDbContext melodyMineService)
+    public VinylService(ApplicationDbContext context)
     {
-        _ApplicationDbContext = melodyMineService;
+        _applicationDbContext = context;
     }
     
     public void CreateVinyl(Vinyl vinyl)
     {
-        _ApplicationDbContext.Vinyls.Add(vinyl);
-
-        _ApplicationDbContext.SaveChanges();
+        _applicationDbContext.Vinyls.Add(vinyl);
+        _applicationDbContext.SaveChanges();
     }
 
     public void DeleteVinylById(int vinylId)
     {
-        Vinyl tempVinyl = _ApplicationDbContext.Vinyls.FirstOrDefault(p => p.VinylId == vinylId);
-
-        if (tempVinyl != null)
+        var vinyl = _applicationDbContext.Vinyls.Find(vinylId);
+        if (vinyl != null)
         {
-            _ApplicationDbContext.Vinyls.Remove(tempVinyl);
-            _ApplicationDbContext.SaveChanges();
+            _applicationDbContext.Vinyls.Remove(vinyl);
+            _applicationDbContext.SaveChanges();
         }
     }
 
-    
     public Vinyl GetVinylById(int id)
     {
-        return _ApplicationDbContext.Vinyls.FirstOrDefault(v => v.VinylId == id);
+        return _applicationDbContext.Vinyls
+            .Include(v => v.VinylGenres)
+            .FirstOrDefault(v => v.VinylId == id);
     }
 
-    
-    public Vinyl GetSingleFullVinylBy(int id)
-    {
-        Vinyl tempVinyl = _ApplicationDbContext.Vinyls
-            .Where(p => p.VinylId == id)
-            .Include(p => p.Reviews)
-            .Include(p => p.Covers)
-            .Include(p => p.Genres)
-            .Include(p => p.RecordLabel)
-            .ThenInclude(m => m.Address)
-            .FirstOrDefault();
-
-        return tempVinyl;
-    }
-    
-    public Vinyl GetSingleVinylBy(string title)
-    {
-        Vinyl tempVinyl = _ApplicationDbContext.Vinyls
-            .Where(p => p.Title == title)
-            .FirstOrDefault();
-
-        return tempVinyl;
-    }
-    
-    public Vinyl GetSingleFullVinylBy(string title)
-    {
-        Vinyl tempVinyl = _ApplicationDbContext.Vinyls
-            .Where(p => p.Title == title)
-            .Include(p => p.Reviews)
-            .Include(p => p.Covers)
-            .Include(p => p.Genres)
-            .Include(p => p.RecordLabel)
-            .ThenInclude(m => m.Address)
-            .FirstOrDefault();
-
-        return tempVinyl;
-    }
-    
     public void UpdateVinylBy(int vinylId, Vinyl newVinyl)
     {
-        Vinyl tempVinyl = _ApplicationDbContext.Vinyls
-            .Where(p => p.VinylId == vinylId)
-            .FirstOrDefault();
-        
-        if (tempVinyl == null)
+        var vinyl = _applicationDbContext.Vinyls.Find(vinylId);
+        if (vinyl != null)
         {
-            return;
+            vinyl.Title = newVinyl.Title;
+            vinyl.Artist = newVinyl.Artist;
+            vinyl.Price = newVinyl.Price;
+            vinyl.ImagePath = newVinyl.ImagePath;
+            // Husk at opdatere de genrer, som vinylpladen tilhører, hvis det er nødvendigt.
+            _applicationDbContext.SaveChanges();
         }
-
-        tempVinyl.Title = newVinyl.Title;
-        tempVinyl.Description = newVinyl.Description;
-        tempVinyl.Price = newVinyl.Price;
-
-        _ApplicationDbContext.SaveChanges();
     }
-    
-    public void UpdateVinylBy(string vinylTitle, Vinyl newVinyl)
-    {
-        Vinyl tempVinyl = _ApplicationDbContext.Vinyls
-            .Where(p => p.Title == vinylTitle)
-            .FirstOrDefault();
-        
-        if (tempVinyl == null)
-        {
-            return;
-        }
-        
-        tempVinyl.Title = newVinyl.Title;
-        tempVinyl.Price = newVinyl.Price;
-        tempVinyl.Description = newVinyl.Description;
-        _ApplicationDbContext.SaveChanges();
-    }
-    
+
     public IQueryable<Vinyl> GetAllVinyls()
     {
-        IQueryable<Vinyl> tempVinyls = _ApplicationDbContext.Vinyls
-            .Include(p => p.Covers)
-            .Include(p => p.Reviews)
-            .Include(c => c.Genres)
-            .ThenInclude(cp => cp.Genre);
-
-        return tempVinyls;
+        return _applicationDbContext.Vinyls
+            .Include(v => v.VinylGenres)
+            .ThenInclude(vg => vg.Genre);
     }
-    
+
     public IQueryable<Vinyl> GetAllVinylsPaged(int currentPage, int pageSize)
     {
-        IQueryable<Vinyl> tempVinyls = _ApplicationDbContext.Vinyls
-            .Include(p => p.Covers)
-            .Include(p => p.Reviews)
-            .Include(c => c.Genres)
-            .ThenInclude(cp => cp.Genre);
-
-        return tempVinyls.OrderBy(p => p.VinylId).Skip((currentPage - 1) * pageSize).Take(pageSize);
+        return GetAllVinyls()
+            .OrderBy(v => v.VinylId)
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize);
     }
+    
+    
+    //
     
     public IQueryable<Vinyl> GetAllFullVinyls()
     {
-        IQueryable<Vinyl> tempVinyls = _ApplicationDbContext.Vinyls
-            .Include(p => p.Reviews)
-            .Include(p => p.Covers)
-            .Include(p => p.Genres)
-            .Include(p => p.RecordLabel)
-            .ThenInclude(m => m.Address);
-
-        return tempVinyls;
+        // Antager at "full vinyls" refererer til vinylplader med deres genrer indlæst.
+        return _applicationDbContext.Vinyls
+            .Include(v => v.VinylGenres)
+            .ThenInclude(vg => vg.Genre);
     }
     
     public IQueryable<Vinyl> GetAllFullVinylsPaged(int currentPage, int pageSize)
     {
-        IQueryable<Vinyl> tempVinyls = _ApplicationDbContext.Vinyls
-            .Include(p => p.Reviews)
-            .Include(p => p.Covers)
-            .Include(p => p.Genres)
-            .Include(p => p.RecordLabel)
-            .ThenInclude(m => m.Address);
-
-        return tempVinyls.OrderBy(p => p.VinylId).Skip((currentPage - 1) * pageSize).Take(pageSize);
+        // Paginering anvendes på det fulde sæt af vinylplader.
+        return GetAllFullVinyls()
+            .OrderBy(v => v.VinylId)
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize);
     }
     
-    public IQueryable<Vinyl> FilterVinylsPaged(int currentPage, int pageSize, string? SearchTerm, int? GenreId, string? FilterTitle, string? Price)
+    public IQueryable<Vinyl> FilterVinylsPaged(int currentPage, int pageSize, string? searchTerm, int? genreId, string? filterTitle, string? price)
     {
-        IQueryable<Vinyl> tempVinyls = _ApplicationDbContext.Vinyls
-                .Include(p => p.Covers)
-                .Include(p => p.Reviews)
-                .Include(c => c.Genres)
-                .ThenInclude(cp => cp.Genre);
+        // Starter med at indlæse alle vinylplader med deres genrer.
+        var query = GetAllFullVinyls();
 
-        if (!string.IsNullOrWhiteSpace(SearchTerm))
+        // Filtrering baseret på søgeterm.
+        if (!string.IsNullOrWhiteSpace(searchTerm))
         {
-            tempVinyls = tempVinyls.Where(p => p.Title.Contains(SearchTerm));
+            query = query.Where(v => v.Title.Contains(searchTerm));
         }
 
-        if (GenreId != null && GenreId != 0)
+        // Filtrering baseret på genre.
+        if (genreId.HasValue && genreId.Value > 0)
         {
-            IQueryable<VinylGenre> tempVinylsSecond = _ApplicationDbContext.VinylGenres.Where(p => p.GenreId == GenreId);
-            List<Vinyl> tempVinylsThird = new List<Vinyl>();
-
-            foreach (VinylGenre vinylGenre in tempVinylsSecond.ToList())
-            {
-                tempVinylsThird.Add(tempVinyls.Where(p => p.VinylId == vinylGenre.VinylId).FirstOrDefault());
-            }
-            tempVinyls = tempVinylsThird.AsQueryable();
+            query = query.Where(v => v.VinylGenres.Any(vg => vg.GenreId == genreId.Value));
         }
 
-        if (!string.IsNullOrWhiteSpace(FilterTitle))
+        // Sortering baseret på titel eller pris.
+        if (!string.IsNullOrWhiteSpace(filterTitle))
         {
-            if (FilterTitle == "+")
-            {
-                tempVinyls = tempVinyls.OrderBy(p => p.Title);
-            }
-            else
-            {
-                tempVinyls = tempVinyls.OrderByDescending(p => p.Title);
-            }
+            query = filterTitle == "+" 
+                ? query.OrderBy(v => v.Title) 
+                : query.OrderByDescending(v => v.Title);
         }
 
-        if (!string.IsNullOrWhiteSpace(Price))
+        if (!string.IsNullOrWhiteSpace(price))
         {
-            if (FilterTitle == "+")
-            {
-                tempVinyls = tempVinyls.OrderBy(p => p.Price);
-            }
-            else
-            {
-                tempVinyls = tempVinyls.OrderBy(p => p.Price).Reverse();
-            }
+            query = price == "+" 
+                ? query.OrderBy(v => v.Price) 
+                : query.OrderByDescending(v => v.Price);
         }
 
-        List<Vinyl> vinyls = tempVinyls.ToList();
-        vinyls.RemoveAll(item => item == null);
-        tempVinyls = vinyls.AsQueryable();
-
-        return tempVinyls.Skip((currentPage - 1) * pageSize).Take(pageSize);
+        // Paginering anvendt til sidst.
+        return query
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize);
     }
     
-    public IQueryable<Vinyl> FilterVinyls(string? SearchTerm, int? GenreId, string? FilterTitle, string? Price)
+    public IQueryable<Vinyl> FilterVinyls(string? searchTerm, int? genreId, string? filterTitle, string? price)
     {
-        IQueryable<Vinyl> tempVinyls = _ApplicationDbContext.Vinyls
-            .Include(p => p.Covers)
-            .Include(p => p.Reviews)
-            .Include(c => c.Genres)
-            .ThenInclude(cp => cp.Genre);
+        // Start med at indlæse alle vinylplader med deres genrer.
+        IQueryable<Vinyl> query = _applicationDbContext.Vinyls.Include(v => v.VinylGenres).ThenInclude(vg => vg.Genre);
 
-        if (!string.IsNullOrWhiteSpace(SearchTerm))
+        // Filtrering baseret på søgeterm.
+        if (!string.IsNullOrWhiteSpace(searchTerm))
         {
-            tempVinyls = tempVinyls.Where(p => p.Title.Contains(SearchTerm));
-        }
-        if (GenreId != null && GenreId != 0)
-        {
-            IQueryable<VinylGenre> tempVinylsSecond = _ApplicationDbContext.VinylGenres.Where(p => p.GenreId == GenreId);
-            List<Vinyl> tempVinylsThird = new List<Vinyl>();
-
-            foreach (VinylGenre vinylGenre in tempVinylsSecond.ToList())
-            {
-                tempVinylsThird.Add(tempVinyls.Where(p => p.VinylId == vinylGenre.VinylId).FirstOrDefault());
-            }
-            tempVinyls = tempVinylsThird.AsQueryable();
-        }
-        if (!string.IsNullOrWhiteSpace(FilterTitle))
-        {
-            if (FilterTitle == "+")
-            {
-                tempVinyls = tempVinyls.OrderBy(p => p.Title);
-            }
-            else
-            {
-                tempVinyls = tempVinyls.OrderByDescending(p => p.Title);
-            }
-        }
-        if (!string.IsNullOrWhiteSpace(Price))
-        {
-            if (FilterTitle == "+")
-            {
-                tempVinyls = tempVinyls.OrderBy(p => p.Price);
-            }
-            else
-            {
-                tempVinyls = tempVinyls.OrderByDescending(p => p.Price);
-            }
+            query = query.Where(v => v.Title.Contains(searchTerm));
         }
 
-        return tempVinyls;
+        // Filtrering baseret på genre.
+        if (genreId.HasValue && genreId.Value > 0)
+        {
+            query = query.Where(v => v.VinylGenres.Any(vg => vg.GenreId == genreId.Value));
+        }
+
+        // Sortering baseret på titel eller pris.
+        if (!string.IsNullOrWhiteSpace(filterTitle))
+        {
+            query = filterTitle == "+"
+                ? query.OrderBy(v => v.Title)
+                : query.OrderByDescending(v => v.Title);
+        }
+
+        if (!string.IsNullOrWhiteSpace(price))
+        {
+            query = price == "+"
+                ? query.OrderBy(v => v.Price)
+                : query.OrderByDescending(v => v.Price);
+        }
+
+        return query;
     }
+
 }

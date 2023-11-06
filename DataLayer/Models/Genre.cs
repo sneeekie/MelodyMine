@@ -10,5 +10,5 @@ public class Genre
     public string GenreName { get; set; }
     
     // Navigation property
-    public ICollection<VinylGenre> Vinyls { get; set; }
+    public ICollection<VinylGenre> VinylGenres { get; set; }
 }

@@ -17,7 +17,4 @@ public class Address
     [Required]
     [StringLength(100)]
     public string Street { get; set; }
-    
-    // Navigation property
-    public RecordLabel RecordLabel { get; set; }
 }
