@@ -4,6 +4,7 @@ using DataLayer.Models;
 using DataLayer.Services;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MelodyMine.Pages
 {
@@ -11,10 +12,8 @@ namespace MelodyMine.Pages
     {
         private readonly IVinylService _vinylService;
 
-        // Liste over vinylplader til visning på siden
         public IList<Vinyl> Vinyls { get; private set; }
-
-        // Property til at binde input fra formular for ny vinyl
+        
         [BindProperty]
         public Vinyl NewVinyl { get; set; }
 
@@ -27,22 +26,44 @@ namespace MelodyMine.Pages
         {
             Vinyls = _vinylService.GetAllVinyls().ToList();
         }
-
-        // Metode til at håndtere POST-anmodninger for at tilføje ny vinyl
-        public IActionResult OnPost()
+        
+        public IActionResult OnPostCreate()
         {
             if (!ModelState.IsValid)
             {
-                // Hvis modellen ikke er gyldig, returner den samme side for at vise fejl
-                Vinyls = _vinylService.GetAllVinyls().ToList(); // Genindlæs liste over vinylplader
+                Vinyls = _vinylService.GetAllVinyls().ToList();
+                return Page();
+            }
+    
+            try
+            {
+                _vinylService.CreateVinyl(NewVinyl);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                ModelState.AddModelError("", "An error occurred while creating the vinyl.");
+                return Page();
+            }
+    
+            return RedirectToPage();
+        }
+
+        public IActionResult OnPostUpdate(int id)
+        {
+            if (!ModelState.IsValid)
+            {
                 return Page();
             }
 
-            // Brug 'CreateVinyl' metode til at tilføje den nye vinyl
-            _vinylService.CreateVinyl(NewVinyl);
+            var vinylToUpdate = _vinylService.GetVinylById(id);
+            if (vinylToUpdate == null)
+            {
+                return NotFound();
+            }
 
-            // Efter tilføjelse, redirect til Vinyls siden for at se den opdaterede liste
             return RedirectToPage();
         }
+
     }
 }

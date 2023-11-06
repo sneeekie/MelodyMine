@@ -1,0 +1,42 @@
+@page
+@model MelodyMine.Pages.OrdersModel
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Formular til at tilføje ny ordre -->
+<form method="post" asp-page-handler="Create">
+    <!-- Tilføj input felter for ordre detaljer -->
+    <!-- ... -->
+    <button type="submit" class="btn btn-primary">Place Order</button>
+</form>
+
+<!-- Tabel over eksisterende ordrer -->
+<table class="table">
+    <thead>
+    <tr>
+        <th>Order ID</th>
+        <th>Email</th>
+        <th>Buy Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var order in Model.Orders)
+    {
+        <tr>
+            <td>@order.OrderId</td>
+            <td>@order.Email</td>
+            <td>@order.BuyDate.ToString("yyyy-MM-dd")</td>
+            <td>
+                <!-- Knapper til at slette -->
+                <form method="post" asp-page-handler="Delete" asp-route-id="@order.OrderId">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

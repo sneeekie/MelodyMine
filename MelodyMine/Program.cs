@@ -14,6 +14,7 @@ builder.Services.AddRazorPages();
 builder.Services.AddScoped<IVinylService, VinylService>();
 builder.Services.AddScoped<ApplicationDbContext>();
 builder.Services.AddScoped<IGenreService, GenreService>();
+builder.Services.AddScoped<IOrderService, OrderService>();
 
 
 
