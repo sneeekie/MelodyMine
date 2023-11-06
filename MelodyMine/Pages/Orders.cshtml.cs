@@ -44,7 +44,8 @@ public class OrdersModel : PageModel
     {  
         var orderToDelete = _orderService.GetSingleOrderBy(id);  
         if (orderToDelete == null)  
-        {        return NotFound();  
+        {        
+            return NotFound();  
         }  
         _orderService.DeleteOrder(orderToDelete);  
   

@@ -14,13 +14,13 @@
         {
             <div class="col-md-4">
                 <div class="card">
-                    @if (vinyl.Covers != null && vinyl.Covers.Any())
+                    @if (vinyl.ImagePath != null && vinyl.ImagePath.Any())
                     {
-                        <img src="@vinyl.Covers.First().Path" class="card-img-top" alt="Cover for @vinyl.Title">
+                        <img src="@vinyl.ImagePath" class="card-img-top" alt="Cover for @vinyl.Title">
                     }
                     <div class="card-body">
                         <h5 class="card-title">@vinyl.Title</h5>
-                        <p class="card-text">@vinyl.Description</p>
+                        <p class="card-text">@vinyl.Artist</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div>kr. @vinyl.Price</div>
                             <button class="btn btn-primary">Buy</button>
