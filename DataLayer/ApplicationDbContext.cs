@@ -1,8 +1,33 @@
 ﻿using DataLayer.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Design;
+using Microsoft.Extensions.Logging;
+
+namespace DataLayer;
+
+public class ApplicationDbContextFactory : IDesignTimeDbContextFactory<ApplicationDbContext>
+{
+    public ApplicationDbContext CreateDbContext(string[] args)
+    {
+        var builder = new DbContextOptionsBuilder<ApplicationDbContext>();
+        builder.UseNpgsql("Host=localhost;Database=MelodyMineDb;Username=Adrian;Password=123456;");
+        return new ApplicationDbContext(builder.Options);
+    }
+}
 
 public class ApplicationDbContext : DbContext
 {
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        if (optionsBuilder.IsConfigured)
+            return;
+        
+        optionsBuilder
+            .LogTo(Console.WriteLine, new[] { DbLoggerCategory.Database.Command.Name }, LogLevel.Information)
+            .EnableSensitiveDataLogging(true)
+            .UseNpgsql("Host=localhost;Database=MelodyMineDb;Username=Adrian;Password=123456;");
+    }
+    
     // DbSet properties
     public DbSet<Vinyl> Vinyls { get; set; }
     public DbSet<Genre> Genres { get; set; }
@@ -29,7 +54,7 @@ public class ApplicationDbContext : DbContext
             .WithMany(o => o.OrderProductDetails)
             .HasForeignKey(opd => opd.OrderId);
 
-        // Many-to-many relation between Vinyl & Genre through VinylGenre
+        // Many-to-many relation between Vinyl & Genre, through VinylGenre
         modelBuilder.Entity<Vinyl>()
             .HasMany(v => v.VinylGenres)
             .WithOne(vg => vg.Vinyl)
@@ -43,7 +68,7 @@ public class ApplicationDbContext : DbContext
         // Seed data
         
         // Seed Admin
-        var admins = new List<
+        
         
         // Seeding Addresses
         var addresses = new List<Address>
@@ -58,6 +83,8 @@ public class ApplicationDbContext : DbContext
         {
             new Genre { GenreId = 1, GenreName = "Alternativ" },
             new Genre { GenreId = 2, GenreName = "HipHop"},
+            new Genre { GenreId = 3, GenreName = "Pop"},
+            new Genre { GenreId = 4, GenreName = "Christmas"}
         };
         modelBuilder.Entity<Genre>().HasData(genres);
 
@@ -65,9 +92,10 @@ public class ApplicationDbContext : DbContext
         var vinyls = new List<Vinyl>
         {
             new Vinyl { VinylId = 1, Title = "Dansktop", Artist = "Ukendt Kunstner", Price = 127, ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/i/m/image001_9__2.jpg" },
-            new Vinyl { VinylId = 2, Title = "My Beautiful Dark Twisted Fantasy", Artist = "Kanye West", Price = 187, ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/d/d/dd049cf1a2c28004de4cd37cb021b315_1.jpg" },
+            new Vinyl { VinylId = 2, Title = "Ye", Artist = "Kanye West", Price = 187, ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/k/a/kanye-west-2018-ye-compact-disc.jpg" },
             new Vinyl { VinylId = 3, Title = "OK Computer", Artist = "Radioheaad", Price = 227, ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/b/f/bfea3555ad38fe476532c5b54f218c09_1.jpg" },
-            // Tilføj yderligere vinylplader her...
+            new Vinyl { VinylId = 4, Title = "Blonde", Artist = "Frank Ocean", Price = 777, ImagePath = "https://best-fit.transforms.svdcdn.com/production/albums/frank-ocean-blond-compressed-0933daea-f052-40e5-85a4-35e07dac73df.jpg?w=469&h=469&q=100&auto=format&fit=crop&dm=1643652677&s=6ef41cb2628eb28d736e27b42635b66e" },
+            new Vinyl { VinylId = 5, Title = "Winter Wonderland", Artist = "Dean Martin", Price = 127, ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/m/o/moby-disc-13-09-2023_10.54.44.png"}
         };
         modelBuilder.Entity<Vinyl>().HasData(vinyls);
 
@@ -91,10 +119,16 @@ public class ApplicationDbContext : DbContext
         var vinylGenres = new List<VinylGenre>
         {
             new VinylGenre { VinylId = 1, GenreId = 1 },
-            new VinylGenre { VinylId = 2, GenreId = 2}
+            new VinylGenre { VinylId = 2, GenreId = 2},
+            new VinylGenre { VinylId = 3, GenreId = 2},
+            new VinylGenre { VinylId = 4, GenreId = 3},
+            new VinylGenre { VinylId = 5, GenreId = 4}
         };
         modelBuilder.Entity<VinylGenre>().HasData(vinylGenres);
-
-        // ...Resten af OnModelCreating...
+    }
+    
+    public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        : base(options)
+    {
     }
 }
