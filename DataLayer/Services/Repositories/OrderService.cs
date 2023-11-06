@@ -28,6 +28,14 @@ public class OrderService : IOrderService
         _ApplicationDbContext.SaveChanges();
     }
     
+    public int CreateAddress(Address address)
+    {
+        _ApplicationDbContext.Addresses.Add(address);
+        _ApplicationDbContext.SaveChanges();
+        
+        return address.AddressId;
+    }
+    
     public void DeleteOrder(Order order)
     {
         var existingOrder = _ApplicationDbContext.Orders.Find(order.OrderId);
@@ -49,12 +57,10 @@ public class OrderService : IOrderService
     
     public Order GetSingleFullOrderBy(int id)
     {
-        Order tempOrder = _ApplicationDbContext.Orders
-            .Where(o => o.OrderId == id)
+        return _ApplicationDbContext.Orders
             .Include(o => o.OrderProductDetails)
-            .FirstOrDefault();
-
-        return tempOrder;
+            .Include(o => o.Address)
+            .FirstOrDefault(o => o.OrderId == id);
     }
     
     public Order GetSingleOrderBy(string email)
@@ -68,12 +74,10 @@ public class OrderService : IOrderService
     
     public Order GetSingleFullOrderBy(string email)
     {
-        Order tempOrder = _ApplicationDbContext.Orders
-            .Where(o => o.Email == email)
+        return _ApplicationDbContext.Orders
             .Include(o => o.OrderProductDetails)
-            .FirstOrDefault();
-
-        return tempOrder;
+            .Include(o => o.Address)
+            .FirstOrDefault(o => o.Email == email);
     }
     
     public void UpdateVinylBy(int orderId, Order newOrder)

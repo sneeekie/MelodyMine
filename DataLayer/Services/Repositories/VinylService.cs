@@ -31,14 +31,11 @@ public class VinylService : IVinylService
     }
 
     
-    public Vinyl GetSingleVinylBy(int id)
+    public Vinyl GetVinylById(int id)
     {
-        Vinyl tempVinyl = _ApplicationDbContext.Vinyls
-            .Where(p => p.VinylId == id)
-            .FirstOrDefault();
-
-        return tempVinyl;
+        return _ApplicationDbContext.Vinyls.FirstOrDefault(v => v.VinylId == id);
     }
+
     
     public Vinyl GetSingleFullVinylBy(int id)
     {

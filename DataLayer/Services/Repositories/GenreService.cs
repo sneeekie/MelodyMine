@@ -39,5 +39,33 @@ public class GenreService : IGenreService
         _ApplicationDbContext.VinylGenres.Add(new VinylGenre { VinylId = VinylId, GenreId = GenreId });
         _ApplicationDbContext.SaveChanges();
     }
+    
+    public void CreateGenre(Genre genre)
+    {
+        _ApplicationDbContext.Genres.Add(genre);
+        _ApplicationDbContext.SaveChanges();
+    }
+    
+    public void UpdateGenre(Genre genre)
+    {
+        var existingGenre = _ApplicationDbContext.Genres.Find(genre.GenreId);
+        if (existingGenre != null)
+        {
+            existingGenre.GenreName = genre.GenreName;
+            _ApplicationDbContext.SaveChanges();
+        }
+    }
+
+    public bool DeleteGenre(int genreId)
+    {
+        var genre = _ApplicationDbContext.Genres.Find(genreId);
+        if (genre != null)
+        {
+            _ApplicationDbContext.Genres.Remove(genre);
+            _ApplicationDbContext.SaveChanges();
+            return true;
+        }
+        return false;
+    }
     #endregion
 }

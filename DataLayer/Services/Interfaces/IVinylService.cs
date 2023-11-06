@@ -6,7 +6,7 @@ public interface IVinylService
 {
     public void CreateVinyl(Vinyl vinyl);
     public void DeleteVinylById(int VinylId);
-    public Vinyl GetSingleVinylBy(int id);
+    public Vinyl GetVinylById(int id);
     public Vinyl GetSingleFullVinylBy(int id);
     public Vinyl GetSingleVinylBy(string title);
     public Vinyl GetSingleFullVinylBy(string title);
