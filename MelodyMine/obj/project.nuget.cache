@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "l5oBmld9I1JSpq1QeqL9xRH6TMEw/Awoj9dUvYSnKYE36P6+vDelnisZfULewTZFNDOKfSzq8ZffXxKWBkjhdQ==",
+  "dgSpecHash": "DqY7Y3FmF68UrBPKa7i73sOgpEnnJJG4WT3sT0h1fVQzF1UGzZD9eQhM4lyNpjGHiQMMGamrPiAuT8eQHS6IGQ==",
   "success": true,
   "projectFilePath": "/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/MelodyMine.csproj",
   "expectedPackageFiles": [
@@ -21,7 +21,9 @@
     "/Users/dkAdIsNu/.nuget/packages/microsoft.extensions.logging/7.0.0/microsoft.extensions.logging.7.0.0.nupkg.sha512",
     "/Users/dkAdIsNu/.nuget/packages/microsoft.extensions.logging.abstractions/7.0.0/microsoft.extensions.logging.abstractions.7.0.0.nupkg.sha512",
     "/Users/dkAdIsNu/.nuget/packages/microsoft.extensions.options/7.0.1/microsoft.extensions.options.7.0.1.nupkg.sha512",
-    "/Users/dkAdIsNu/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512"
+    "/Users/dkAdIsNu/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
+    "/Users/dkAdIsNu/.nuget/packages/npgsql/7.0.6/npgsql.7.0.6.nupkg.sha512",
+    "/Users/dkAdIsNu/.nuget/packages/npgsql.entityframeworkcore.postgresql/7.0.11/npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512"
   ],
   "logs": []
 }

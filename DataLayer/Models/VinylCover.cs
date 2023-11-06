@@ -2,13 +2,11 @@ using System.ComponentModel.DataAnnotations;
 
 namespace DataLayer.Models;
 
-public class Review
+public class VinylCover
 {
-    public int ReviewId { get; set; }
-    public string? ReviewComment { get; set; }
+    public int VinylCoverId { get; set; }
     [Required]
-    [Range(1, 5)]
-    public int NumStars { get; set; }
+    public string Path { get; set; }
     
     // Navigation properties
     [Required]
