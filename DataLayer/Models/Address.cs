@@ -17,4 +17,6 @@ public class Address
     [Required]
     [StringLength(100)]
     public string Street { get; set; }
+    [Required]
+    public long CardNumber { get; set; }
 }

@@ -18,6 +18,7 @@
 <table class="table">
     <thead>
     <tr>
+        <th>Genre ID</th>
         <th>Genre Name</th>
         <th>Actions</th>
     </tr>
@@ -26,6 +27,7 @@
     @foreach (var genre in Model.Genres)
     {
         <tr>
+            <td>@genre.GenreId</td>
             <td>@genre.GenreName</td>
             <td>
                 <!-- Knapper til at redigere/slette -->

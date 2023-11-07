@@ -36,10 +36,15 @@
         <input asp-for="NewOrder.Address.Country" class="form-control" />
         <span asp-validation-for="NewOrder.Address.Country" class="text-danger"></span>
     </div>
+    <div class="form-group mb-2">
+            <label asp-for="NewOrder.Address.CardNumber">CardNumber</label>
+            <input asp-for="NewOrder.Address.CardNumber" class="form-control" />
+            <span asp-validation-for="NewOrder.Address.CardNumber" class="text-danger"></span>
+        </div>
 
     <!-- Order oplysninger -->
     <h4>Order Details</h4>
-    <div class="form-group">
+    <div class="form-group mb-1">
         <label asp-for="NewOrder.Email">Email</label>
         <input asp-for="NewOrder.Email" class="form-control" />
         <span asp-validation-for="NewOrder.Email" class="text-danger"></span>

@@ -23,13 +23,15 @@
 </div>
 
 <!-- Dropdown-menu for Entiteter -->
-<div class="dropdown mt-3">
-  <button class="btn btn-secondary dropdown-toggle mb-1" type="button" id="dropdownMenuButton" data-bs-toggle="dropdown" aria-expanded="false">
-    Administrate Entities
-  </button>
-  <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-    <li><a class="dropdown-item" href="/Genres">Genres</a></li>
-    <li><a class="dropdown-item" href="/Vinyls">Vinyls</a></li>
-    <li><a class="dropdown-item" href="/Orders">Orders</a></li>
-  </ul>
+<br />
+<button class="btn btn-secondary dropdown-toggle mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#dropdownMenuButton" aria-expanded="false" aria-controls="dropdownMenuButton">
+  Administrate Entities
+</button>
+
+<div class="collapse" id="dropdownMenuButton">
+    <div class="card card-body">
+        <a class="dropdown-item" href="/Genres">Genres</a>
+        <a class="dropdown-item" href="/Vinyls">Vinyls</a>
+        <a class="dropdown-item" href="/Orders">Orders</a>
+    </div>
 </div>
