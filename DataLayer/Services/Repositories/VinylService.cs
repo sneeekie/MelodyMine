@@ -44,7 +44,7 @@ public class VinylService : IVinylService
             vinyl.Artist = newVinyl.Artist;
             vinyl.Price = newVinyl.Price;
             vinyl.ImagePath = newVinyl.ImagePath;
-            // Husk at opdatere de genrer, som vinylpladen tilhører, hvis det er nødvendigt.
+            vinyl.GenreId = newVinyl.GenreId;
             _applicationDbContext.SaveChanges();
         }
     }
@@ -156,5 +156,4 @@ public class VinylService : IVinylService
 
         return query;
     }
-
 }
