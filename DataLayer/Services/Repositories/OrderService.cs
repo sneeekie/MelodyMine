@@ -5,42 +5,50 @@ namespace DataLayer.Services;
 
 public class OrderService : IOrderService
 {
-    private readonly ApplicationDbContext _ApplicationDbContext;
+    private readonly ApplicationDbContext _applicationDbContext;
 
     public OrderService(ApplicationDbContext melodyMineService)
     {
-        _ApplicationDbContext = melodyMineService;
+        _applicationDbContext = melodyMineService;
     }
     
     public void CreateOrder(Order order)
     {
-        _ApplicationDbContext.Orders.Add(order);
+        _applicationDbContext.Orders.Add(order);
 
-        _ApplicationDbContext.SaveChanges();
+        _applicationDbContext.SaveChanges();
     }
 
     public void CreateOrderProductDetails(List<OrderProductDetails> orderProductsDetails)
     {
         foreach (OrderProductDetails opd in orderProductsDetails)
         {
-            _ApplicationDbContext.OrderProductDetails.Add(opd);
+            _applicationDbContext.OrderProductDetails.Add(opd);
         }
-        _ApplicationDbContext.SaveChanges();
+        _applicationDbContext.SaveChanges();
+    }
+    
+    public int CreateAddress(Address address)
+    {
+        _applicationDbContext.Addresses.Add(address);
+        _applicationDbContext.SaveChanges();
+        
+        return address.AddressId;
     }
     
     public void DeleteOrder(Order order)
     {
-        var existingOrder = _ApplicationDbContext.Orders.Find(order.OrderId);
+        var existingOrder = _applicationDbContext.Orders.Find(order.OrderId);
         if (existingOrder != null)
         {
-            _ApplicationDbContext.Orders.Remove(existingOrder);
-            _ApplicationDbContext.SaveChanges();
+            _applicationDbContext.Orders.Remove(existingOrder);
+            _applicationDbContext.SaveChanges();
         }
     }
     
     public Order GetSingleOrderBy(int id)
     {
-        Order tempOrder = _ApplicationDbContext.Orders
+        Order tempOrder = _applicationDbContext.Orders
             .Where(o => o.OrderId == id)
             .FirstOrDefault();
 
@@ -49,17 +57,15 @@ public class OrderService : IOrderService
     
     public Order GetSingleFullOrderBy(int id)
     {
-        Order tempOrder = _ApplicationDbContext.Orders
-            .Where(o => o.OrderId == id)
+        return _applicationDbContext.Orders
             .Include(o => o.OrderProductDetails)
-            .FirstOrDefault();
-
-        return tempOrder;
+            .Include(o => o.Address)
+            .FirstOrDefault(o => o.OrderId == id);
     }
     
     public Order GetSingleOrderBy(string email)
     {
-        Order tempOrder = _ApplicationDbContext.Orders
+        Order tempOrder = _applicationDbContext.Orders
             .Where(o => o.Email == email)
             .FirstOrDefault();
 
@@ -68,17 +74,15 @@ public class OrderService : IOrderService
     
     public Order GetSingleFullOrderBy(string email)
     {
-        Order tempOrder = _ApplicationDbContext.Orders
-            .Where(o => o.Email == email)
+        return _applicationDbContext.Orders
             .Include(o => o.OrderProductDetails)
-            .FirstOrDefault();
-
-        return tempOrder;
+            .Include(o => o.Address)
+            .FirstOrDefault(o => o.Email == email);
     }
     
     public void UpdateVinylBy(int orderId, Order newOrder)
     {
-        Order tempOrder = _ApplicationDbContext.Orders
+        Order tempOrder = _applicationDbContext.Orders
             .Where(o => o.OrderId == orderId)
             .FirstOrDefault();
     
@@ -89,12 +93,12 @@ public class OrderService : IOrderService
 
         tempOrder.Email = newOrder.Email;
         tempOrder.BuyDate = newOrder.BuyDate;
-        _ApplicationDbContext.SaveChanges();
+        _applicationDbContext.SaveChanges();
     }
     
     public void UpdateOrderBy(string orderEmail, Order newOrder)
     {
-        Order tempOrder = _ApplicationDbContext.Orders
+        Order tempOrder = _applicationDbContext.Orders
             .Where(o => o.Email == orderEmail)
             .FirstOrDefault();
 
@@ -105,20 +109,20 @@ public class OrderService : IOrderService
 
         tempOrder.Email = newOrder.Email;
         tempOrder.BuyDate = newOrder.BuyDate;
-        _ApplicationDbContext.SaveChanges();
+        _applicationDbContext.SaveChanges();
     }
 
     
     public IQueryable<Order> GetAllOrders()
     {
-        IQueryable<Order> tempOrders = _ApplicationDbContext.Orders;
+        IQueryable<Order> tempOrders = _applicationDbContext.Orders;
 
         return tempOrders;
     }
     
     public IQueryable<Order> GetAllFullOrders()
     {
-        IQueryable<Order> tempOrders = _ApplicationDbContext.Orders
+        IQueryable<Order> tempOrders = _applicationDbContext.Orders
             .Include(o => o.OrderProductDetails);
 
         return tempOrders;

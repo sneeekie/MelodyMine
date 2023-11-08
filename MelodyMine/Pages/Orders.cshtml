@@ -1,0 +1,86 @@
+@page
+@model OrdersModel
+@{
+    ViewData["Title"] = "Orders";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post" asp-page-handler="Create">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <!-- Adresse oplysninger -->
+    <h4>Shipping Address</h4>
+    <div class="form-group">
+        <label asp-for="NewOrder.Address.Street">Street</label>
+        <input asp-for="NewOrder.Address.Street" class="form-control" />
+        <span asp-validation-for="NewOrder.Address.Street" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NewOrder.Address.StreetNumber">Street Number</label>
+        <input asp-for="NewOrder.Address.StreetNumber" class="form-control" />
+        <span asp-validation-for="NewOrder.Address.StreetNumber" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NewOrder.Address.Postal">Postal Code</label>
+        <input asp-for="NewOrder.Address.Postal" class="form-control" />
+        <span asp-validation-for="NewOrder.Address.Postal" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NewOrder.Address.City">City</label>
+        <input asp-for="NewOrder.Address.City" class="form-control" />
+        <span asp-validation-for="NewOrder.Address.City" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <label asp-for="NewOrder.Address.Country">Country</label>
+        <input asp-for="NewOrder.Address.Country" class="form-control" />
+        <span asp-validation-for="NewOrder.Address.Country" class="text-danger"></span>
+    </div>
+    <div class="form-group mb-2">
+            <label asp-for="NewOrder.Address.CardNumber">CardNumber</label>
+            <input asp-for="NewOrder.Address.CardNumber" class="form-control" />
+            <span asp-validation-for="NewOrder.Address.CardNumber" class="text-danger"></span>
+        </div>
+
+    <!-- Order oplysninger -->
+    <h4>Order Details</h4>
+    <div class="form-group mb-1">
+        <label asp-for="NewOrder.Email">Email</label>
+        <input asp-for="NewOrder.Email" class="form-control" />
+        <span asp-validation-for="NewOrder.Email" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit Order</button>
+</form>
+
+<!-- Tabel over eksisterende ordrer -->
+<table class="table">
+    <thead>
+    <tr>
+        <th>Order ID</th>
+        <th>Email</th>
+        <th>Buy Date</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var order in Model.Orders)
+    {
+        <tr>
+            <td>@order.OrderId</td>
+            <td>@order.Email</td>
+            <td>@order.BuyDate.ToString("yyyy-MM-dd")</td>
+            <td>
+                <!-- Knapper til at slette -->
+                <form method="post" asp-page-handler="Delete" asp-route-id="@order.OrderId">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

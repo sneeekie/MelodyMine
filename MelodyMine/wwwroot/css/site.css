@@ -20,3 +20,20 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.btn-shop-now {
+  width: 130px;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+.card-title, .card-text {
+  margin-bottom: 10px;
+}
+
+.custom-card-img {
+  max-width: 200px;
+  max-height: 200px;
+}
+

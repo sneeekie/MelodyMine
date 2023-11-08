@@ -6,6 +6,7 @@ public interface IOrderService
 {
     public void CreateOrder(Order order);
     public void CreateOrderProductDetails(List<OrderProductDetails> orderProductDetails);
+    public int CreateAddress(Address address);
     public void DeleteOrder(Order order);
     public Order GetSingleOrderBy(int id);
     public Order GetSingleFullOrderBy(int id);

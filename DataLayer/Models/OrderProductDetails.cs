@@ -5,10 +5,13 @@ namespace DataLayer.Models;
 public class OrderProductDetails
 {
     public int OrderProductDetailsId { get; set; }
+    
     [Required]
-    public int ProductId { get; set; }
+    public int VinylId { get; set; } 
+
     [Required]
-    public string Name { get; set; }
+    public string Title { get; set; }
+    
     [Required]
     public double Price { get; set; }
     
@@ -16,4 +19,5 @@ public class OrderProductDetails
     [Required]
     public int OrderId { get; set; }
     public Order Order { get; set; }
+    public Vinyl Vinyl { get; set; }
 }
