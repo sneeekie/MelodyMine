@@ -6,7 +6,7 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<!-- Formular til at tilføje ny genre -->
+<!-- Formula for adding a new genre -->
 <form method="post">
     <div class="form-group">
         <input type="text" class="form-control" id="NewGenreName" asp-for="NewGenreName" placeholder="Enter genre name">
@@ -14,7 +14,7 @@
     <button type="submit" class="btn btn-primary mt-1">Add Genre</button>
 </form>
 
-<!-- Liste over Genrer -->
+<!-- List over Genres -->
 <table class="table">
     <thead>
     <tr>
@@ -30,9 +30,9 @@
             <td>@genre.GenreId</td>
             <td>@genre.GenreName</td>
             <td>
-                <!-- Knapper til at redigere/slette -->
+                <!-- Buttons for editing/delete -->
                 <a href="/EditGenre/@genre.GenreId" class="btn btn-secondary">Edit</a>
-                <!-- Sletteformular -->
+                <!-- Delete formula -->
                 <form method="post" asp-page-handler="Delete" asp-route-id="@genre.GenreId" style="display: inline;">
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
