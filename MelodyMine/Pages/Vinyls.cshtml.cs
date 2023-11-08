@@ -71,10 +71,6 @@ namespace MelodyMine.Pages
             }
 
             var vinylToUpdate = _vinylService.GetVinylById(id);
-            if (vinylToUpdate == null)
-            {
-                return NotFound();
-            }
 
             return RedirectToPage();
         }
