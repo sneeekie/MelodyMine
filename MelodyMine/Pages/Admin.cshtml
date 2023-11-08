@@ -1,0 +1,37 @@
+@page
+@model AdminModel
+@{
+    ViewData["Title"] = "Admin";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>Here you'll find information, on how to Administrate our different entities in MelodyMine.</p>
+
+<!-- Info Button with Dropdown -->
+<button class="btn btn-info mb-1 dropdown-toggle" type="button" data-bs-toggle="collapse" data-bs-target="#adminInfo" aria-expanded="false" aria-controls="adminInfo">
+    Admin Workflow Info
+</button>
+
+<div class="collapse" id="adminInfo">
+  <div class="card card-body">
+    1. Check and make sure the entity you are about to add does not already exist in the database. <br>
+    2. Click 'Administrate Entities'. <br>
+    3. Choose between 'Genres', 'Vinyls' & 'Orders'. <br>
+    4. Proceed to fill out the information for the entity. <br>
+  </div>
+</div>
+
+<!-- Dropdown-menu for Entities -->
+<br />
+<button class="btn btn-secondary dropdown-toggle mb-1" type="button" data-bs-toggle="collapse" data-bs-target="#dropdownMenuButton" aria-expanded="false" aria-controls="dropdownMenuButton">
+  Administrate Entities
+</button>
+
+<div class="collapse" id="dropdownMenuButton">
+    <div class="card card-body">
+        <a class="dropdown-item" href="/Genres">Genres</a>
+        <a class="dropdown-item" href="/Vinyls">Vinyls</a>
+        <a class="dropdown-item" href="/Orders">Orders</a>
+    </div>
+</div>

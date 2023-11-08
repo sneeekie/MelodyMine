@@ -1,0 +1,37 @@
+@page "{id:int}"
+@model EditVinylModel
+@{
+    ViewData["Title"] = "Edit Vinyl";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="UpdateModel.VinylId" />
+    <div class="form-group">
+        <label for="VinylName">Album</label>
+        <input type="text" class="form-control" asp-for="UpdateModel.Title" placeholder="Enter vinyl name">
+    </div>
+    <div class="form-group">
+        <label for="VinylArtist">Artist</label>
+        <input type="text" class="form-control" asp-for="UpdateModel.Artist" placeholder="Enter artist name">
+    </div>
+    <div class="form-group">
+        <label for="VinylPrice">Price</label>
+        <input type="number" class="form-control" asp-for="UpdateModel.Price" placeholder="Enter price">
+    </div>
+    <div class="form-group">
+                <label for="VinylImage">Image</label>
+                <input type="text" class="form-control" asp-for="UpdateModel.ImagePath" placeholder="Enter Image path">
+            </div>
+    <div class="form-group">
+        <label for="Genre">Genre</label>
+        <select asp-for="UpdateModel.GenreId" asp-items="Model.GenreOptions" class="form-control">
+            <option value="">-- Select a Genre --</option>
+        </select>
+    </div>
+    
+    <!-- Rest of form -->
+
+    <button type="submit" class="btn btn-primary mt-1">Update Vinyl</button>
+</form>

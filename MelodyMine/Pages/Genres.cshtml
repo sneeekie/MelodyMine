@@ -1,0 +1,43 @@
+@page
+@model GenresModel
+@{
+    ViewData["Title"] = "Manage Genres";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<!-- Formula for adding a new genre -->
+<form method="post">
+    <div class="form-group">
+        <input type="text" class="form-control" id="NewGenreName" asp-for="NewGenreName" placeholder="Enter genre name">
+    </div>
+    <button type="submit" class="btn btn-primary mt-1">Add Genre</button>
+</form>
+
+<!-- List for Genres -->
+<table class="table">
+    <thead>
+    <tr>
+        <th>Genre ID</th>
+        <th>Genre Name</th>
+        <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var genre in Model.Genres)
+    {
+        <tr>
+            <td>@genre.GenreId</td>
+            <td>@genre.GenreName</td>
+            <td>
+                <!-- Buttons for edit/delete -->
+                <a href="/EditGenre/@genre.GenreId" class="btn btn-secondary">Edit</a>
+                <!-- Delete formula -->
+                <form method="post" asp-page-handler="Delete" asp-route-id="@genre.GenreId" style="display: inline;">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

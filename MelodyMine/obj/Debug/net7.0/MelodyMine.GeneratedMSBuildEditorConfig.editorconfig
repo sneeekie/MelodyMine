@@ -16,20 +16,44 @@ build_property.GenerateRazorMetadataSourceChecksumAttributes =
 build_property.MSBuildProjectDirectory = /Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine
 build_property._RazorSourceGeneratorDebug = 
 
+[/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/Admin.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4uY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/EditGenre.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRWRpdEdlbnJlLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/EditVinyl.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRWRpdFZpbnlsLmNzaHRtbA==
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRXJyb3IuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/Genres.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvR2VucmVzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/Privacy.cshtml]
-build_metadata.AdditionalFiles.TargetPath = UGFnZXMvUHJpdmFjeS5jc2h0bWw=
+[/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/Orders.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvT3JkZXJzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hhcmVkL19WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/Shop.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hvcC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/Vinyls.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvVmlueWxzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/_ViewImports.cshtml]

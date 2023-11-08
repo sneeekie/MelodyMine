@@ -158,7 +158,7 @@ namespace xUnitTest
             
             // Arrange
             var service = new VinylService(context);
-            int existingVinylId = 1;
+            var existingVinylId = 1;
 
             // Act
             var result = service.GetSingleVinylBy(existingVinylId);
@@ -175,7 +175,7 @@ namespace xUnitTest
             
             // Arrange
             var service = new VinylService(context);
-            int nonExistingVinylId = 999;
+            var nonExistingVinylId = 999;
 
             // Act
             var result = service.GetSingleVinylBy(nonExistingVinylId);
