@@ -24,13 +24,14 @@
         <label for="ImagePath">Image</label>
         <input type="text" class="form-control" asp-for="NewVinyl.ImagePath" placeholder="Enter Image">
     </div>
-    <div class="form-group">
+    <div class="form-group mb-1">
             <label for="Genre">Genre</label>
             <select asp-for="NewVinyl.GenreId" asp-items="Model.GenreOptions" class="form-control">
                 <option value="">-- Select a Genre --</option>
             </select>
         </div>
     <button type="submit" class="btn btn-primary">Add New Vinyl</button>
+        <a href="/Admin" class="btn btn-secondary">Back</a>
 </form>
 
 <!-- Table for existing vinyls -->
