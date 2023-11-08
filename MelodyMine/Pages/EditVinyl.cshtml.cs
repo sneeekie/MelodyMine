@@ -51,7 +51,7 @@ public class EditVinylModel : PageModel
             
             if (UpdateModel.GenreId.HasValue)
             {
-                _genreService.UpdateVinylGenreLink(UpdateModel.VinylId, UpdateModel.GenreId.Value);
+               await _genreService.UpdateVinylGenreLink(UpdateModel.VinylId, UpdateModel.GenreId.Value);
             }
 
             return RedirectToPage("./Vinyls");
