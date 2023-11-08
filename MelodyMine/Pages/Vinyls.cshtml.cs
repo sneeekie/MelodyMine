@@ -30,7 +30,7 @@ namespace MelodyMine.Pages
         public void OnGet()
         {
             Vinyls = _vinylService.GetAllVinyls().ToList();
-            GenreOptions = new SelectList(_genreService.GetAllGenres(), "GenreId", "GenreName"); // Opret SelectList for genres
+            GenreOptions = new SelectList(_genreService.GetAllGenres(), "GenreId", "GenreName");
 
         }
         
