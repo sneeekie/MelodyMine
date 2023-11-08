@@ -89,19 +89,19 @@ public class VinylService : IVinylService
         // Starter med at indlæse alle vinylplader med deres genrer.
         var query = GetAllFullVinyls();
 
-        // Filtrering baseret på søgeterm.
+        // Filtering based on search
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
             query = query.Where(v => v.Title.Contains(searchTerm));
         }
 
-        // Filtrering baseret på genre.
+        // Filtering based on genre
         if (genreId.HasValue && genreId.Value > 0)
         {
             query = query.Where(v => v.VinylGenres.Any(vg => vg.GenreId == genreId.Value));
         }
 
-        // Sortering baseret på titel eller pris.
+        // Sorted based on title or price
         if (!string.IsNullOrWhiteSpace(filterTitle))
         {
             query = filterTitle == "+" 
