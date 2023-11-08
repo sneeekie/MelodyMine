@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231107161628_AddGenreIdColumn")]
-    partial class AddGenreIdColumn
+    [Migration("20231108094932_Initial")]
+    partial class Initial
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -206,6 +206,7 @@ namespace DataLayer.Migrations
                         {
                             VinylId = 1,
                             Artist = "Ukendt Kunstner",
+                            GenreId = 2,
                             ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/i/m/image001_9__2.jpg",
                             Price = 127.0,
                             Title = "Dansktop"
@@ -214,6 +215,7 @@ namespace DataLayer.Migrations
                         {
                             VinylId = 2,
                             Artist = "Kanye West",
+                            GenreId = 2,
                             ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/k/a/kanye-west-2018-ye-compact-disc.jpg",
                             Price = 187.0,
                             Title = "Ye"
@@ -222,6 +224,7 @@ namespace DataLayer.Migrations
                         {
                             VinylId = 3,
                             Artist = "Radioheaad",
+                            GenreId = 1,
                             ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/b/f/bfea3555ad38fe476532c5b54f218c09_1.jpg",
                             Price = 227.0,
                             Title = "OK Computer"
@@ -230,6 +233,7 @@ namespace DataLayer.Migrations
                         {
                             VinylId = 4,
                             Artist = "Frank Ocean",
+                            GenreId = 3,
                             ImagePath = "https://best-fit.transforms.svdcdn.com/production/albums/frank-ocean-blond-compressed-0933daea-f052-40e5-85a4-35e07dac73df.jpg?w=469&h=469&q=100&auto=format&fit=crop&dm=1643652677&s=6ef41cb2628eb28d736e27b42635b66e",
                             Price = 777.0,
                             Title = "Blonde"
@@ -238,6 +242,7 @@ namespace DataLayer.Migrations
                         {
                             VinylId = 5,
                             Artist = "Dean Martin",
+                            GenreId = 4,
                             ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/m/o/moby-disc-13-09-2023_10.54.44.png",
                             Price = 127.0,
                             Title = "Winter Wonderland"
@@ -316,14 +321,14 @@ namespace DataLayer.Migrations
                         {
                             OrderId = 1,
                             AddressId = 1,
-                            BuyDate = new DateTime(2023, 11, 7, 16, 16, 28, 159, DateTimeKind.Utc).AddTicks(6340),
+                            BuyDate = new DateTime(2023, 11, 8, 9, 49, 32, 425, DateTimeKind.Utc).AddTicks(8840),
                             Email = "john@example.com"
                         },
                         new
                         {
                             OrderId = 2,
                             AddressId = 2,
-                            BuyDate = new DateTime(2023, 11, 7, 16, 16, 28, 159, DateTimeKind.Utc).AddTicks(6350),
+                            BuyDate = new DateTime(2023, 11, 8, 9, 49, 32, 425, DateTimeKind.Utc).AddTicks(8840),
                             Email = "adrian@example.com"
                         });
                 });

@@ -1,4 +1,5 @@
 using DataLayer.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace DataLayer.Services;
 
@@ -70,17 +71,21 @@ public class GenreService : IGenreService
     
     public async Task UpdateVinylGenreLink(int vinylId, int genreId)
     {
-        var vinylGenre = _applicationDbContext.VinylGenres.FirstOrDefault(vg => vg.VinylId == vinylId);
-        if (vinylGenre != null)
+        var vinyl = _applicationDbContext.Vinyls.Include(v => v.VinylGenres).Where(v => v.VinylId == vinylId).FirstOrDefault();
+        
+        //var existingVinylGenres = _applicationDbContext.VinylGenres
+        //    .Where(vg => vg.VinylId == vinylId).ToList();
+        
+        if (vinyl.VinylGenres.Any())
         {
-            vinylGenre.GenreId = genreId;
-            await _applicationDbContext.SaveChangesAsync();
+            vinyl.VinylGenres.Clear();
         }
-        else
-        {
-            _applicationDbContext.VinylGenres.Add(new VinylGenre { VinylId = vinylId, GenreId = genreId });
-            await _applicationDbContext.SaveChangesAsync();
-        }
+        
+        var newVinylGenre = new VinylGenre { VinylId = vinylId, GenreId = genreId };
+        vinyl.VinylGenres.Add(newVinylGenre);
+        
+        await _applicationDbContext.SaveChangesAsync();
     }
+
     #endregion
 }
