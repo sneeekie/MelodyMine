@@ -10,6 +10,7 @@ public interface IGenreService
     public void CreateVinylGenre(int VinylId, int GenreId);
     void CreateGenre(Genre genre);
     void UpdateGenre(Genre genre);
+    Task UpdateVinylGenreLink(int vinylId, int genreId);
     bool DeleteGenre(int genreId);
 
 }

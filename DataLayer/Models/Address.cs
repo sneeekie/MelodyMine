@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
-using DataLayer.Models;
+
+namespace DataLayer.Models;
 
 public class Address
 {

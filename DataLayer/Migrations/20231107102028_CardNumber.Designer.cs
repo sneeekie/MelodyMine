@@ -3,6 +3,7 @@ using System;
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231107102028_CardNumber")]
+    partial class CardNumber
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -22,7 +25,7 @@ namespace DataLayer.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
-            modelBuilder.Entity("DataLayer.Models.Address", b =>
+            modelBuilder.Entity("Address", b =>
                 {
                     b.Property<int>("AddressId")
                         .ValueGeneratedOnAdd()
@@ -180,9 +183,6 @@ namespace DataLayer.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int?>("GenreId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasColumnType("text");
@@ -313,14 +313,14 @@ namespace DataLayer.Migrations
                         {
                             OrderId = 1,
                             AddressId = 1,
-                            BuyDate = new DateTime(2023, 11, 7, 16, 16, 28, 159, DateTimeKind.Utc).AddTicks(6340),
+                            BuyDate = new DateTime(2023, 11, 7, 10, 20, 27, 792, DateTimeKind.Utc).AddTicks(8390),
                             Email = "john@example.com"
                         },
                         new
                         {
                             OrderId = 2,
                             AddressId = 2,
-                            BuyDate = new DateTime(2023, 11, 7, 16, 16, 28, 159, DateTimeKind.Utc).AddTicks(6350),
+                            BuyDate = new DateTime(2023, 11, 7, 10, 20, 27, 792, DateTimeKind.Utc).AddTicks(8390),
                             Email = "adrian@example.com"
                         });
                 });
@@ -365,7 +365,7 @@ namespace DataLayer.Migrations
 
             modelBuilder.Entity("Order", b =>
                 {
-                    b.HasOne("DataLayer.Models.Address", "Address")
+                    b.HasOne("Address", "Address")
                         .WithMany()
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)

@@ -7,6 +7,7 @@ public class Genre
     public int GenreId { get; set; }
     
     [Required]
+    [MinLength(3)]
     public string GenreName { get; set; }
     
     // Navigation property

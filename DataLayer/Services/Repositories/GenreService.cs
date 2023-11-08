@@ -67,5 +67,20 @@ public class GenreService : IGenreService
         }
         return false;
     }
+    
+    public async Task UpdateVinylGenreLink(int vinylId, int genreId)
+    {
+        var vinylGenre = _applicationDbContext.VinylGenres.FirstOrDefault(vg => vg.VinylId == vinylId);
+        if (vinylGenre != null)
+        {
+            vinylGenre.GenreId = genreId;
+            await _applicationDbContext.SaveChangesAsync();
+        }
+        else
+        {
+            _applicationDbContext.VinylGenres.Add(new VinylGenre { VinylId = vinylId, GenreId = genreId });
+            await _applicationDbContext.SaveChangesAsync();
+        }
+    }
     #endregion
 }

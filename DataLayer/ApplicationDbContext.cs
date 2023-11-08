@@ -73,8 +73,8 @@ public class ApplicationDbContext : DbContext
         // Seeding Addresses
         var addresses = new List<Address>
         {
-            new Address { AddressId = 1, Street = "Birkedommervej", StreetNumber = 29, City = "Copenhagen", Postal = 2400, Country = "Denmark" },
-            new Address { AddressId = 2, Street = "Dronningsgade", StreetNumber = 8, City = "Fredericia", Postal = 7000, Country = "Denmark"}
+            new Address { AddressId = 1, Street = "Birkedommervej", StreetNumber = 29, City = "Copenhagen", Postal = 2400, Country = "Denmark", CardNumber = 1244444444444444},
+            new Address { AddressId = 2, Street = "Dronningsgade", StreetNumber = 8, City = "Fredericia", Postal = 7000, Country = "Denmark", CardNumber = 1331131331131331}
         };
         modelBuilder.Entity<Address>().HasData(addresses);
 
@@ -115,7 +115,7 @@ public class ApplicationDbContext : DbContext
         };
         modelBuilder.Entity<OrderProductDetails>().HasData(orderDetails);
 
-        // Seeding VinylGenres (relation mellem Vinyl og Genre)
+        // Seeding VinylGenres (relation between Vinyl & Genre)
         var vinylGenres = new List<VinylGenre>
         {
             new VinylGenre { VinylId = 1, GenreId = 1 },
