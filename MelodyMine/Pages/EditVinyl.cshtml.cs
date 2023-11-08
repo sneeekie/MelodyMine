@@ -59,6 +59,7 @@ public class EditVinylModel : PageModel
         catch (Exception ex)
         {
             ModelState.AddModelError("", $"Error while updating vinyl or genre: {ex.Message}");
+
             GenreOptions = new SelectList(_genreService.GetAllGenres(), "GenreId", "GenreName", UpdateModel.GenreId);
             return Page();
         }
