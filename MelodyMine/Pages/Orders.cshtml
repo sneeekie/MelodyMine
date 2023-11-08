@@ -9,7 +9,7 @@
 <form method="post" asp-page-handler="Create">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-    <!-- Address info -->
+    <!-- Address Info -->
     <h4>Shipping Address</h4>
     <div class="form-group">
         <label asp-for="NewOrder.Address.Street">Street</label>
@@ -53,7 +53,7 @@
     <button type="submit" class="btn btn-primary">Submit Order</button>
 </form>
 
-<!-- Table for existing ordres -->
+<!-- Table for existing orders -->
 <table class="table">
     <thead>
     <tr>
@@ -71,7 +71,7 @@
             <td>@order.Email</td>
             <td>@order.BuyDate.ToString("yyyy-MM-dd")</td>
             <td>
-                <!-- Button for deleting -->
+                <!-- Button for delete -->
                 <form method="post" asp-page-handler="Delete" asp-route-id="@order.OrderId">
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>

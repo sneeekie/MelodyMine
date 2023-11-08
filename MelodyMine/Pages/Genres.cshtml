@@ -14,7 +14,7 @@
     <button type="submit" class="btn btn-primary mt-1">Add Genre</button>
 </form>
 
-<!-- List over Genres -->
+<!-- List for Genres -->
 <table class="table">
     <thead>
     <tr>
@@ -30,7 +30,7 @@
             <td>@genre.GenreId</td>
             <td>@genre.GenreName</td>
             <td>
-                <!-- Buttons for editing/delete -->
+                <!-- Buttons for edit/delete -->
                 <a href="/EditGenre/@genre.GenreId" class="btn btn-secondary">Edit</a>
                 <!-- Delete formula -->
                 <form method="post" asp-page-handler="Delete" asp-route-id="@genre.GenreId" style="display: inline;">
