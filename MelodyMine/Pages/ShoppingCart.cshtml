@@ -3,7 +3,7 @@
 
 <div class="row">
     <div class="col-md-6">
-        <h2>Enter billing address</h2>
+        <h2>Shipping address</h2>
         <form method="post">
             <div class="form-group">
                 <label asp-for="NewAddress.Street">Street</label>
@@ -30,27 +30,25 @@
                 <input asp-for="NewAddress.Country" class="form-control" />
                 <span asp-validation-for="NewAddress.Country" class="text-danger"></span>
             </div>
-            <h3>Personal information</h3>
+            <h3>Order details</h3>
+            <div class="form-group mb-2">
+                <label asp-for="NewOrder.Email">E-mail</label>
+                <input asp-for="NewOrder.Email" class="form-control" />
+                <span asp-validation-for="NewOrder.Email" class="text-danger"></span>
+                </div>
             <div class="form-group">
                 <label asp-for="NewAddress.CardNumber">Card number</label>
                 <input asp-for="NewAddress.CardNumber" class="form-control" />
                 <span asp-validation-for="NewAddress.CardNumber" class="text-danger"></span>
             </div>
-            <div class="form-group mb-2">
-                <label asp-for="NewOrder.Email">E-mail</label>
-                <input asp-for="NewOrder.Email" class="form-control" />
-                <span asp-validation-for="NewOrder.Email" class="text-danger"></span>
-            </div>
-            
-            <button type="submit" class="btn btn-primary">Order</button>
-        </form>
+            </form>
     </div>
     <div class="col-md-6">
         <h2>ShoppingCart</h2>
         <p>I will display my Shopping Basket here.</p>
         <div class="shopping-cart-footer">
-            <button href="/Products" class="btn btn-info">Continue Shopping</button>
-            <button href="/Complete" class="btn btn-success">Checkout</button>
+            <a href="/Shop" class="btn btn-info">Continue Shopping</a>
+            <a href="/Complete" class="btn btn-success">Checkout</a>
         </div>
         </div>
 </div>
