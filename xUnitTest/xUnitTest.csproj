@@ -26,6 +26,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\DataLayer\DataLayer.csproj" />
+      <ProjectReference Include="..\MelodyMine\MelodyMine.csproj" />
     </ItemGroup>
 
 </Project>
