@@ -25,8 +25,7 @@ public class GenresModel : PageModel
     {
         Genres = _genreService.GetAllGenres().ToList();
     }
-
-    // Add Genre
+    
     public IActionResult OnPostAsync()
     {
         if (!ModelState.IsValid)
@@ -38,7 +37,6 @@ public class GenresModel : PageModel
         return RedirectToPage();
     }
     
-    // Delete Genre
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
         bool result = _genreService.DeleteGenre(id);
