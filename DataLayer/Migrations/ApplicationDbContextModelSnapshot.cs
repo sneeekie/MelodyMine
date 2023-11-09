@@ -78,6 +78,16 @@ namespace DataLayer.Migrations
                             Postal = 7000,
                             Street = "Dronningsgade",
                             StreetNumber = 8
+                        },
+                        new
+                        {
+                            AddressId = 3,
+                            CardNumber = 1331751331131331L,
+                            City = "Fredericia",
+                            Country = "Denmark",
+                            Postal = 7000,
+                            Street = "Kongensgade",
+                            StreetNumber = 2
                         });
                 });
 
@@ -162,9 +172,17 @@ namespace DataLayer.Migrations
                         {
                             OrderProductDetailsId = 2,
                             OrderId = 2,
+                            Price = 187.0,
+                            Title = "Ye",
+                            VinylId = 2
+                        },
+                        new
+                        {
+                            OrderProductDetailsId = 3,
+                            OrderId = 3,
                             Price = 227.0,
                             Title = "OK Computer",
-                            VinylId = 2
+                            VinylId = 3
                         });
                 });
 
@@ -318,15 +336,22 @@ namespace DataLayer.Migrations
                         {
                             OrderId = 1,
                             AddressId = 1,
-                            BuyDate = new DateTime(2023, 11, 8, 9, 49, 32, 425, DateTimeKind.Utc).AddTicks(8840),
+                            BuyDate = new DateTime(2023, 11, 9, 8, 16, 29, 116, DateTimeKind.Utc).AddTicks(4130),
                             Email = "john@example.com"
                         },
                         new
                         {
                             OrderId = 2,
                             AddressId = 2,
-                            BuyDate = new DateTime(2023, 11, 8, 9, 49, 32, 425, DateTimeKind.Utc).AddTicks(8840),
+                            BuyDate = new DateTime(2023, 11, 9, 8, 16, 29, 116, DateTimeKind.Utc).AddTicks(4130),
                             Email = "adrian@example.com"
+                        },
+                        new
+                        {
+                            OrderId = 3,
+                            AddressId = 3,
+                            BuyDate = new DateTime(2023, 11, 9, 8, 16, 29, 116, DateTimeKind.Utc).AddTicks(4140),
+                            Email = "nikolaj@example.com"
                         });
                 });
 

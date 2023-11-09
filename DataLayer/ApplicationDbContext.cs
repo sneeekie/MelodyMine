@@ -71,7 +71,7 @@ public class ApplicationDbContext : DbContext
         var addresses = new List<Address>
         {
             new Address { AddressId = 1, Street = "Birkedommervej", StreetNumber = 29, City = "Copenhagen", Postal = 2400, Country = "Denmark", CardNumber = 1244444444444444},
-            new Address { AddressId = 2, Street = "Dronningsgade", StreetNumber = 8, City = "Fredericia", Postal = 7000, Country = "Denmark", CardNumber = 1331131331131331}
+            new Address { AddressId = 2, Street = "Dronningsgade", StreetNumber = 8, City = "Fredericia", Postal = 7000, Country = "Denmark", CardNumber = 1331131331131331},
         };
         modelBuilder.Entity<Address>().HasData(addresses);
 
@@ -108,7 +108,7 @@ public class ApplicationDbContext : DbContext
         var orderDetails = new List<OrderProductDetails>
         {
             new OrderProductDetails { OrderProductDetailsId = 1, OrderId = 1, VinylId = 1, Title = "Dansktop", Price = 127 },
-            new OrderProductDetails { OrderProductDetailsId = 2, OrderId = 2, VinylId = 2, Title = "OK Computer", Price = 227 },
+            new OrderProductDetails { OrderProductDetailsId = 2, OrderId = 2, VinylId = 2, Title = "Ye", Price = 187 },
         };
         modelBuilder.Entity<OrderProductDetails>().HasData(orderDetails);
 
