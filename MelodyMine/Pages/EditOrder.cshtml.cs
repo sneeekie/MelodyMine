@@ -26,10 +26,6 @@ public class EditOrderModel : PageModel
     public async Task<IActionResult> OnGetAsync(int id)
     {
         Order = _orderService.GetSingleFullOrderBy(id);
-        if (Order == null)
-        {
-            return NotFound();
-        }
 
         OrderProductDetails = new List<OrderProductDetails>(Order.OrderProductDetails);
         return Page();

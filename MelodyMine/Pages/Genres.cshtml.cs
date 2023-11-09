@@ -42,11 +42,7 @@ public class GenresModel : PageModel
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
         bool result = _genreService.DeleteGenre(id);
-        if (!result)
-        {
-            return NotFound();
-        }
-
+        
         return RedirectToPage();
     }
 

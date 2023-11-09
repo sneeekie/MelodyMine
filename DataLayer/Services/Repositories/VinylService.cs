@@ -168,4 +168,23 @@ public class VinylService : IVinylService
             _ => null
         };
     }
+    
+    public PaginatedResult<Vinyl> GetPaginatedVinyls(int currentPage, int pageSize, string searchTerm, int? genreId, string titleSort, string priceSort)
+    {
+        var query = FilterVinyls(searchTerm, genreId, titleSort, priceSort);
+        var totalRecords = query.Count();
+
+        var items = query
+            .OrderBy(v => v.VinylId)
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        return new PaginatedResult<Vinyl>
+        {
+            Items = items,
+            CurrentPage = currentPage,
+            TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize)
+        };
+    }
 }

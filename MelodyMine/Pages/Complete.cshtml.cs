@@ -18,10 +18,5 @@ public class CompleteModel : PageModel
     public void OnGet(int orderId)
     {
         Order = _orderService.GetSingleFullOrderBy(orderId);
-
-        if (Order == null)
-        {
-        }
-        
     }
 }

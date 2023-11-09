@@ -12,7 +12,7 @@ public class OrderService : IOrderService
         _applicationDbContext = melodyMineService;
     }
     
-    public void CreateOrder(Order order)
+    public void CreateOrder(Order? order)
     {
         _applicationDbContext.Orders.Add(order);
 
@@ -36,7 +36,7 @@ public class OrderService : IOrderService
         return address.AddressId;
     }
     
-    public void DeleteOrder(Order order)
+    public void DeleteOrder(Order? order)
     {
         var existingOrder = _applicationDbContext.Orders.Find(order.OrderId);
         if (existingOrder != null)
@@ -46,11 +46,10 @@ public class OrderService : IOrderService
         }
     }
     
-    public Order GetSingleOrderBy(int id)
+    public Order? GetSingleOrderBy(int id)
     {
-        Order tempOrder = _applicationDbContext.Orders
-            .Where(o => o.OrderId == id)
-            .FirstOrDefault();
+        Order? tempOrder = _applicationDbContext.Orders
+            .FirstOrDefault(o => o.OrderId == id);
 
         return tempOrder;
     }
@@ -66,8 +65,7 @@ public class OrderService : IOrderService
     public Order GetSingleOrderBy(string email)
     {
         Order tempOrder = _applicationDbContext.Orders
-            .Where(o => o.Email == email)
-            .FirstOrDefault();
+            .FirstOrDefault(o => o.Email == email);
 
         return tempOrder;
     }
@@ -79,12 +77,11 @@ public class OrderService : IOrderService
             .Include(o => o.Address)
             .FirstOrDefault(o => o.Email == email);
     }
-    
+
     public void UpdateOrderById(int orderId, Order newOrder)
     {
         Order tempOrder = _applicationDbContext.Orders
-            .Where(o => o.OrderId == orderId)
-            .FirstOrDefault();
+            .FirstOrDefault(o => o.OrderId == orderId);
     
         if (tempOrder == null)
         {
@@ -99,8 +96,7 @@ public class OrderService : IOrderService
     public void UpdateOrderByEmail(string orderEmail, Order newOrder)
     {
         Order tempOrder = _applicationDbContext.Orders
-            .Where(o => o.Email == orderEmail)
-            .FirstOrDefault();
+            .FirstOrDefault(o => o.Email == orderEmail);
 
         if (tempOrder == null)
         {
@@ -113,9 +109,9 @@ public class OrderService : IOrderService
     }
 
     
-    public IQueryable<Order> GetAllOrders()
+    public IQueryable<Order?> GetAllOrders()
     {
-        IQueryable<Order> tempOrders = _applicationDbContext.Orders;
+        IQueryable<Order?> tempOrders = _applicationDbContext.Orders;
 
         return tempOrders;
     }

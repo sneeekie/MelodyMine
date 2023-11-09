@@ -26,11 +26,8 @@ namespace MelodyMine.Pages
                 GenreId = genre.GenreId,
                 GenreName = genre.GenreName
             };
-
             return Page();
         }
-
-
 
         public IActionResult OnPost()
         {

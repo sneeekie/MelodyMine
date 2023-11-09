@@ -32,7 +32,7 @@ public class ApplicationDbContext : DbContext
     public DbSet<Vinyl> Vinyls { get; set; }
     public DbSet<Genre> Genres { get; set; }
     public DbSet<Address> Addresses { get; set; }
-    public DbSet<Order> Orders { get; set; }
+    public DbSet<Order?> Orders { get; set; }
     public DbSet<OrderProductDetails> OrderProductDetails { get; set; }
     public DbSet<VinylGenre> VinylGenres { get; set; }
 

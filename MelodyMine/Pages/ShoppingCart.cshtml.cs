@@ -18,7 +18,7 @@ public class ShoppingCartModel : PageModel
     public Address NewAddress { get; set; } = new Address();
 
     [BindProperty]
-    public Order NewOrder { get; set; } = new Order();
+    public Order? NewOrder { get; set; } = new Order();
 
     public void OnGet()
     {

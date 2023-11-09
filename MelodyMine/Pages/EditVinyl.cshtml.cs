@@ -27,11 +27,6 @@ public class EditVinylModel : PageModel
     public void OnGet(int id)
     {
         var vinyl = _vinylService.GetVinylById(id);
-        if (vinyl == null)
-        {
-            RedirectToPage("./NotFound");
-            return;
-        }
 
         UpdateModel = vinyl;
         GenreOptions = new SelectList(_genreService.GetAllGenres(), "GenreId", "GenreName", UpdateModel.GenreId);
