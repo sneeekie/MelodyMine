@@ -1,4 +1,4 @@
-# `Melody Mine`
+# `MelodyMine`
 
 ## Introduction
 
