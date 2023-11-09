@@ -8,6 +8,39 @@
 
 <p>Use this page for shopping Vinyls!</p>
 
+<form method="get">
+    <div class="form-row">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Title" name="searchTerm" value="@Model.SearchTerm">
+        </div>
+        <div class="col">
+            <select class="form-control" name="genreId" asp-for="GenreId" asp-items="@(new SelectList(Model.Genres,"GenreId","GenreName"))">
+                <option value="">-- Select Genre --</option>
+            </select>
+        </div>
+        <!-- Title Sort Dropdown -->
+        <div class="col">
+            <select class="form-control" name="titleSort" asp-for="TitleSort">
+                <option value="">Sort by Title</option>
+                <option value="Ascending">A - Z</option>
+                <option value="Descending">Z - A</option>
+            </select>
+        </div>
+        <!-- Price Sort Dropdown -->
+        <div class="col">
+            <select class="form-control" name="priceSort" asp-for="PriceSort">
+                <option value="">Sort by Price</option>
+                <option value="Ascending">Low to High</option>
+                <option value="Descending">High to Low</option>
+            </select>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary">Search</button>
+        </div>
+    </div>
+</form>
+
+
 <div class="container-fluid mt-4">
     <div class="row">
         @foreach (var vinyl in Model.Vinyls)

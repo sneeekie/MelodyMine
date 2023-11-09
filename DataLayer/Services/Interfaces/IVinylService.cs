@@ -13,5 +13,10 @@ public interface IVinylService
     public IQueryable<Vinyl> GetAllFullVinyls();
     public IQueryable<Vinyl> GetAllFullVinylsPaged(int currentPage, int pageSize);
     public IQueryable<Vinyl> FilterVinylsPaged(int currentPage, int pageSize, string? SearchTerm, int? GenreId, string? FilterTitle, string? Price);
-    public IQueryable<Vinyl> FilterVinyls(string? SearchTerm, int? GenreId, string? FilterTitle, string? Price);
+
+    public IQueryable<Vinyl> FilterVinyls(
+        string searchTerm,
+        int? genreId,
+        string titleSort,
+        string priceSort);
 }
