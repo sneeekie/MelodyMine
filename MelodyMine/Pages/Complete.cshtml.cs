@@ -21,8 +21,6 @@ public class CompleteModel : PageModel
 
         if (Order == null)
         {
-            // Håndter tilfælde, hvor ordren ikke findes
-            // F.eks. Redirect til en fejlside eller vis en fejlbesked
         }
         
     }

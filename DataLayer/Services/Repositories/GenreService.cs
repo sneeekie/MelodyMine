@@ -72,10 +72,6 @@ public class GenreService : IGenreService
     public async Task UpdateVinylGenreLink(int vinylId, int genreId)
     {
         var vinyl = _applicationDbContext.Vinyls.Include(v => v.VinylGenres).Where(v => v.VinylId == vinylId).FirstOrDefault();
-        
-        //var existingVinylGenres = _applicationDbContext.VinylGenres
-        //    .Where(vg => vg.VinylId == vinylId).ToList();
-        
         if (vinyl.VinylGenres.Any())
         {
             vinyl.VinylGenres.Clear();

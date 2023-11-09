@@ -35,7 +35,6 @@
         <label for="AddressCardNumber">Card number</label>
         <input type="text" class="form-control" asp-for="Order.Address.CardNumber" placeholder="Enter card number">
     </div>
-    <!-- Add the rest of the address fields in a similar fashion -->
     
     <!-- Order Form Fields -->
     <h4>Order Details</h4>
@@ -58,7 +57,6 @@
             <label for="@($"OrderProductDetails_{i}__Price")">Price</label>
             <input type="number" step="0.01" class="form-control" asp-for="@Model.OrderProductDetails[i].Price">
         </div>
-        <!-- Add more fields as needed -->
     }
     
     <button type="submit" class="btn btn-primary mt-1">Save Changes</button>
