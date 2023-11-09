@@ -28,11 +28,12 @@
                 <form method="post" asp-page-handler="Delete" asp-route-id="@order.OrderId" style="display: inline;">
                     <button type="submit" class="btn btn-danger">Delete</button>
                 </form>
-                </td>
+            </td>
         </tr>
     }
     </tbody>
 </table>
+<a href="/Admin" class="btn btn-secondary mt-1">Back</a>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />

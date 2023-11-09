@@ -80,7 +80,7 @@ public class OrderService : IOrderService
             .FirstOrDefault(o => o.Email == email);
     }
     
-    public void UpdateVinylBy(int orderId, Order newOrder)
+    public void UpdateOrderById(int orderId, Order newOrder)
     {
         Order tempOrder = _applicationDbContext.Orders
             .Where(o => o.OrderId == orderId)
@@ -96,7 +96,7 @@ public class OrderService : IOrderService
         _applicationDbContext.SaveChanges();
     }
     
-    public void UpdateOrderBy(string orderEmail, Order newOrder)
+    public void UpdateOrderByEmail(string orderEmail, Order newOrder)
     {
         Order tempOrder = _applicationDbContext.Orders
             .Where(o => o.Email == orderEmail)
@@ -126,6 +126,34 @@ public class OrderService : IOrderService
             .Include(o => o.OrderProductDetails);
 
         return tempOrders;
+    }
+    
+    public void UpdateAddress(int addressId, Address newAddress)
+    {
+        var address = _applicationDbContext.Addresses.Find(addressId);
+        if (address != null)
+        {
+            _applicationDbContext.Entry(address).CurrentValues.SetValues(newAddress);
+            _applicationDbContext.SaveChanges();
+        }
+    }
+    
+    public void UpdateOrderProductDetails(List<OrderProductDetails> newOrderProductDetails)
+    {
+        foreach (var opd in newOrderProductDetails)
+        {
+            var existingOpd = _applicationDbContext.OrderProductDetails.Find(opd.OrderProductDetailsId);
+            if (existingOpd != null)
+            {
+                _applicationDbContext.Entry(existingOpd).CurrentValues.SetValues(opd);
+            }
+        }
+        _applicationDbContext.SaveChanges();
+    }
+    
+    public bool OrderExists(int id)
+    {
+        return _applicationDbContext.Orders.Any(e => e.OrderId == id);
     }
     
 }

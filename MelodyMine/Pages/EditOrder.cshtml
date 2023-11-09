@@ -1,0 +1,66 @@
+@page "{id:int}"
+@model EditOrderModel
+
+@{
+    ViewData["Title"] = "Edit Order";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<form method="post">
+    <!-- Address Form Fields -->
+    <h4>Address</h4>
+    <input type="hidden" asp-for="Order.Address.AddressId" />
+    <div class="form-group">
+        <label for="AddressStreet">Street</label>
+        <input type="text" class="form-control" asp-for="Order.Address.Street" placeholder="Enter street">
+    </div>
+    <div class="form-group">
+        <label for="AddressStreetNumber">Street Number</label>
+        <input type="number" class="form-control" asp-for="Order.Address.StreetNumber" placeholder="Enter street number">
+    </div>
+    <div class="form-group">
+        <label for="AddressPostal">Postal</label>
+        <input type="number" class="form-control" asp-for="Order.Address.Postal" placeholder="Enter postal">
+    </div>
+    <div class="form-group">
+        <label for="AddressCity">City</label>
+        <input type="text" class="form-control" asp-for="Order.Address.City" placeholder="Enter city">
+    </div>
+    <div class="form-group">
+        <label for="AddressCountry">Country</label>
+        <input type="text" class="form-control" asp-for="Order.Address.Country" placeholder="Enter country">
+    </div>
+    <div class="form-group">
+        <label for="AddressCardNumber">Card number</label>
+        <input type="text" class="form-control" asp-for="Order.Address.CardNumber" placeholder="Enter card number">
+    </div>
+    <!-- Add the rest of the address fields in a similar fashion -->
+    
+    <!-- Order Form Fields -->
+    <h4>Order Details</h4>
+    <input type="hidden" asp-for="Order.OrderId" />
+    <div class="form-group">
+        <label for="OrderEmail">Email</label>
+        <input type="email" class="form-control" asp-for="Order.Email" placeholder="Enter email">
+    </div>
+    
+    <!-- OrderProductDetails Form Fields -->
+    <h4>Order Products</h4>
+    @for (int i = 0; i < Model.OrderProductDetails.Count; i++)
+    {
+        <input type="hidden" asp-for="@Model.OrderProductDetails[i].OrderProductDetailsId" />
+        <div class="form-group">
+            <label for="@($"OrderProductDetails_{i}__Title")">Product Title</label>
+            <input type="text" class="form-control" asp-for="@Model.OrderProductDetails[i].Title">
+        </div>
+        <div class="form-group">
+            <label for="@($"OrderProductDetails_{i}__Price")">Price</label>
+            <input type="number" step="0.01" class="form-control" asp-for="@Model.OrderProductDetails[i].Price">
+        </div>
+        <!-- Add more fields as needed -->
+    }
+    
+    <button type="submit" class="btn btn-primary mt-1">Save Changes</button>
+    <a href="/Orders" class="btn btn-secondary mt-1">Back</a>
+</form>
