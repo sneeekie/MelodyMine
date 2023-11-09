@@ -11,24 +11,29 @@
     <div class="form-group mb-1 fw-bold">
         <label for="Title">Title</label>
         <input type="text" class="form-control" asp-for="NewVinyl.Title" placeholder="Enter title">
+        <span asp-validation-for="NewVinyl.Title" class="text-danger"></span>
     </div>
     <div class="form-group mb-1 fw-bold">
         <label for="Artist">Artist</label>
         <input type="text" class="form-control" asp-for="NewVinyl.Artist" placeholder="Enter artist"></input>
+        <span asp-validation-for="NewVinyl.Artist" class="text-danger"></span>
     </div>
     <div class="form-group mb-1 fw-bold">
         <label for="Price">Price</label>
         <input type="number" class="form-control" asp-for="NewVinyl.Price" placeholder="Enter price">
+        <span asp-validation-for="NewVinyl.Price" class="text-danger"></span>
     </div>
     <div class="form-group mb-1 fw-bold">
         <label for="ImagePath">Image</label>
         <input type="text" class="form-control" asp-for="NewVinyl.ImagePath" placeholder="Enter Image">
+        <span asp-validation-for="NewVinyl.ImagePath" class="text-danger"></span>
     </div>
     <div class="form-group mb-1">
             <label for="Genre">Genre</label>
-            <select asp-for="NewVinyl.GenreId" asp-items="Model.GenreOptions" class="form-control">
-                <option value="">-- Select a Genre --</option>
-            </select>
+        <select asp-for="NewVinyl.GenreId" asp-items="Model.GenreOptions" class="form-control">
+            <option value="">-- Select a Genre --</option>
+        </select>
+        <span asp-validation-for="NewVinyl.GenreId" class="text-danger"></span>
         </div>
     <button type="submit" class="btn btn-primary">Add New Vinyl</button>
         <a href="/Admin" class="btn btn-secondary">Back</a>
@@ -67,3 +72,7 @@
     }
     </tbody>
 </table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
