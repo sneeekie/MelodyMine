@@ -69,7 +69,6 @@ public class VinylService : IVinylService
     
     public IQueryable<Vinyl> GetAllFullVinyls()
     {
-        // Antager at "full vinyls" refererer til vinylplader med deres genrer indlæst.
         return _applicationDbContext.Vinyls
             .Include(v => v.VinylGenres)
             .ThenInclude(vg => vg.Genre);
@@ -77,7 +76,6 @@ public class VinylService : IVinylService
     
     public IQueryable<Vinyl> GetAllFullVinylsPaged(int currentPage, int pageSize)
     {
-        // Paginering anvendes på det fulde sæt af vinylplader.
         return GetAllFullVinyls()
             .OrderBy(v => v.VinylId)
             .Skip((currentPage - 1) * pageSize)
@@ -86,22 +84,17 @@ public class VinylService : IVinylService
     
     public IQueryable<Vinyl> FilterVinylsPaged(int currentPage, int pageSize, string? searchTerm, int? genreId, string? filterTitle, string? price)
     {
-        // Starter med at indlæse alle vinylplader med deres genrer.
         var query = GetAllFullVinyls();
-
-        // Filtering based on search
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
             query = query.Where(v => v.Title.Contains(searchTerm));
         }
-
-        // Filtering based on genre
+        
         if (genreId.HasValue && genreId.Value > 0)
         {
             query = query.Where(v => v.VinylGenres.Any(vg => vg.GenreId == genreId.Value));
         }
-
-        // Sorted based on title or price
+        
         if (!string.IsNullOrWhiteSpace(filterTitle))
         {
             query = filterTitle == "+" 
@@ -115,8 +108,6 @@ public class VinylService : IVinylService
                 ? query.OrderBy(v => v.Price) 
                 : query.OrderByDescending(v => v.Price);
         }
-
-        // Paginering anvendt til sidst.
         return query
             .Skip((currentPage - 1) * pageSize)
             .Take(pageSize);
@@ -124,22 +115,18 @@ public class VinylService : IVinylService
     
     public IQueryable<Vinyl> FilterVinyls(string? searchTerm, int? genreId, string? filterTitle, string? price)
     {
-        // Start med at indlæse alle vinylplader med deres genrer.
         IQueryable<Vinyl> query = _applicationDbContext.Vinyls.Include(v => v.VinylGenres).ThenInclude(vg => vg.Genre);
-
-        // Filtrering baseret på søgeterm.
+        
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
             query = query.Where(v => v.Title.Contains(searchTerm));
         }
-
-        // Filtrering baseret på genre.
+        
         if (genreId.HasValue && genreId.Value > 0)
         {
             query = query.Where(v => v.VinylGenres.Any(vg => vg.GenreId == genreId.Value));
         }
-
-        // Sortering baseret på titel eller pris.
+        
         if (!string.IsNullOrWhiteSpace(filterTitle))
         {
             query = filterTitle == "+"

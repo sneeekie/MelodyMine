@@ -65,7 +65,7 @@ public class ApplicationDbContext : DbContext
             .WithOne(vg => vg.Genre)
             .HasForeignKey(vg => vg.GenreId);
 
-        // Seed data
+        #region DataSeeding
         
         // Seeding Addresses
         var addresses = new List<Address>
@@ -122,8 +122,9 @@ public class ApplicationDbContext : DbContext
             new VinylGenre { VinylId = 5, GenreId = 4}
         };
         modelBuilder.Entity<VinylGenre>().HasData(vinylGenres);
+        
+        #endregion
     }
-    
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
         : base(options)
     {
