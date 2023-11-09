@@ -7,10 +7,10 @@ public class Address
     public int AddressId { get; set; }
     
     [Required(ErrorMessage = "Postal code is required.")]
-    public int Postal { get; set; }
+    public int? Postal { get; set; }
     
     [Required(ErrorMessage = "Street number is required.")]
-    public int StreetNumber { get; set; }
+    public int? StreetNumber { get; set; }
     
     [Required(ErrorMessage = "City is required.")]
     public string City { get; set; }
