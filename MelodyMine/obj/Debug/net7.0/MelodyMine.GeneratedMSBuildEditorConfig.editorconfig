@@ -20,6 +20,10 @@ build_property._RazorSourceGeneratorDebug =
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQWRtaW4uY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
+[/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/Complete.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvQ29tcGxldGUuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
 [/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/EditGenre.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvRWRpdEdlbnJlLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
@@ -50,6 +54,10 @@ build_metadata.AdditionalFiles.CssScope =
 
 [/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/Shop.cshtml]
 build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hvcC5jc2h0bWw=
+build_metadata.AdditionalFiles.CssScope = 
+
+[/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/ShoppingCart.cshtml]
+build_metadata.AdditionalFiles.TargetPath = UGFnZXMvU2hvcHBpbmdDYXJ0LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
 [/Users/dkAdIsNu/dev/skole/MelodyMine/MelodyMine/Pages/Vinyls.cshtml]

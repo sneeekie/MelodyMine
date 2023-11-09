@@ -1,0 +1,24 @@
+@page "/Complete/{orderId:int}"
+@model CompleteModel
+@{
+    ViewData["Title"] = "Checkout Completed";
+    var OrderId = Model.Order.OrderId;
+    var Email = Model.Order.Email;
+}
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card text-center">
+                <div class="card-header">
+                    <h2>Thank You for Your Order!</h2>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">Your order has been successfully placed.</p>
+                    <p class="card-text"><strong>Order ID:</strong> @OrderId</p>
+                    <p class="card-text"><strong>Email Address:</strong> @Email</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
