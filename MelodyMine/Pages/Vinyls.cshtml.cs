@@ -39,13 +39,14 @@ namespace MelodyMine.Pages
             if (!ModelState.IsValid)
             {
                 Vinyls = _vinylService.GetAllVinyls().ToList();
+                GenreOptions = new SelectList(_genreService.GetAllGenres(), "GenreId", "GenreName"); // Genopfyld genre options
                 return Page();
             }
 
             try
             {
                 _vinylService.CreateVinyl(NewVinyl);
-                
+        
                 if (NewVinyl.GenreId.HasValue)
                 {
                     _genreService.CreateVinylGenre(NewVinyl.VinylId, NewVinyl.GenreId.Value);
@@ -55,13 +56,12 @@ namespace MelodyMine.Pages
             {
                 Console.WriteLine(ex.Message);
                 ModelState.AddModelError("", "An error occurred while creating the vinyl.");
+                GenreOptions = new SelectList(_genreService.GetAllGenres(), "GenreId", "GenreName"); // Genopfyld genre options, hvis der sker en fejl
                 return Page();
             }
 
             return RedirectToPage();
         }
-
-
 
         public IActionResult OnPostUpdate(int id)
         {

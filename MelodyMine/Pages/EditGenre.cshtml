@@ -12,6 +12,7 @@
     <div class="form-group">
         <label for="GenreName">Genre Name</label>
         <input type="text" class="form-control" asp-for="UpdateModel.GenreName" placeholder="Enter genre name">
+        <span asp-validation-for="UpdateModel.GenreName" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary mt-1">Update Genre</button>
     <a href="/Genres" class="btn btn-secondary mt-1">Back</a>

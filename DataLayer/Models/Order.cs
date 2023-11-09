@@ -4,10 +4,11 @@ using DataLayer.Models;
 public class Order
 {
     public int OrderId { get; set; }
-    [Required]
-    [StringLength(255)]
+    
+    [Required(ErrorMessage = "Email is required.")]
+    [EmailAddress(ErrorMessage = "Invalid email address.")]
     public string Email { get; set; }
-    [Required]
+    
     public DateTime BuyDate { get; set; }
     
     [Required]
