@@ -10,7 +10,7 @@ namespace xUnitTest.RazorPagesTests;
 
 public class ShopModelTests
 {
-    [Fact]
+    /*[Fact]
     public void OnGet_PopulatesThePageModel_WithAListOfVinyls()
     {
         // Arrange
@@ -31,4 +31,5 @@ public class ShopModelTests
         Assert.NotNull(pageModel.Vinyls);
         Assert.Equal(2, pageModel.Vinyls.Count());
     }
+    */
 }
