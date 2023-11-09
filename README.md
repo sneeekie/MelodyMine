@@ -65,7 +65,7 @@ This command will discover and run all the tests in the project. Output will be 
 
 ## Contributing
 
-We welcome contributions to the MelodyMine project. For details on how to contribute, please read our [contributing guidelines](/docs/CONTRIBUTING.md).
+We welcome contributions to the MelodyMine project. For details on how to contribute, please read our [contributing guidelines](docs/CONTRIBUTING.md).
 
 ## License
 
