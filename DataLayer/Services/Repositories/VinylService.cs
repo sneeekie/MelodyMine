@@ -175,7 +175,6 @@ public class VinylService : IVinylService
         var totalRecords = query.Count();
 
         var items = query
-            .OrderBy(v => v.VinylId)
             .Skip((currentPage - 1) * pageSize)
             .Take(pageSize)
             .ToList();
