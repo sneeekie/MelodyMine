@@ -30,12 +30,14 @@ public class GenresModel : PageModel
     {
         if (!ModelState.IsValid)
         {
+            Genres = _genreService.GetAllGenres().ToList();
             return Page();
         }
 
         _genreService.CreateGenre(new Genre { GenreName = NewGenreName });
         return RedirectToPage();
     }
+
     
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {

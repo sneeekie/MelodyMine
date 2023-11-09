@@ -30,26 +30,24 @@ namespace DataLayer.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AddressId"));
 
-                    b.Property<long>("CardNumber")
-                        .HasColumnType("bigint");
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<int>("Postal")
                         .HasColumnType("integer");
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<int>("StreetNumber")
                         .HasColumnType("integer");
@@ -62,7 +60,7 @@ namespace DataLayer.Migrations
                         new
                         {
                             AddressId = 1,
-                            CardNumber = 1244444444444444L,
+                            CardNumber = "4111 1111 1111 1111",
                             City = "Copenhagen",
                             Country = "Denmark",
                             Postal = 2400,
@@ -72,22 +70,12 @@ namespace DataLayer.Migrations
                         new
                         {
                             AddressId = 2,
-                            CardNumber = 1331131331131331L,
+                            CardNumber = "4111 1111 1111 1112",
                             City = "Fredericia",
                             Country = "Denmark",
                             Postal = 7000,
                             Street = "Dronningsgade",
                             StreetNumber = 8
-                        },
-                        new
-                        {
-                            AddressId = 3,
-                            CardNumber = 1331751331131331L,
-                            City = "Fredericia",
-                            Country = "Denmark",
-                            Postal = 7000,
-                            Street = "Kongensgade",
-                            StreetNumber = 2
                         });
                 });
 
@@ -175,14 +163,6 @@ namespace DataLayer.Migrations
                             Price = 187.0,
                             Title = "Ye",
                             VinylId = 2
-                        },
-                        new
-                        {
-                            OrderProductDetailsId = 3,
-                            OrderId = 3,
-                            Price = 227.0,
-                            Title = "OK Computer",
-                            VinylId = 3
                         });
                 });
 
@@ -199,6 +179,7 @@ namespace DataLayer.Migrations
                         .HasColumnType("text");
 
                     b.Property<int?>("GenreId")
+                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<string>("ImagePath")
@@ -322,8 +303,7 @@ namespace DataLayer.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("text");
 
                     b.HasKey("OrderId");
 
@@ -336,22 +316,15 @@ namespace DataLayer.Migrations
                         {
                             OrderId = 1,
                             AddressId = 1,
-                            BuyDate = new DateTime(2023, 11, 9, 8, 16, 29, 116, DateTimeKind.Utc).AddTicks(4130),
+                            BuyDate = new DateTime(2023, 11, 9, 15, 26, 44, 106, DateTimeKind.Utc).AddTicks(5140),
                             Email = "john@example.com"
                         },
                         new
                         {
                             OrderId = 2,
                             AddressId = 2,
-                            BuyDate = new DateTime(2023, 11, 9, 8, 16, 29, 116, DateTimeKind.Utc).AddTicks(4130),
+                            BuyDate = new DateTime(2023, 11, 9, 15, 26, 44, 106, DateTimeKind.Utc).AddTicks(5150),
                             Email = "adrian@example.com"
-                        },
-                        new
-                        {
-                            OrderId = 3,
-                            AddressId = 3,
-                            BuyDate = new DateTime(2023, 11, 9, 8, 16, 29, 116, DateTimeKind.Utc).AddTicks(4140),
-                            Email = "nikolaj@example.com"
                         });
                 });
 

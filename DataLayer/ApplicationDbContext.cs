@@ -70,8 +70,8 @@ public class ApplicationDbContext : DbContext
         // Seeding Addresses
         var addresses = new List<Address>
         {
-            new Address { AddressId = 1, Street = "Birkedommervej", StreetNumber = 29, City = "Copenhagen", Postal = 2400, Country = "Denmark", CardNumber = 1244444444444444},
-            new Address { AddressId = 2, Street = "Dronningsgade", StreetNumber = 8, City = "Fredericia", Postal = 7000, Country = "Denmark", CardNumber = 1331131331131331},
+            new Address { AddressId = 1, Street = "Birkedommervej", StreetNumber = 29, City = "Copenhagen", Postal = 2400, Country = "Denmark", CardNumber = "4111 1111 1111 1111"},
+            new Address { AddressId = 2, Street = "Dronningsgade", StreetNumber = 8, City = "Fredericia", Postal = 7000, Country = "Denmark", CardNumber = "4111 1111 1111 1112"},
         };
         modelBuilder.Entity<Address>().HasData(addresses);
 

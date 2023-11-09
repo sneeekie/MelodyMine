@@ -9,10 +9,11 @@ public class OrderProductDetails
     [Required]
     public int VinylId { get; set; } 
 
-    [Required]
+    [Required(ErrorMessage = "Title is required.")]
     public string Title { get; set; }
     
-    [Required]
+    [Required(ErrorMessage = "Price is required.")]
+    [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0")]
     public double Price { get; set; }
     
     // Navigation properties

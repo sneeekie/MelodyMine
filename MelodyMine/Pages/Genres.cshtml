@@ -10,7 +10,9 @@
 <form method="post">
     <div class="form-group">
         <input type="text" class="form-control" id="NewGenreName" asp-for="NewGenreName" placeholder="Enter genre name">
+        <span asp-validation-for="NewGenreName" class="text-danger"></span>
     </div>
+
     <button type="submit" class="btn btn-primary mt-1">Add Genre</button>
         <a href="/Admin" class="btn btn-secondary mt-1">Back</a>
 
@@ -43,3 +45,7 @@
     }
     </tbody>
 </table>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
