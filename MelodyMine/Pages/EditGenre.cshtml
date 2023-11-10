@@ -9,7 +9,7 @@
 <!-- Formula for editing genres -->
 <form method="post">
     <input type="hidden" asp-for="UpdateModel.GenreId" />
-    <div class="form-group">
+    <div class="form-group fw-bold">
         <label for="GenreName">Genre Name</label>
         <input type="text" class="form-control" asp-for="UpdateModel.GenreName" placeholder="Enter genre name">
         <span asp-validation-for="UpdateModel.GenreName" class="text-danger"></span>
