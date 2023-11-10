@@ -11,7 +11,7 @@
 <form method="get">
     <div class="form-row">
         <div class="col">
-            <input type="text" class="form-control" placeholder="Title" name="searchTerm" value="@Model.SearchTerm">
+            <input type="text" class="form-control" placeholder="Album" name="searchTerm" value="@Model.SearchTerm">
         </div>
         <div class="col">
             <select class="form-control" name="genreId" asp-for="GenreId" asp-items="@(new SelectList(Model.Genres,"GenreId","GenreName"))">
@@ -21,7 +21,7 @@
         <!-- Title Sort Dropdown -->
         <div class="col">
             <select class="form-control" name="titleSort" asp-for="TitleSort">
-                <option value="">Sort by Title</option>
+                <option value="">Sort by Album</option>
                 <option value="Ascending">A - Z</option>
                 <option value="Descending">Z - A</option>
             </select>
