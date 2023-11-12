@@ -15,7 +15,7 @@ public class Vinyl
     
     [Required(ErrorMessage = "Price is required")]
     [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0")]
-    public double Price { get; set; }
+    public decimal Price { get; set; }
     
     [Required(ErrorMessage = "Image path is required")]
     public string ImagePath { get; set; }
