@@ -50,9 +50,9 @@ public class ApplicationDbContext : DbContext
 
         // Relation between OrderProductDetails & Order
         modelBuilder.Entity<OrderProductDetails>()
-            .HasOne(opd => opd.Order)
+            .HasOne<Order>(opd => opd.Order) 
             .WithMany(o => o.OrderProductDetails)
-            .HasForeignKey(opd => opd.OrderId);
+            .HasForeignKey(opd => opd.OrderId); 
 
         // Many-to-many relation between Vinyl & Genre, through VinylGenre
         modelBuilder.Entity<Vinyl>()
