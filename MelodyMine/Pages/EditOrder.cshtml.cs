@@ -2,8 +2,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using DataLayer.Models;
 using DataLayer.Services;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
 
 namespace MelodyMine.Pages;
@@ -26,6 +24,10 @@ public class EditOrderModel : PageModel
     public async Task<IActionResult> OnGetAsync(int id)
     {
         Order = _orderService.GetSingleFullOrderBy(id);
+        if (Order == null)
+        {
+            return NotFound();
+        }
 
         OrderProductDetails = new List<OrderProductDetails>(Order.OrderProductDetails);
         return Page();
@@ -41,6 +43,7 @@ public class EditOrderModel : PageModel
         try
         {
             _orderService.UpdateAddress(Order.AddressId, Order.Address);
+            
             _orderService.UpdateOrderById(Order.OrderId, Order);
             _orderService.UpdateOrderProductDetails(OrderProductDetails);
 
@@ -54,7 +57,7 @@ public class EditOrderModel : PageModel
             }
             else
             {
-                throw;
+                return StatusCode(500, "A database error occurred. Please try again.");
             }
         }
     }

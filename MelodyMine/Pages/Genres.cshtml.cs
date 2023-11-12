@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using DataLayer.Services;
-using System.Collections.Generic;
-using System.Linq;
 using DataLayer.Models;
 
 namespace MelodyMine.Pages;

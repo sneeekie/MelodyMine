@@ -1,4 +1,3 @@
-using DataLayer.Models;
 using DataLayer.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

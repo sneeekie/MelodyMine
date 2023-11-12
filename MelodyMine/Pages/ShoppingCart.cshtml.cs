@@ -3,8 +3,6 @@ using DataLayer.Services;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Linq;
 
 namespace MelodyMine.Pages;
 
