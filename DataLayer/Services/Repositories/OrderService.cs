@@ -14,8 +14,7 @@ public class OrderService : IOrderService
     
     public void CreateOrder(Order? order)
     {
-        _applicationDbContext.Orders.Add(order);
-
+        _applicationDbContext.Orders.Add(order); 
         _applicationDbContext.SaveChanges();
     }
 
@@ -80,16 +79,43 @@ public class OrderService : IOrderService
 
     public void UpdateOrderById(int orderId, Order newOrder)
     {
-        Order tempOrder = _applicationDbContext.Orders
+        Order existingOrder = _applicationDbContext.Orders
+            .Include(o => o.OrderProductDetails)
+            .Include(o => o.Address)
             .FirstOrDefault(o => o.OrderId == orderId);
-    
-        if (tempOrder == null)
+
+        if (existingOrder == null)
         {
-            return;
+            throw new Exception($"Order with ID {orderId} not found.");
         }
 
-        tempOrder.Email = newOrder.Email;
-        tempOrder.BuyDate = newOrder.BuyDate;
+        existingOrder.Email = newOrder.Email;
+        existingOrder.BuyDate = newOrder.BuyDate;
+        existingOrder.AddressId = newOrder.AddressId;
+        
+        if (newOrder.OrderProductDetails != null)
+        {
+            foreach (var newOpd in newOrder.OrderProductDetails)
+            {
+                var existingOpd = existingOrder.OrderProductDetails
+                    .FirstOrDefault(opd => opd.OrderProductDetailsId == newOpd.OrderProductDetailsId);
+
+                if (existingOpd != null)
+                {
+                    _applicationDbContext.Entry(existingOpd).CurrentValues.SetValues(newOpd);
+                }
+                else
+                {
+                    existingOrder.OrderProductDetails.Add(newOpd);
+                }
+            }
+        }
+        
+        if (newOrder.Address != null && existingOrder.AddressId == newOrder.Address.AddressId)
+        {
+            _applicationDbContext.Entry(existingOrder.Address).CurrentValues.SetValues(newOrder.Address);
+        }
+
         _applicationDbContext.SaveChanges();
     }
     
