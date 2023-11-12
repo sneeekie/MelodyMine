@@ -4,6 +4,8 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
 
+namespace MelodyMine.Pages;
+
 public class ShopModel : PageModel
 {
     private readonly IVinylService _vinylService;
@@ -38,15 +40,13 @@ public class ShopModel : PageModel
     public IActionResult OnPostAddToCart(int vinylId, int quantity = 1)
     {
         var shoppingCartItems = new List<ShoppingCartItem>();
-
-        // Retrieve the current shopping cart items from session
+        
         string existingCart = HttpContext.Session.GetString("ShoppingCart");
         if (!string.IsNullOrEmpty(existingCart))
         {
             shoppingCartItems = JsonConvert.DeserializeObject<List<ShoppingCartItem>>(existingCart);
         }
-
-        // Find the vinyl and add or update the quantity in the cart
+        
         var vinyl = _vinylService.GetVinylById(vinylId);
         var shoppingCartItem = shoppingCartItems.FirstOrDefault(item => item.VinylId == vinylId);
         if (shoppingCartItem != null)
@@ -63,8 +63,6 @@ public class ShopModel : PageModel
                 Quantity = quantity
             });
         }
-
-        // Save the updated shopping cart back to the session
         HttpContext.Session.SetString("ShoppingCart", JsonConvert.SerializeObject(shoppingCartItems));
 
         return RedirectToPage();
