@@ -2,10 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using DataLayer.Models;
 using DataLayer.Services;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MelodyMine.Pages
 {

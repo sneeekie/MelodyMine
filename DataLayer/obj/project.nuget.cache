@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "LH3DqVL2dfrVQUc4eGqAgt9qdEM0S04vsMXxLfHECy5BJwe4UDz1N1/kaYReR5vUufGL/zy29Goa8IgbnTX52Q==",
+  "dgSpecHash": "4nfBdLXJrtwTcOlNKcOb502fQv4/+itGaZzHXSJBCelA46iP0uGtqSwmEPJbploADf/xN5qAyL6dnQmiZpLrag==",
   "success": true,
   "projectFilePath": "/Users/dkAdIsNu/dev/skole/MelodyMine/DataLayer/DataLayer.csproj",
   "expectedPackageFiles": [
@@ -26,6 +26,7 @@
     "/Users/dkAdIsNu/.nuget/packages/microsoft.extensions.options/7.0.1/microsoft.extensions.options.7.0.1.nupkg.sha512",
     "/Users/dkAdIsNu/.nuget/packages/microsoft.extensions.primitives/7.0.0/microsoft.extensions.primitives.7.0.0.nupkg.sha512",
     "/Users/dkAdIsNu/.nuget/packages/mono.texttemplating/2.2.1/mono.texttemplating.2.2.1.nupkg.sha512",
+    "/Users/dkAdIsNu/.nuget/packages/newtonsoft.json/13.0.1/newtonsoft.json.13.0.1.nupkg.sha512",
     "/Users/dkAdIsNu/.nuget/packages/npgsql/7.0.6/npgsql.7.0.6.nupkg.sha512",
     "/Users/dkAdIsNu/.nuget/packages/npgsql.entityframeworkcore.postgresql/7.0.11/npgsql.entityframeworkcore.postgresql.7.0.11.nupkg.sha512",
     "/Users/dkAdIsNu/.nuget/packages/system.codedom/4.4.0/system.codedom.4.4.0.nupkg.sha512",

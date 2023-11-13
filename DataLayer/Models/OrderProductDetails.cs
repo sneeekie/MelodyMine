@@ -7,14 +7,13 @@ public class OrderProductDetails
     public int OrderProductDetailsId { get; set; }
     
     [Required]
-    public int VinylId { get; set; } 
+    public int VinylId { get; set; }
 
-    [Required(ErrorMessage = "Title is required.")]
-    public string Title { get; set; }
-    
     [Required(ErrorMessage = "Price is required.")]
     [Range(0.01, double.MaxValue, ErrorMessage = "Price must be greater than 0")]
-    public double Price { get; set; }
+    public decimal Price { get; set; }
+    
+    public int Quantity { get; set; }
     
     // Navigation properties
     [Required]

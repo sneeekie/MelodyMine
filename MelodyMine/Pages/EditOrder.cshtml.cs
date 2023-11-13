@@ -1,10 +1,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using DataLayer.Models;
+using DataLayer.DTOs;
 using DataLayer.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 
 namespace MelodyMine.Pages;
 
@@ -13,11 +12,8 @@ public class EditOrderModel : PageModel
     private readonly IOrderService _orderService;
 
     [BindProperty]
-    public Order Order { get; set; }
-
-    [BindProperty]
-    public List<OrderProductDetails> OrderProductDetails { get; set; }
-
+    public OrderDto Order { get; set; }
+    
     public EditOrderModel(IOrderService orderService)
     {
         _orderService = orderService;
@@ -25,13 +21,12 @@ public class EditOrderModel : PageModel
 
     public async Task<IActionResult> OnGetAsync(int id)
     {
-        Order = _orderService.GetSingleFullOrderBy(id);
+        Order = _orderService.GetOrderDtoById(id);
         if (Order == null)
         {
             return NotFound();
         }
 
-        OrderProductDetails = new List<OrderProductDetails>(Order.OrderProductDetails);
         return Page();
     }
 
@@ -44,22 +39,15 @@ public class EditOrderModel : PageModel
 
         try
         {
-            _orderService.UpdateAddress(Order.AddressId, Order.Address);
-            _orderService.UpdateOrderById(Order.OrderId, Order);
-            _orderService.UpdateOrderProductDetails(OrderProductDetails);
+            _orderService.UpdateOrderDto(Order);
 
             return RedirectToPage("./Orders");
         }
-        catch (DbUpdateConcurrencyException)
+        catch (Exception ex)
         {
-            if (!_orderService.OrderExists(Order.OrderId))
-            {
-                return NotFound();
-            }
-            else
-            {
-                throw;
-            }
+            // Fejlhåndtering - Log og vis passende fejlmeddelelse
+            ModelState.AddModelError(string.Empty, "An error occurred while updating the order: " + ex.Message);
+            return Page();
         }
     }
 }

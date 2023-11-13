@@ -32,12 +32,16 @@ public class ApplicationDbContext : DbContext
     public DbSet<Vinyl> Vinyls { get; set; }
     public DbSet<Genre> Genres { get; set; }
     public DbSet<Address> Addresses { get; set; }
-    public DbSet<Order> Orders { get; set; }
+    public DbSet<Order?> Orders { get; set; }
     public DbSet<OrderProductDetails> OrderProductDetails { get; set; }
     public DbSet<VinylGenre> VinylGenres { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Order>()
+            .Property(e => e.BuyDate)
+            .HasDefaultValueSql("NOW()");
+        
         // Configure keys for VinylGenre
         modelBuilder.Entity<VinylGenre>()
             .HasKey(vg => new { vg.VinylId, vg.GenreId });
@@ -50,9 +54,9 @@ public class ApplicationDbContext : DbContext
 
         // Relation between OrderProductDetails & Order
         modelBuilder.Entity<OrderProductDetails>()
-            .HasOne(opd => opd.Order)
+            .HasOne<Order>(opd => opd.Order) 
             .WithMany(o => o.OrderProductDetails)
-            .HasForeignKey(opd => opd.OrderId);
+            .HasForeignKey(opd => opd.OrderId); 
 
         // Many-to-many relation between Vinyl & Genre, through VinylGenre
         modelBuilder.Entity<Vinyl>()
@@ -107,8 +111,8 @@ public class ApplicationDbContext : DbContext
         // Seeding OrderProductDetails
         var orderDetails = new List<OrderProductDetails>
         {
-            new OrderProductDetails { OrderProductDetailsId = 1, OrderId = 1, VinylId = 1, Title = "Dansktop", Price = 127 },
-            new OrderProductDetails { OrderProductDetailsId = 2, OrderId = 2, VinylId = 2, Title = "Ye", Price = 187 },
+            new OrderProductDetails { OrderProductDetailsId = 1, OrderId = 1, VinylId = 1, Price = 127 },
+            new OrderProductDetails { OrderProductDetailsId = 2, OrderId = 2, VinylId = 2, Price = 187 },
         };
         modelBuilder.Entity<OrderProductDetails>().HasData(orderDetails);
 

@@ -82,7 +82,13 @@ public class VinylService : IVinylService
             .Take(pageSize);
     }
     
-    public IQueryable<Vinyl> FilterVinylsPaged(int currentPage, int pageSize, string? searchTerm, int? genreId, string? filterTitle, string? price)
+    public IQueryable<Vinyl> FilterVinylsPaged(
+            int currentPage,
+            int pageSize,
+            string? searchTerm,
+            int? genreId,
+            string? filterTitle,
+            string? price)
     {
         var query = GetAllFullVinyls();
         if (!string.IsNullOrWhiteSpace(searchTerm))
@@ -92,7 +98,7 @@ public class VinylService : IVinylService
         
         if (genreId.HasValue && genreId.Value > 0)
         {
-            query = query.Where(v => v.VinylGenres.Any(vg => vg.GenreId == genreId.Value));
+            query = query.Where(v => v.VinylGenres != null && v.VinylGenres.Any(vg => vg.GenreId == genreId.Value));
         }
         
         if (!string.IsNullOrWhiteSpace(filterTitle))
@@ -166,6 +172,24 @@ public class VinylService : IVinylService
             "Ascending" => SortDirection.Ascending,
             "Descending" => SortDirection.Descending,
             _ => null
+        };
+    }
+    
+    public PaginatedResult<Vinyl> GetPaginatedVinyls(int currentPage, int pageSize, string searchTerm, int? genreId, string titleSort, string priceSort)
+    {
+        var query = FilterVinyls(searchTerm, genreId, titleSort, priceSort);
+        var totalRecords = query.Count();
+
+        var items = query
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        return new PaginatedResult<Vinyl>
+        {
+            Items = items,
+            CurrentPage = currentPage,
+            TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize)
         };
     }
 }

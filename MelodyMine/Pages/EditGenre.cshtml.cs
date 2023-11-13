@@ -21,22 +21,13 @@ namespace MelodyMine.Pages
         public IActionResult OnGet(int id)
         {
             var genre = _genreService.GetGenresById(id).FirstOrDefault();
-
-            if (genre == null)
-            {
-                return NotFound();
-            }
-
             UpdateModel = new GenreUpdateModel
             {
                 GenreId = genre.GenreId,
                 GenreName = genre.GenreName
             };
-
             return Page();
         }
-
-
 
         public IActionResult OnPost()
         {

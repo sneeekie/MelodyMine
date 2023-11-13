@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using DataLayer.Services;
-using System.Collections.Generic;
-using System.Linq;
 using DataLayer.Models;
 
 namespace MelodyMine.Pages;
@@ -42,11 +40,7 @@ public class GenresModel : PageModel
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
         bool result = _genreService.DeleteGenre(id);
-        if (!result)
-        {
-            return NotFound();
-        }
-
+        
         return RedirectToPage();
     }
 

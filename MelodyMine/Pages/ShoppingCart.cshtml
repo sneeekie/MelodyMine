@@ -1,10 +1,39 @@
 @page
+@using Microsoft.AspNetCore.Http
 @model ShoppingCartModel
 
 <div class="row">
     <div class="col-md-6">
+            <h2>Shopping Cart</h2>
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Quantity</th>
+                        <th>Price</th>
+                        <th>Total</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.ShoppingCartItems)
+                    {
+                        <tr>
+                            <td>@item.Title</td>
+                            <td>@item.Quantity</td>
+                            <td>@item.Price</td>
+                            <td>@(item.Price * item.Quantity)</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <div class="shopping-cart-footer">
+                <a href="/Shop" class="btn btn-info">Continue Shopping</a>
+                <span class="float-end">Total: @Model.ShoppingCartItems.Sum(item => item.Price * item.Quantity)</span>
+            </div>
+        </div>
+    <div class="col-md-6">
         <h2>Shipping address</h2>
-        <form method="post">
+        <form method="post" asp-page-handler="Checkout">
             <div class="form-group mb-1 fw-bold">
                 <label for="Street">Street</label>
                 <input type="text" class="form-control" asp-for="NewAddress.Street" placeholder="Enter street">
@@ -42,15 +71,8 @@
                 <span asp-validation-for="NewAddress.CardNumber" class="text-danger"></span>
             </div>
             <button type="submit" class="btn btn-success">Checkout</button>
-            </form>
+        </form>
     </div>
-    <div class="col-md-6">
-        <h2>ShoppingCart</h2>
-        <p>I will display my Shopping Basket here.</p>
-        <div class="shopping-cart-footer">
-            <a href="/Shop" class="btn btn-info">Continue Shopping</a>
-        </div>
-        </div>
 </div>
 
 @section Scripts {

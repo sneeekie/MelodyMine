@@ -8,68 +8,48 @@
 <h1>@ViewData["Title"]</h1>
 
 <form method="post">
+    <input type="hidden" asp-for="Order.OrderId" />
     <!-- Address Form Fields -->
     <h4>Address</h4>
-    <input type="hidden" asp-for="Order.Address.AddressId" />
-    <div class="form-group">
+    <input type="hidden" asp-for="Order.Address.AddressId"/>
+    <div class="form-group fw-bold">
         <label for="AddressStreet">Street</label>
         <input type="text" class="form-control" asp-for="Order.Address.Street" placeholder="Enter street">
-            <span asp-validation-for="Order.Address.Street" class="text-danger"></span>
+        <span asp-validation-for="Order.Address.Street" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group fw-bold">
         <label for="AddressStreetNumber">Street Number</label>
         <input type="number" class="form-control" asp-for="Order.Address.StreetNumber" placeholder="Enter street number">
-            <span asp-validation-for="Order.Address.StreetNumber" class="text-danger"></span>
+        <span asp-validation-for="Order.Address.StreetNumber" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group fw-bold">
         <label for="AddressPostal">Postal</label>
         <input type="number" class="form-control" asp-for="Order.Address.Postal" placeholder="Enter postal">
-            <span asp-validation-for="Order.Address.Postal" class="text-danger"></span>
+        <span asp-validation-for="Order.Address.Postal" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group fw-bold">
         <label for="AddressCity">City</label>
         <input type="text" class="form-control" asp-for="Order.Address.City" placeholder="Enter city">
-            <span asp-validation-for="Order.Address.City" class="text-danger"></span>
+        <span asp-validation-for="Order.Address.City" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group fw-bold">
         <label for="AddressCountry">Country</label>
         <input type="text" class="form-control" asp-for="Order.Address.Country" placeholder="Enter country">
-            <span asp-validation-for="Order.Address.Country" class="text-danger"></span>
+        <span asp-validation-for="Order.Address.Country" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group fw-bold">
         <label for="AddressCardNumber">Card number</label>
         <input type="text" class="form-control" asp-for="Order.Address.CardNumber" placeholder="Enter card number">
-            <span asp-validation-for="Order.Address.CardNumber" class="text-danger"></span>
+        <span asp-validation-for="Order.Address.CardNumber" class="text-danger"></span>
     </div>
-    
-    <!-- Order Form Fields -->
-    <h4>Order Details</h4>
-    <input type="hidden" asp-for="Order.OrderId" />
-    <div class="form-group">
-        <label for="OrderEmail">Email</label>
-        <input type="email" class="form-control" asp-for="Order.Email" placeholder="Enter email">
-            <span asp-validation-for="Order.Email" class="text-danger"></span>
+
+    <div class="form-group fw-bold">
+        <label for="Email" asp-for="Order.Email">Email</label>
+        <input type="text" class="form-control" asp-for="Order.Email" placeholder="Enter email">
     </div>
-    
-    <!-- OrderProductDetails Form Fields -->
-    <h4>Order Products</h4>
-    @for (int i = 0; i < Model.OrderProductDetails.Count; i++)
-    {
-        <input type="hidden" asp-for="@Model.OrderProductDetails[i].OrderProductDetailsId" />
-        <div class="form-group">
-            <label asp-for="@Model.OrderProductDetails[i].Title">Product Title</label>
-            <input type="text" class="form-control" asp-for="@Model.OrderProductDetails[i].Title">
-            <span asp-validation-for="@Model.OrderProductDetails[i].Title" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="@Model.OrderProductDetails[i].Price">Price</label>
-            <input type="number" step="0.01" class="form-control" asp-for="@Model.OrderProductDetails[i].Price">
-            <span asp-validation-for="@Model.OrderProductDetails[i].Price" class="text-danger"></span>
-        </div>
-    }
-    
-    <button type="submit" class="btn btn-primary mt-1">Save Changes</button>
-    <a href="/Orders" class="btn btn-secondary mt-1">Back</a>
+
+    <input type="submit" class="btn btn-primary mt-1" value="Save Changes"/>
+    <a asp-page="/Orders" class="btn btn-secondary mt-1">Back</a>
 </form>
 
 @section Scripts {

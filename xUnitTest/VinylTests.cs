@@ -103,7 +103,7 @@ namespace xUnitTest
             // Arrange
             var service = new VinylService(context);
             int existingVinylId = 1;
-            Vinyl newVinyl = new Vinyl { Title = "New Title", Artist = "New Artist", Price = 25.99 };
+            Vinyl newVinyl = new Vinyl { Title = "New Title", Artist = "New Artist", Price = 25.99m };
 
             // Act
             service.UpdateVinylBy(existingVinylId, newVinyl);
@@ -123,7 +123,7 @@ namespace xUnitTest
             // Arrange
             var service = new VinylService(context);
             int nonExistingVinylId = 999;
-            Vinyl newVinyl = new Vinyl { Title = "New Title", Artist = "New Description", Price = 25.99 };
+            Vinyl newVinyl = new Vinyl { Title = "New Title", Artist = "New Description", Price = 25.99m };
 
             // Act
             service.UpdateVinylBy(nonExistingVinylId, newVinyl);
