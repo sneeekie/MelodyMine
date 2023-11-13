@@ -56,6 +56,4 @@ public class EditVinylModel : PageModel
             return Page();
         }
     }
-
-
 }

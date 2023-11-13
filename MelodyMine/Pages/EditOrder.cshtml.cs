@@ -45,7 +45,6 @@ public class EditOrderModel : PageModel
         }
         catch (Exception ex)
         {
-            // Fejlhåndtering - Log og vis passende fejlmeddelelse
             ModelState.AddModelError(string.Empty, "An error occurred while updating the order: " + ex.Message);
             return Page();
         }
