@@ -38,6 +38,10 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+        modelBuilder.Entity<Order>()
+            .Property(e => e.BuyDate)
+            .HasDefaultValueSql("NOW()");
+        
         // Configure keys for VinylGenre
         modelBuilder.Entity<VinylGenre>()
             .HasKey(vg => new { vg.VinylId, vg.GenreId });
@@ -107,8 +111,8 @@ public class ApplicationDbContext : DbContext
         // Seeding OrderProductDetails
         var orderDetails = new List<OrderProductDetails>
         {
-            new OrderProductDetails { OrderProductDetailsId = 1, OrderId = 1, VinylId = 1, Title = "Dansktop", Price = 127 },
-            new OrderProductDetails { OrderProductDetailsId = 2, OrderId = 2, VinylId = 2, Title = "Ye", Price = 187 },
+            new OrderProductDetails { OrderProductDetailsId = 1, OrderId = 1, VinylId = 1, Price = 127 },
+            new OrderProductDetails { OrderProductDetailsId = 2, OrderId = 2, VinylId = 2, Price = 187 },
         };
         modelBuilder.Entity<OrderProductDetails>().HasData(orderDetails);
 

@@ -79,8 +79,11 @@ public class ShoppingCartModel : PageModel
 
     public async Task<IActionResult> OnPostCheckoutAsync()
     {
+        ShoppingCartItems = GetShoppingCartItems();
+        
         var addressId = _orderService.CreateAddress(NewAddress);
         NewOrder.AddressId = addressId;
+        
         
         var orderDetails = ShoppingCartItems.Select(item => new OrderProductDetails
         {
@@ -89,11 +92,18 @@ public class ShoppingCartModel : PageModel
             Price = item.Price
         }).ToList();
         
-        NewOrder.OrderProductDetails = orderDetails;
         _orderService.CreateOrder(NewOrder);
+
+        orderDetails.ForEach(e =>
+        {
+            e.OrderId = NewOrder.OrderId;
+        });
+        
+        _orderService.AddProductDetails(orderDetails);
+        
         ClearCartSession();
         
-        return RedirectToPage("OrderConfirmation");
+        return RedirectToPage("Complete", new{ orderId = NewOrder.OrderId } );
     }
 
     private List<ShoppingCartItem> GetShoppingCartItems()

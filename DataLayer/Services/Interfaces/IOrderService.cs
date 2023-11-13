@@ -1,3 +1,4 @@
+using DataLayer.DTOs;
 using DataLayer.Models;
 
 namespace DataLayer.Services;
@@ -19,4 +20,9 @@ public interface IOrderService
     public void UpdateAddress(int addressId, Address newAddress);
     public void UpdateOrderProductDetails(List<OrderProductDetails> newOrderProductDetails);
     public bool OrderExists(int id);
+    public OrderDto GetOrderDtoById(int id);
+    public void UpdateOrderDto(OrderDto orderDto);
+    public void UpdateOrderProductDetailsDto(List<OrderProductDetailsDto> orderProductDetailsDtos);
+    public List<OrderProductDetailsDto> GetOrderProductDetailsDtoByOrderId(int orderId);
+    void AddProductDetails(IEnumerable<OrderProductDetails> orderProductDetails);
 }
