@@ -3,6 +3,7 @@ using System;
 using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20231113081140_QuantityColumn")]
+    partial class QuantityColumn
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,6 +140,10 @@ namespace DataLayer.Migrations
                     b.Property<int>("Quantity")
                         .HasColumnType("integer");
 
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("text");
+
                     b.Property<int>("VinylId")
                         .HasColumnType("integer");
 
@@ -155,6 +162,7 @@ namespace DataLayer.Migrations
                             OrderId = 1,
                             Price = 127m,
                             Quantity = 0,
+                            Title = "Dansktop",
                             VinylId = 1
                         },
                         new
@@ -163,6 +171,7 @@ namespace DataLayer.Migrations
                             OrderId = 2,
                             Price = 187m,
                             Quantity = 0,
+                            Title = "Ye",
                             VinylId = 2
                         });
                 });
@@ -300,9 +309,7 @@ namespace DataLayer.Migrations
                         .HasColumnType("integer");
 
                     b.Property<DateTime>("BuyDate")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("timestamp with time zone")
-                        .HasDefaultValueSql("NOW()");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -319,14 +326,14 @@ namespace DataLayer.Migrations
                         {
                             OrderId = 1,
                             AddressId = 1,
-                            BuyDate = new DateTime(2023, 11, 13, 16, 26, 23, 720, DateTimeKind.Utc).AddTicks(7280),
+                            BuyDate = new DateTime(2023, 11, 13, 8, 11, 40, 800, DateTimeKind.Utc).AddTicks(5500),
                             Email = "john@example.com"
                         },
                         new
                         {
                             OrderId = 2,
                             AddressId = 2,
-                            BuyDate = new DateTime(2023, 11, 13, 16, 26, 23, 720, DateTimeKind.Utc).AddTicks(7290),
+                            BuyDate = new DateTime(2023, 11, 13, 8, 11, 40, 800, DateTimeKind.Utc).AddTicks(5500),
                             Email = "adrian@example.com"
                         });
                 });
