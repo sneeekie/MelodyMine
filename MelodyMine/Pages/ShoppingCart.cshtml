@@ -64,6 +64,12 @@
                     <td>@item.Quantity</td>
                     <td>@item.Price</td>
                     <td>@(item.Price * item.Quantity)</td>
+                    <td>
+                        <form method="post" asp-page-handler="RemoveFromCart">
+                            <input type="hidden" name="vinylId" value="@item.VinylId" />
+                            <button type="submit" class="btn btn-danger">Remove</button>
+                        </form>
+                    </td>
                 </tr>
             }
             </tbody>
