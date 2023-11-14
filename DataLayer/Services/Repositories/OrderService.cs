@@ -240,11 +240,6 @@ public class OrderService : IOrderService
                 Street = orderWithDetails.Address.Street,
                 CardNumber = orderWithDetails.Address.CardNumber
             },
-            /*OrderProductDetails = orderWithDetails.OrderProductDetails.Select(opd => new OrderProductDetailsDto
-            {
-                OrderProductDetailsId = opd.OrderProductDetailsId,
-                Quantity = opd.Quantity,
-            }).ToList()*/
         };
 
         return orderDto;

@@ -31,8 +31,8 @@ namespace xUnitTest
                 BuyDate = DateTime.Now,
                 OrderProductDetails = new List<OrderProductDetails>
                 {
-                    new OrderProductDetails { OrderProductDetailsId = 1, OrderId = 1, VinylId = 1, Title = "Dansktop", Price = 127 },
-                    new OrderProductDetails { OrderProductDetailsId = 2, OrderId = 2, VinylId = 2, Title = "Ye", Price = 187 },
+                    new OrderProductDetails { OrderProductDetailsId = 1, OrderId = 1, VinylId = 1, Price = 127 },
+                    new OrderProductDetails { OrderProductDetailsId = 2, OrderId = 2, VinylId = 2, Price = 187 },
                 }
             };
         
@@ -63,8 +63,8 @@ namespace xUnitTest
                 BuyDate = DateTime.Now,
                 OrderProductDetails = new List<OrderProductDetails>
                 {
-                    new OrderProductDetails { OrderProductDetailsId = 3, OrderId = 3, VinylId = 3, Title = "OK Computer", Price = 227 },
-                    new OrderProductDetails { OrderProductDetailsId = 4, OrderId = 4, VinylId = 4, Title = "Blonde", Price = 777 },
+                    new OrderProductDetails { OrderProductDetailsId = 3, OrderId = 3, VinylId = 3, Price = 227 },
+                    new OrderProductDetails { OrderProductDetailsId = 4, OrderId = 4, VinylId = 4, Price = 777 },
                 }
             };
 

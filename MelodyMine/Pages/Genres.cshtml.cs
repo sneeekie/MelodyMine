@@ -43,5 +43,4 @@ public class GenresModel : PageModel
         
         return RedirectToPage();
     }
-
 }

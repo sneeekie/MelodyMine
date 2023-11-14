@@ -65,6 +65,6 @@ public class ShopModel : PageModel
         }
         HttpContext.Session.SetString("ShoppingCart", JsonConvert.SerializeObject(shoppingCartItems));
 
-        return RedirectToPage();
+        return RedirectToPage("ShoppingCart");
     }
 }
