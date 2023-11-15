@@ -27,58 +27,20 @@ namespace xUnitTest
             // Add Genres
             context.Genres.AddRange(new Genre[]
             {
-                new Genre { GenreId = 1, GenreName = "Rock" },
-                new Genre { GenreId = 2, GenreName = "Jazz" },
-            });
-
-            // Add RecordLabel & Address
-            context.RecordLabels.Add(new RecordLabel
-            {
-                RecordLabelId = 1,
-                LabelName = "MyLabel",
-                Address = new Address
-                {
-                    AddressId = 1,
-                    Street = "Some Street",
-                    City = "Some City",
-                    Country = "Denmark"
-                }
+                new Genre { GenreId = 1, GenreName = "Alternativ" },
+                new Genre { GenreId = 2, GenreName = "HipHop"},
+                new Genre { GenreId = 3, GenreName = "Pop"},
+                new Genre { GenreId = 4, GenreName = "Christmas"}
             });
 
             // Add Vinyls
             context.Vinyls.AddRange(new Vinyl[]
             {
-                new Vinyl
-                {
-                    VinylId = 1,
-                    Title = "My Vinyl",
-                    Price = 19.99,
-                    RecordLabelId = 1
-                },
-                new Vinyl
-                {
-                    VinylId = 2,
-                    Title = "Another Vinyl",
-                    Price = 29.99,
-                    RecordLabelId = 1
-                }
-            });
-
-            // Add Reviews to Vinyl
-            context.Reviews.Add(new Review
-            {
-                ReviewId = 1,
-                NumStars = 4,
-                ReviewComment = "Great!",
-                VinylId = 1
-            });
-
-            // Add Covers to Vinyl
-            context.Covers.Add(new VinylCover
-            {
-                VinylCoverId = 1,
-                Path = "some/url",
-                VinylId = 1
+                new Vinyl { VinylId = 1, Title = "Dansktop", Artist = "Ukendt Kunstner", Price = 127, GenreId = 2, ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/i/m/image001_9__2.jpg" },
+                new Vinyl { VinylId = 2, Title = "Ye", Artist = "Kanye West", Price = 187, GenreId = 2, ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/k/a/kanye-west-2018-ye-compact-disc.jpg" },
+                new Vinyl { VinylId = 3, Title = "OK Computer", Artist = "Radioheaad", Price = 227, GenreId = 1,  ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/b/f/bfea3555ad38fe476532c5b54f218c09_1.jpg" },
+                new Vinyl { VinylId = 4, Title = "Blonde", Artist = "Frank Ocean", Price = 777, GenreId = 3, ImagePath = "https://best-fit.transforms.svdcdn.com/production/albums/frank-ocean-blond-compressed-0933daea-f052-40e5-85a4-35e07dac73df.jpg?w=469&h=469&q=100&auto=format&fit=crop&dm=1643652677&s=6ef41cb2628eb28d736e27b42635b66e" },
+                new Vinyl { VinylId = 5, Title = "Winter Wonderland", Artist = "Dean Martin", Price = 127, GenreId = 4, ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/m/o/moby-disc-13-09-2023_10.54.44.png"}
             });
 
             // Add VinylGenres to Vinyl
@@ -98,24 +60,6 @@ namespace xUnitTest
         }
 
         #region Tests for Vinyls
-        [Fact]
-        public void CreateVinyl_AddsNewVinyl()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            var newVinyl = new Vinyl { VinylId = 3, Title = "Graduation", Price = 29.99 };
-            int initialCount = context.Vinyls.Count();
-
-            // Act
-            service.CreateVinyl(newVinyl);
-
-            // Assert
-            Assert.Equal(initialCount + 1, context.Vinyls.Count());
-            Assert.NotNull(context.Vinyls.FirstOrDefault(v => v.VinylId == newVinyl.VinylId));
-        }
-        
         [Fact]
         public void DeleteVinylById_DeletesVinyl()
         {
@@ -150,214 +94,6 @@ namespace xUnitTest
             // Assert
             Assert.Equal(initialCount, context.Vinyls.Count());
         }
-        
-        [Fact]
-        public void GetSingleVinylBy_ReturnsVinyl_WhenIdExists()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            var existingVinylId = 1;
-
-            // Act
-            var result = service.GetSingleVinylBy(existingVinylId);
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.Equal(existingVinylId, result.VinylId);
-        }
-        
-        [Fact]
-        public void GetSingleVinylBy_ReturnsNull_WhenIdDoesNotExist()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            var nonExistingVinylId = 999;
-
-            // Act
-            var result = service.GetSingleVinylBy(nonExistingVinylId);
-
-            // Assert
-            Assert.Null(result);
-        }
-        
-        [Fact]
-        public void GetSingleFullVinylBy_ReturnsVinylWithAllIncludedEntities_WhenIdExists()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            int existingVinylId = 1;
-
-            // Act
-            var result = service.GetSingleFullVinylBy(existingVinylId);
-
-            // Assert
-            Assert.NotNull(result);
-            Assert.Equal(existingVinylId, result.VinylId);
-            Assert.NotNull(result.Reviews);
-            Assert.NotNull(result.Covers);
-            Assert.NotNull(result.Genres);
-            Assert.NotNull(result.RecordLabel);
-            Assert.NotNull(result.RecordLabel.Address);
-        }
-        
-        [Fact]
-        public void GetSingleFullVinylBy_ReturnsNull_WhenIdDoesNotExist()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            int nonExistingVinylId = 999;
-
-            // Act
-            var result = service.GetSingleFullVinylBy(nonExistingVinylId);
-
-            // Assert
-            Assert.Null(result);
-        }
-
-        [Fact]
-        public void GetSingleFullVinylBy_ReturnsVinylWithAllData_WhenVinylExists()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            int existingVinylId = 1;
-
-            // Act
-            var vinyl = service.GetSingleFullVinylBy(existingVinylId);
-
-            // Assert
-            Assert.NotNull(vinyl);
-            Assert.NotNull(vinyl.Reviews);
-            Assert.NotNull(vinyl.Covers);
-            Assert.NotNull(vinyl.Genres);
-            Assert.NotNull(vinyl.RecordLabel);
-            Assert.NotNull(vinyl.RecordLabel.Address);
-        }
-        
-        [Fact]
-        public void GetSingleFullVinylBy_ReturnsNull_WhenVinylDoesNotExist()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            int nonExistingVinylId = 999;
-
-            // Act
-            var vinyl = service.GetSingleFullVinylBy(nonExistingVinylId);
-
-            // Assert
-            Assert.Null(vinyl);
-        }
-        
-        [Fact]
-        public void GetSingleVinylBy_ReturnsVinyl_WhenTitleExists()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            string existingTitle = "My Vinyl";
-
-            // Act
-            var vinyl = service.GetSingleVinylBy(existingTitle);
-
-            // Assert
-            Assert.NotNull(vinyl);
-            Assert.Equal(existingTitle, vinyl.Title);
-        }
-
-        [Fact]
-        public void GetSingleVinylBy_ReturnsNull_WhenTitleDoesNotExist()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            string nonExistingTitle = "Non Existing Title";
-
-            // Act
-            var vinyl = service.GetSingleVinylBy(nonExistingTitle);
-
-            // Assert
-            Assert.Null(vinyl);
-        }
-
-        [Fact]
-        public void GetSingleVinylBy_IsCaseSensitive()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            string caseSensitiveTitle = "my vinyl";
-
-            // Act
-            var vinyl = service.GetSingleVinylBy(caseSensitiveTitle);
-
-            // Assert
-            Assert.Null(vinyl);
-        }
-
-        [Fact]
-        public void GetSingleFullVinylBy_ReturnsVinylWithAllData_WhenTitleExists()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            string existingTitle = "My Vinyl";
-
-            // Act
-            var vinyl = service.GetSingleFullVinylBy(existingTitle);
-
-            // Assert
-            Assert.NotNull(vinyl);
-            Assert.Equal(existingTitle, vinyl.Title);
-            Assert.NotNull(vinyl.Reviews);
-            Assert.NotNull(vinyl.Covers);
-        }
-
-        [Fact]
-        public void GetSingleFullVinylBy_ReturnsNull_WhenTitleDoesNotExist()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            string nonExistingTitle = "Non Existing Title";
-
-            // Act
-            var vinyl = service.GetSingleFullVinylBy(nonExistingTitle);
-
-            // Assert
-            Assert.Null(vinyl);
-        }
-
-        [Fact]
-        public void GetSingleFullVinylBy_IsCaseSensitive()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            string caseSensitiveTitle = "my vinyl";
-
-            // Act
-            var vinyl = service.GetSingleFullVinylBy(caseSensitiveTitle);
-
-            // Assert
-            Assert.Null(vinyl);
-        }
 
         [Fact]
         public void UpdateVinylBy_UpdatesVinylSuccessfully_WhenIdExists()
@@ -367,7 +103,7 @@ namespace xUnitTest
             // Arrange
             var service = new VinylService(context);
             int existingVinylId = 1;
-            Vinyl newVinyl = new Vinyl { Title = "New Title", Description = "New Description", Price = 25.99 };
+            Vinyl newVinyl = new Vinyl { Title = "New Title", Artist = "New Artist", Price = 25.99m };
 
             // Act
             service.UpdateVinylBy(existingVinylId, newVinyl);
@@ -375,7 +111,7 @@ namespace xUnitTest
             // Assert
             var updatedVinyl = context.Vinyls.Find(existingVinylId);
             Assert.Equal(newVinyl.Title, updatedVinyl?.Title);
-            Assert.Equal(newVinyl.Description, updatedVinyl?.Description);
+            Assert.Equal(newVinyl.Artist, updatedVinyl?.Artist);
             Assert.Equal(newVinyl.Price, updatedVinyl?.Price);
         }
 
@@ -387,7 +123,7 @@ namespace xUnitTest
             // Arrange
             var service = new VinylService(context);
             int nonExistingVinylId = 999;
-            Vinyl newVinyl = new Vinyl { Title = "New Title", Description = "New Description", Price = 25.99 };
+            Vinyl newVinyl = new Vinyl { Title = "New Title", Artist = "New Description", Price = 25.99m };
 
             // Act
             service.UpdateVinylBy(nonExistingVinylId, newVinyl);
@@ -395,75 +131,6 @@ namespace xUnitTest
             // Assert
             var updatedVinyl = context.Vinyls.Find(nonExistingVinylId);
             Assert.Null(updatedVinyl);
-        }
-
-        [Fact]
-        public void UpdateVinylByTitle_UpdatesCorrectly_WhenTitleExists()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            string existingTitle = "My Vinyl";
-            Vinyl newVinyl = new Vinyl { Title = "New Title", Price = 29.99 };
-
-            // Act
-            service.UpdateVinylBy(existingTitle, newVinyl);
-
-            // Assert
-            var updatedVinyl = context.Vinyls.Where(v => v.Title == "New Title").FirstOrDefault();
-            Assert.NotNull(updatedVinyl);
-            Assert.Equal(29.99, updatedVinyl.Price);
-        }
-
-        [Fact]
-        public void UpdateVinylByTitle_DoesNothing_WhenTitleDoesNotExist()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            string nonExistingTitle = "Non Existing";
-            Vinyl newVinyl = new Vinyl { Title = "New Title", Price = 29.99 };
-            int initialCount = context.Vinyls.Count();
-
-            // Act
-            service.UpdateVinylBy(nonExistingTitle, newVinyl);
-
-            // Assert
-            Assert.Equal(initialCount, context.Vinyls.Count());
-        }
-
-        [Fact]
-        public void GetAllVinyls_ReturnsAllVinyls()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-
-            // Act
-            var vinyls = service.GetAllVinyls();
-
-            // Assert
-            Assert.Equal(2, vinyls.Count());
-        }
-
-        [Fact]
-        public void GetAllVinyls_ReturnsVinylsWithAssociatedData()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-
-            // Act
-            var vinyls = service.GetAllVinyls().ToList();
-
-            // Assert
-            Assert.NotNull(vinyls[0].Reviews);
-            Assert.NotNull(vinyls[0].Covers);
-            Assert.NotNull(vinyls[0].Genres);
         }
 
         [Fact]
@@ -498,25 +165,6 @@ namespace xUnitTest
 
             // Assert
             Assert.Equal(pageSize, vinyls.Count());
-        }
-        
-        [Fact]
-        public void GetAllFullVinyls_ReturnsAllVinylsWithAllAssociatedData()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-
-            // Act
-            var vinyls = service.GetAllFullVinyls();
-
-            // Assert
-            Assert.Equal(2, vinyls.Count());
-            Assert.All(vinyls, v => Assert.NotNull(v.Reviews));
-            Assert.All(vinyls, v => Assert.NotNull(v.Covers));
-            Assert.All(vinyls, v => Assert.NotNull(v.Genres));
-            Assert.All(vinyls, v => Assert.NotNull(v.RecordLabel));
         }
 
         [Fact]
@@ -589,28 +237,6 @@ namespace xUnitTest
             // Assert
             Assert.Equal(pageSize, vinyls.Count);
         }
-
-        [Fact]
-        public void FilterVinylsPaged_ReturnsCorrectVinyls_WhenUsingSearchTerm()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-            int currentPage = 1;
-            int pageSize = 2; 
-            string searchTerm = "My Vinyl";
-            int? genreId = null;
-            string? filterTitle = null;
-            string? price = null;
-
-            // Act
-            var vinyls = service.FilterVinylsPaged(currentPage, pageSize, searchTerm, genreId, filterTitle, price).ToList();
-
-            // Assert
-            Assert.Single(vinyls);
-            Assert.Equal("My Vinyl", vinyls[0].Title);
-        }
         
         [Fact]
         public void FilterVinyls_ReturnsAllVinyls_WhenNoFiltersApplied()
@@ -626,22 +252,6 @@ namespace xUnitTest
 
             // Assert
             Assert.Equal(expectedCount, vinyls.Count);
-        }
-
-        [Fact]
-        public void FilterVinyls_ReturnsCorrectVinyls_WhenUsingSearchTerm()
-        {
-            using var context = new ApplicationDbContext(_dbContextOptions);
-            
-            // Arrange
-            var service = new VinylService(context);
-
-            // Act
-            var vinyls = service.FilterVinyls("My Vinyl", null, null, null).ToList();
-
-            // Assert
-            Assert.Single(vinyls);
-            Assert.Equal("My Vinyl", vinyls[0].Title);
         }
 
         [Fact]

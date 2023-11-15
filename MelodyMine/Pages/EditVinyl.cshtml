@@ -8,30 +8,33 @@
 
 <form method="post">
     <input type="hidden" asp-for="UpdateModel.VinylId" />
-    <div class="form-group">
+    <div class="form-group fw-bold">
         <label for="VinylName">Album</label>
         <input type="text" class="form-control" asp-for="UpdateModel.Title" placeholder="Enter vinyl name">
+            <span asp-validation-for="UpdateModel.Title" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group fw-bold">
         <label for="VinylArtist">Artist</label>
         <input type="text" class="form-control" asp-for="UpdateModel.Artist" placeholder="Enter artist name">
+            <span asp-validation-for="UpdateModel.Artist" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group fw-bold">
         <label for="VinylPrice">Price</label>
         <input type="number" class="form-control" asp-for="UpdateModel.Price" placeholder="Enter price">
+            <span asp-validation-for="UpdateModel.Price" class="text-danger"></span>
     </div>
-    <div class="form-group">
+    <div class="form-group fw-bold">
                 <label for="VinylImage">Image</label>
-                <input type="text" class="form-control" asp-for="UpdateModel.ImagePath" placeholder="Enter Image path">
+        <input type="text" class="form-control" asp-for="UpdateModel.ImagePath" placeholder="Enter Image path">
+            <span asp-validation-for="UpdateModel.ImagePath" class="text-danger"></span>
             </div>
-    <div class="form-group">
+    <div class="form-group fw-bold">
         <label for="Genre">Genre</label>
         <select asp-for="UpdateModel.GenreId" asp-items="Model.GenreOptions" class="form-control">
             <option value="">-- Select a Genre --</option>
         </select>
+            <span asp-validation-for="UpdateModel.GenreId" class="text-danger"></span>
     </div>
-    
-    <!-- Rest of form -->
-
     <button type="submit" class="btn btn-primary mt-1">Update Vinyl</button>
+        <a href="/Vinyls" class="btn btn-secondary mt-1">Back</a>
 </form>

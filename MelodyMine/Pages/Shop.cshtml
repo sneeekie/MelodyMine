@@ -8,9 +8,42 @@
 
 <p>Use this page for shopping Vinyls!</p>
 
+<form method="get">
+    <div class="form-row">
+        <div class="col">
+            <input type="text" class="form-control" placeholder="Album" name="searchTerm" value="@Model.SearchTerm">
+        </div>
+        <div class="col">
+            <select class="form-control" name="genreId" asp-for="GenreId" asp-items="@(new SelectList(Model.Genres,"GenreId","GenreName"))">
+                <option value="">Sort by Genre</option>
+            </select>
+        </div>
+        <!-- Title Sort Dropdown -->
+        <div class="col">
+            <select class="form-control" name="titleSort" asp-for="TitleSort">
+                <option value="">Sort by Album</option>
+                <option value="Ascending">A - Z</option>
+                <option value="Descending">Z - A</option>
+            </select>
+        </div>
+        <!-- Price Sort Dropdown -->
+        <div class="col">
+            <select class="form-control" name="priceSort" asp-for="PriceSort">
+                <option value="">Sort by Price</option>
+                <option value="Ascending">Low to High</option>
+                <option value="Descending">High to Low</option>
+            </select>
+        </div>
+        <div class="col">
+            <button type="submit" class="btn btn-primary mt-1">Search</button>
+        </div>
+    </div>
+</form>
+
+
 <div class="container-fluid mt-4">
     <div class="row">
-        @foreach (var vinyl in Model.Vinyls)
+        @foreach (var vinyl in Model.PaginatedVinyls.Items)
         {
             <div class="col-md-4">
                 <div class="card">
@@ -23,7 +56,10 @@
                         <p class="card-text">@vinyl.Artist</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div>kr. @vinyl.Price</div>
-                            <button class="btn btn-primary">Buy</button>
+                            <form method="post" asp-page-handler="AddToCart" asp-route-vinylId="@vinyl.VinylId">
+                                    <input type="hidden" name="quantity" value="1" />
+                                    <button type="submit" class="btn btn-primary">Buy</button>
+                                </form>
                         </div>
                     </div>
                 </div>
@@ -31,3 +67,29 @@
         }
     </div>
 </div>
+
+<nav aria-label="Vinyl pagination">
+  <ul class="pagination">
+    @if (Model.PaginatedVinyls.CurrentPage > 1)
+    {
+        <li class="page-item">
+            <a class="page-link" href="@Url.Page("/Shop", new { currentPage = Model.PaginatedVinyls.CurrentPage - 1, searchTerm = Model.SearchTerm, genreId = Model.GenreId, titleSort = Model.TitleSort, priceSort = Model.PriceSort })">Previous</a>
+        </li>
+    }
+
+    @for (int i = 1; i <= Model.PaginatedVinyls.TotalPages; i++)
+    {
+        <li class="page-item @(i == Model.PaginatedVinyls.CurrentPage ? "active" : "")">
+            <a class="page-link" href="@Url.Page("/Shop", new { currentPage = i, searchTerm = Model.SearchTerm, genreId = Model.GenreId, titleSort = Model.TitleSort, priceSort = Model.PriceSort })">@i</a>
+        </li>
+    }
+
+    @if (Model.PaginatedVinyls.CurrentPage < Model.PaginatedVinyls.TotalPages)
+    {
+        <li class="page-item">
+            <a class="page-link" href="@Url.Page("/Shop", new { currentPage = Model.PaginatedVinyls.CurrentPage + 1, searchTerm = Model.SearchTerm, genreId = Model.GenreId, titleSort = Model.TitleSort, priceSort = Model.PriceSort })">Next</a>
+        </li>
+    }
+  </ul>
+</nav>
+

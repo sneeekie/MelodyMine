@@ -44,7 +44,7 @@ public class VinylService : IVinylService
             vinyl.Artist = newVinyl.Artist;
             vinyl.Price = newVinyl.Price;
             vinyl.ImagePath = newVinyl.ImagePath;
-            // Husk at opdatere de genrer, som vinylpladen tilhører, hvis det er nødvendigt.
+            vinyl.GenreId = newVinyl.GenreId;
             _applicationDbContext.SaveChanges();
         }
     }
@@ -69,7 +69,6 @@ public class VinylService : IVinylService
     
     public IQueryable<Vinyl> GetAllFullVinyls()
     {
-        // Antager at "full vinyls" refererer til vinylplader med deres genrer indlæst.
         return _applicationDbContext.Vinyls
             .Include(v => v.VinylGenres)
             .ThenInclude(vg => vg.Genre);
@@ -77,31 +76,31 @@ public class VinylService : IVinylService
     
     public IQueryable<Vinyl> GetAllFullVinylsPaged(int currentPage, int pageSize)
     {
-        // Paginering anvendes på det fulde sæt af vinylplader.
         return GetAllFullVinyls()
             .OrderBy(v => v.VinylId)
             .Skip((currentPage - 1) * pageSize)
             .Take(pageSize);
     }
     
-    public IQueryable<Vinyl> FilterVinylsPaged(int currentPage, int pageSize, string? searchTerm, int? genreId, string? filterTitle, string? price)
+    public IQueryable<Vinyl> FilterVinylsPaged(
+            int currentPage,
+            int pageSize,
+            string? searchTerm,
+            int? genreId,
+            string? filterTitle,
+            string? price)
     {
-        // Starter med at indlæse alle vinylplader med deres genrer.
         var query = GetAllFullVinyls();
-
-        // Filtrering baseret på søgeterm.
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
             query = query.Where(v => v.Title.Contains(searchTerm));
         }
-
-        // Filtrering baseret på genre.
+        
         if (genreId.HasValue && genreId.Value > 0)
         {
-            query = query.Where(v => v.VinylGenres.Any(vg => vg.GenreId == genreId.Value));
+            query = query.Where(v => v.VinylGenres != null && v.VinylGenres.Any(vg => vg.GenreId == genreId.Value));
         }
-
-        // Sortering baseret på titel eller pris.
+        
         if (!string.IsNullOrWhiteSpace(filterTitle))
         {
             query = filterTitle == "+" 
@@ -115,46 +114,82 @@ public class VinylService : IVinylService
                 ? query.OrderBy(v => v.Price) 
                 : query.OrderByDescending(v => v.Price);
         }
-
-        // Paginering anvendt til sidst.
         return query
             .Skip((currentPage - 1) * pageSize)
             .Take(pageSize);
     }
     
-    public IQueryable<Vinyl> FilterVinyls(string? searchTerm, int? genreId, string? filterTitle, string? price)
+    public enum SortDirection
     {
-        // Start med at indlæse alle vinylplader med deres genrer.
-        IQueryable<Vinyl> query = _applicationDbContext.Vinyls.Include(v => v.VinylGenres).ThenInclude(vg => vg.Genre);
+        Ascending,
+        Descending
+    }
+    
+    public IQueryable<Vinyl> FilterVinyls(
+        string searchTerm,
+        int? genreId,
+        string titleSort,
+        string priceSort)
+    {
+        SortDirection? titleSortDirection = ParseSortDirection(titleSort);
+        SortDirection? priceSortDirection = ParseSortDirection(priceSort);
+        
+        IQueryable<Vinyl> query = _applicationDbContext.Vinyls
+            .Include(v => v.VinylGenres)
+            .ThenInclude(vg => vg.Genre);
 
-        // Filtrering baseret på søgeterm.
         if (!string.IsNullOrWhiteSpace(searchTerm))
         {
-            query = query.Where(v => v.Title.Contains(searchTerm));
+            query = query.Where(v => EF.Functions.Like(v.Title, $"%{searchTerm}%"));
         }
 
-        // Filtrering baseret på genre.
         if (genreId.HasValue && genreId.Value > 0)
         {
             query = query.Where(v => v.VinylGenres.Any(vg => vg.GenreId == genreId.Value));
         }
 
-        // Sortering baseret på titel eller pris.
-        if (!string.IsNullOrWhiteSpace(filterTitle))
+        if (titleSortDirection.HasValue)
         {
-            query = filterTitle == "+"
+            query = titleSortDirection == SortDirection.Ascending
                 ? query.OrderBy(v => v.Title)
                 : query.OrderByDescending(v => v.Title);
         }
 
-        if (!string.IsNullOrWhiteSpace(price))
+        if (priceSortDirection.HasValue)
         {
-            query = price == "+"
+            query = priceSortDirection == SortDirection.Ascending
                 ? query.OrderBy(v => v.Price)
                 : query.OrderByDescending(v => v.Price);
         }
 
         return query;
     }
+    
+    private SortDirection? ParseSortDirection(string sortParameter)
+    {
+        return sortParameter switch
+        {
+            "Ascending" => SortDirection.Ascending,
+            "Descending" => SortDirection.Descending,
+            _ => null
+        };
+    }
+    
+    public PaginatedResult<Vinyl> GetPaginatedVinyls(int currentPage, int pageSize, string searchTerm, int? genreId, string titleSort, string priceSort)
+    {
+        var query = FilterVinyls(searchTerm, genreId, titleSort, priceSort);
+        var totalRecords = query.Count();
 
+        var items = query
+            .Skip((currentPage - 1) * pageSize)
+            .Take(pageSize)
+            .ToList();
+
+        return new PaginatedResult<Vinyl>
+        {
+            Items = items,
+            CurrentPage = currentPage,
+            TotalPages = (int)Math.Ceiling(totalRecords / (double)pageSize)
+        };
+    }
 }

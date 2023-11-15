@@ -24,7 +24,8 @@ namespace DataLayer.Migrations
                     StreetNumber = table.Column<int>(type: "integer", nullable: false),
                     City = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
                     Country = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
-                    Street = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false)
+                    Street = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: false),
+                    CardNumber = table.Column<long>(type: "bigint", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -51,9 +52,10 @@ namespace DataLayer.Migrations
                     VinylId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Title = table.Column<string>(type: "text", nullable: false),
-                    Artist = table.Column<string>(type: "text", nullable: true),
+                    Artist = table.Column<string>(type: "text", nullable: false),
                     Price = table.Column<double>(type: "double precision", nullable: false),
-                    ImagePath = table.Column<string>(type: "text", nullable: false)
+                    ImagePath = table.Column<string>(type: "text", nullable: false),
+                    GenreId = table.Column<int>(type: "integer", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -135,11 +137,11 @@ namespace DataLayer.Migrations
 
             migrationBuilder.InsertData(
                 table: "Addresses",
-                columns: new[] { "AddressId", "City", "Country", "Postal", "Street", "StreetNumber" },
+                columns: new[] { "AddressId", "CardNumber", "City", "Country", "Postal", "Street", "StreetNumber" },
                 values: new object[,]
                 {
-                    { 1, "Copenhagen", "Denmark", 2400, "Birkedommervej", 29 },
-                    { 2, "Fredericia", "Denmark", 7000, "Dronningsgade", 8 }
+                    { 1, 1244444444444444L, "Copenhagen", "Denmark", 2400, "Birkedommervej", 29 },
+                    { 2, 1331131331131331L, "Fredericia", "Denmark", 7000, "Dronningsgade", 8 }
                 });
 
             migrationBuilder.InsertData(
@@ -155,14 +157,14 @@ namespace DataLayer.Migrations
 
             migrationBuilder.InsertData(
                 table: "Vinyls",
-                columns: new[] { "VinylId", "Artist", "ImagePath", "Price", "Title" },
+                columns: new[] { "VinylId", "Artist", "GenreId", "ImagePath", "Price", "Title" },
                 values: new object[,]
                 {
-                    { 1, "Ukendt Kunstner", "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/i/m/image001_9__2.jpg", 127.0, "Dansktop" },
-                    { 2, "Kanye West", "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/k/a/kanye-west-2018-ye-compact-disc.jpg", 187.0, "Ye" },
-                    { 3, "Radioheaad", "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/b/f/bfea3555ad38fe476532c5b54f218c09_1.jpg", 227.0, "OK Computer" },
-                    { 4, "Frank Ocean", "https://best-fit.transforms.svdcdn.com/production/albums/frank-ocean-blond-compressed-0933daea-f052-40e5-85a4-35e07dac73df.jpg?w=469&h=469&q=100&auto=format&fit=crop&dm=1643652677&s=6ef41cb2628eb28d736e27b42635b66e", 777.0, "Blonde" },
-                    { 5, "Dean Martin", "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/m/o/moby-disc-13-09-2023_10.54.44.png", 127.0, "Winter Wonderland" }
+                    { 1, "Ukendt Kunstner", 2, "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/i/m/image001_9__2.jpg", 127.0, "Dansktop" },
+                    { 2, "Kanye West", 2, "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/k/a/kanye-west-2018-ye-compact-disc.jpg", 187.0, "Ye" },
+                    { 3, "Radioheaad", 1, "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/b/f/bfea3555ad38fe476532c5b54f218c09_1.jpg", 227.0, "OK Computer" },
+                    { 4, "Frank Ocean", 3, "https://best-fit.transforms.svdcdn.com/production/albums/frank-ocean-blond-compressed-0933daea-f052-40e5-85a4-35e07dac73df.jpg?w=469&h=469&q=100&auto=format&fit=crop&dm=1643652677&s=6ef41cb2628eb28d736e27b42635b66e", 777.0, "Blonde" },
+                    { 5, "Dean Martin", 4, "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/m/o/moby-disc-13-09-2023_10.54.44.png", 127.0, "Winter Wonderland" }
                 });
 
             migrationBuilder.InsertData(
@@ -170,8 +172,8 @@ namespace DataLayer.Migrations
                 columns: new[] { "OrderId", "AddressId", "BuyDate", "Email" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2023, 11, 6, 20, 8, 44, 666, DateTimeKind.Utc).AddTicks(5820), "john@example.com" },
-                    { 2, 2, new DateTime(2023, 11, 6, 20, 8, 44, 666, DateTimeKind.Utc).AddTicks(5820), "adrian@example.com" }
+                    { 1, 1, new DateTime(2023, 11, 8, 9, 49, 32, 425, DateTimeKind.Utc).AddTicks(8840), "john@example.com" },
+                    { 2, 2, new DateTime(2023, 11, 8, 9, 49, 32, 425, DateTimeKind.Utc).AddTicks(8840), "adrian@example.com" }
                 });
 
             migrationBuilder.InsertData(

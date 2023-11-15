@@ -6,13 +6,14 @@
 
 <h1>@ViewData["Title"]</h1>
 
-<!-- Formula for editing genres -->
 <form method="post">
     <input type="hidden" asp-for="UpdateModel.GenreId" />
-    <div class="form-group">
+    <div class="form-group fw-bold">
         <label for="GenreName">Genre Name</label>
         <input type="text" class="form-control" asp-for="UpdateModel.GenreName" placeholder="Enter genre name">
+        <span asp-validation-for="UpdateModel.GenreName" class="text-danger"></span>
     </div>
     <button type="submit" class="btn btn-primary mt-1">Update Genre</button>
+    <a href="/Genres" class="btn btn-secondary mt-1">Back</a>
 </form>
 

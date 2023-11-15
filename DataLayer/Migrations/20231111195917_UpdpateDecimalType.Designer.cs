@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20231107161628_AddGenreIdColumn")]
-    partial class AddGenreIdColumn
+    [Migration("20231111195917_UpdpateDecimalType")]
+    partial class UpdpateDecimalType
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,28 +33,28 @@ namespace DataLayer.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("AddressId"));
 
-                    b.Property<long>("CardNumber")
-                        .HasColumnType("bigint");
+                    b.Property<string>("CardNumber")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("City")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
                     b.Property<string>("Country")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
-                    b.Property<int>("Postal")
+                    b.Property<int?>("Postal")
+                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<string>("Street")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                        .HasColumnType("text");
 
-                    b.Property<int>("StreetNumber")
+                    b.Property<int?>("StreetNumber")
+                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.HasKey("AddressId");
@@ -65,7 +65,7 @@ namespace DataLayer.Migrations
                         new
                         {
                             AddressId = 1,
-                            CardNumber = 1244444444444444L,
+                            CardNumber = "4111 1111 1111 1111",
                             City = "Copenhagen",
                             Country = "Denmark",
                             Postal = 2400,
@@ -75,7 +75,7 @@ namespace DataLayer.Migrations
                         new
                         {
                             AddressId = 2,
-                            CardNumber = 1331131331131331L,
+                            CardNumber = "4111 1111 1111 1112",
                             City = "Fredericia",
                             Country = "Denmark",
                             Postal = 7000,
@@ -165,8 +165,8 @@ namespace DataLayer.Migrations
                         {
                             OrderProductDetailsId = 2,
                             OrderId = 2,
-                            Price = 227.0,
-                            Title = "OK Computer",
+                            Price = 187.0,
+                            Title = "Ye",
                             VinylId = 2
                         });
                 });
@@ -184,14 +184,15 @@ namespace DataLayer.Migrations
                         .HasColumnType("text");
 
                     b.Property<int?>("GenreId")
+                        .IsRequired()
                         .HasColumnType("integer");
 
                     b.Property<string>("ImagePath")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<double>("Price")
-                        .HasColumnType("double precision");
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
 
                     b.Property<string>("Title")
                         .IsRequired()
@@ -206,40 +207,45 @@ namespace DataLayer.Migrations
                         {
                             VinylId = 1,
                             Artist = "Ukendt Kunstner",
+                            GenreId = 2,
                             ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/i/m/image001_9__2.jpg",
-                            Price = 127.0,
+                            Price = 127m,
                             Title = "Dansktop"
                         },
                         new
                         {
                             VinylId = 2,
                             Artist = "Kanye West",
+                            GenreId = 2,
                             ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/k/a/kanye-west-2018-ye-compact-disc.jpg",
-                            Price = 187.0,
+                            Price = 187m,
                             Title = "Ye"
                         },
                         new
                         {
                             VinylId = 3,
                             Artist = "Radioheaad",
+                            GenreId = 1,
                             ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/b/f/bfea3555ad38fe476532c5b54f218c09_1.jpg",
-                            Price = 227.0,
+                            Price = 227m,
                             Title = "OK Computer"
                         },
                         new
                         {
                             VinylId = 4,
                             Artist = "Frank Ocean",
+                            GenreId = 3,
                             ImagePath = "https://best-fit.transforms.svdcdn.com/production/albums/frank-ocean-blond-compressed-0933daea-f052-40e5-85a4-35e07dac73df.jpg?w=469&h=469&q=100&auto=format&fit=crop&dm=1643652677&s=6ef41cb2628eb28d736e27b42635b66e",
-                            Price = 777.0,
+                            Price = 777m,
                             Title = "Blonde"
                         },
                         new
                         {
                             VinylId = 5,
                             Artist = "Dean Martin",
+                            GenreId = 4,
                             ImagePath = "https://moby-disc.dk/media/catalog/product/cache/e7dc67195437dd6c7bf40d88e25a85ce/m/o/moby-disc-13-09-2023_10.54.44.png",
-                            Price = 127.0,
+                            Price = 127m,
                             Title = "Winter Wonderland"
                         });
                 });
@@ -302,8 +308,7 @@ namespace DataLayer.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasMaxLength(255)
-                        .HasColumnType("character varying(255)");
+                        .HasColumnType("text");
 
                     b.HasKey("OrderId");
 
@@ -316,14 +321,14 @@ namespace DataLayer.Migrations
                         {
                             OrderId = 1,
                             AddressId = 1,
-                            BuyDate = new DateTime(2023, 11, 7, 16, 16, 28, 159, DateTimeKind.Utc).AddTicks(6340),
+                            BuyDate = new DateTime(2023, 11, 11, 19, 59, 17, 309, DateTimeKind.Utc).AddTicks(7000),
                             Email = "john@example.com"
                         },
                         new
                         {
                             OrderId = 2,
                             AddressId = 2,
-                            BuyDate = new DateTime(2023, 11, 7, 16, 16, 28, 159, DateTimeKind.Utc).AddTicks(6350),
+                            BuyDate = new DateTime(2023, 11, 11, 19, 59, 17, 309, DateTimeKind.Utc).AddTicks(7010),
                             Email = "adrian@example.com"
                         });
                 });

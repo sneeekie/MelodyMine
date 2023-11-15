@@ -3,9 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using DataLayer.Models;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace MelodyMine.Pages;
 
@@ -27,11 +24,6 @@ public class EditVinylModel : PageModel
     public void OnGet(int id)
     {
         var vinyl = _vinylService.GetVinylById(id);
-        if (vinyl == null)
-        {
-            RedirectToPage("./NotFound");
-            return;
-        }
 
         UpdateModel = vinyl;
         GenreOptions = new SelectList(_genreService.GetAllGenres(), "GenreId", "GenreName", UpdateModel.GenreId);
@@ -51,7 +43,7 @@ public class EditVinylModel : PageModel
             
             if (UpdateModel.GenreId.HasValue)
             {
-                _genreService.UpdateVinylGenreLink(UpdateModel.VinylId, UpdateModel.GenreId.Value);
+               await _genreService.UpdateVinylGenreLink(UpdateModel.VinylId, UpdateModel.GenreId.Value);
             }
 
             return RedirectToPage("./Vinyls");
@@ -64,6 +56,4 @@ public class EditVinylModel : PageModel
             return Page();
         }
     }
-
-
 }

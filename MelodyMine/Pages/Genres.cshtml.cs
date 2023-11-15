@@ -1,8 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using DataLayer.Services;
-using System.Collections.Generic;
-using System.Linq;
 using DataLayer.Models;
 
 namespace MelodyMine.Pages;
@@ -25,29 +23,24 @@ public class GenresModel : PageModel
     {
         Genres = _genreService.GetAllGenres().ToList();
     }
-
-    // Add Genre
+    
     public IActionResult OnPostAsync()
     {
         if (!ModelState.IsValid)
         {
+            Genres = _genreService.GetAllGenres().ToList();
             return Page();
         }
 
         _genreService.CreateGenre(new Genre { GenreName = NewGenreName });
         return RedirectToPage();
     }
+
     
-    // Delete Genre
     public async Task<IActionResult> OnPostDeleteAsync(int id)
     {
         bool result = _genreService.DeleteGenre(id);
-        if (!result)
-        {
-            return NotFound();
-        }
-
+        
         return RedirectToPage();
     }
-
 }

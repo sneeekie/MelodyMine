@@ -2,10 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using DataLayer.Models;
 using DataLayer.Services;
-using System.Collections.Generic;
-using System.Linq;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace MelodyMine.Pages
 {
@@ -39,13 +36,14 @@ namespace MelodyMine.Pages
             if (!ModelState.IsValid)
             {
                 Vinyls = _vinylService.GetAllVinyls().ToList();
+                GenreOptions = new SelectList(_genreService.GetAllGenres(), "GenreId", "GenreName"); // Genopfyld genre options
                 return Page();
             }
 
             try
             {
                 _vinylService.CreateVinyl(NewVinyl);
-                
+        
                 if (NewVinyl.GenreId.HasValue)
                 {
                     _genreService.CreateVinylGenre(NewVinyl.VinylId, NewVinyl.GenreId.Value);
@@ -55,13 +53,12 @@ namespace MelodyMine.Pages
             {
                 Console.WriteLine(ex.Message);
                 ModelState.AddModelError("", "An error occurred while creating the vinyl.");
+                GenreOptions = new SelectList(_genreService.GetAllGenres(), "GenreId", "GenreName"); // Genopfyld genre options, hvis der sker en fejl
                 return Page();
             }
 
             return RedirectToPage();
         }
-
-
 
         public IActionResult OnPostUpdate(int id)
         {
@@ -71,10 +68,6 @@ namespace MelodyMine.Pages
             }
 
             var vinylToUpdate = _vinylService.GetVinylById(id);
-            if (vinylToUpdate == null)
-            {
-                return NotFound();
-            }
 
             return RedirectToPage();
         }

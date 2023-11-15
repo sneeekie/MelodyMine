@@ -6,6 +6,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataLayer", "DataLayer\Data
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "xUnitTest", "xUnitTest\xUnitTest.csproj", "{63C31AAB-1037-4515-90E4-B43D1841B6BF}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebAPI", "WebAPI\WebAPI.csproj", "{582BD180-52E4-43A7-8AB8-8D3A3E0AE2EC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +26,9 @@ Global
 		{63C31AAB-1037-4515-90E4-B43D1841B6BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{63C31AAB-1037-4515-90E4-B43D1841B6BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{63C31AAB-1037-4515-90E4-B43D1841B6BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{582BD180-52E4-43A7-8AB8-8D3A3E0AE2EC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{582BD180-52E4-43A7-8AB8-8D3A3E0AE2EC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{582BD180-52E4-43A7-8AB8-8D3A3E0AE2EC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{582BD180-52E4-43A7-8AB8-8D3A3E0AE2EC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
